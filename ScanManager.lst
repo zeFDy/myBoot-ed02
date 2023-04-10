@@ -1,0 +1,180 @@
+
+ScanManager.o:     file format elf32-littlearm
+
+
+Disassembly of section .text.FDy_iocsr_get_config_table:
+
+00000000 <FDy_iocsr_get_config_table>:
+   0:	2803      	cmp	r0, #3
+   2:	d819      	bhi.n	38 <FDy_iocsr_get_config_table+0x38>
+   4:	e8df f000 	tbb	[pc, r0]
+   8:	130e0902 	.word	0x130e0902
+   c:	4b0c      	ldr	r3, [pc, #48]	; (40 <FDy_iocsr_get_config_table+0x40>)
+   e:	600b      	str	r3, [r1, #0]
+  10:	f44f 733f 	mov.w	r3, #764	; 0x2fc
+  14:	6013      	str	r3, [r2, #0]
+  16:	2000      	movs	r0, #0
+  18:	4770      	bx	lr
+  1a:	4b0a      	ldr	r3, [pc, #40]	; (44 <FDy_iocsr_get_config_table+0x44>)
+  1c:	600b      	str	r3, [r1, #0]
+  1e:	f240 63b7 	movw	r3, #1719	; 0x6b7
+  22:	e7f7      	b.n	14 <FDy_iocsr_get_config_table+0x14>
+  24:	4b08      	ldr	r3, [pc, #32]	; (48 <FDy_iocsr_get_config_table+0x48>)
+  26:	600b      	str	r3, [r1, #0]
+  28:	f240 33bb 	movw	r3, #955	; 0x3bb
+  2c:	e7f2      	b.n	14 <FDy_iocsr_get_config_table+0x14>
+  2e:	4b07      	ldr	r3, [pc, #28]	; (4c <FDy_iocsr_get_config_table+0x4c>)
+  30:	600b      	str	r3, [r1, #0]
+  32:	f244 137e 	movw	r3, #16766	; 0x417e
+  36:	e7ed      	b.n	14 <FDy_iocsr_get_config_table+0x14>
+  38:	f06f 0015 	mvn.w	r0, #21
+  3c:	4770      	bx	lr
+  3e:	bf00      	nop
+	...
+
+Disassembly of section .text.FDy_scan_mgr_io_scan_chain_prg:
+
+00000000 <FDy_scan_mgr_io_scan_chain_prg>:
+   0:	b5f7      	push	{r0, r1, r2, r4, r5, r6, r7, lr}
+   2:	4604      	mov	r4, r0
+   4:	466a      	mov	r2, sp
+   6:	a901      	add	r1, sp, #4
+   8:	f7ff fffe 	bl	0 <FDy_scan_mgr_io_scan_chain_prg>
+   c:	2800      	cmp	r0, #0
+   e:	d16b      	bne.n	e8 <FDy_scan_mgr_io_scan_chain_prg+0xe8>
+  10:	2c03      	cmp	r4, #3
+  12:	bf01      	itttt	eq
+  14:	4a35      	ldreq	r2, [pc, #212]	; (ec <FDy_scan_mgr_io_scan_chain_prg+0xec>)
+  16:	6d13      	ldreq	r3, [r2, #80]	; 0x50
+  18:	f023 0320 	biceq.w	r3, r3, #32
+  1c:	6513      	streq	r3, [r2, #80]	; 0x50
+  1e:	4b34      	ldr	r3, [pc, #208]	; (f0 <FDy_scan_mgr_io_scan_chain_prg+0xf0>)
+  20:	2265      	movs	r2, #101	; 0x65
+  22:	6818      	ldr	r0, [r3, #0]
+  24:	f3bf 8f5f 	dmb	sy
+  28:	f010 4070 	ands.w	r0, r0, #4026531840	; 0xf0000000
+  2c:	d003      	beq.n	36 <FDy_scan_mgr_io_scan_chain_prg+0x36>
+  2e:	3a01      	subs	r2, #1
+  30:	d1f7      	bne.n	22 <FDy_scan_mgr_io_scan_chain_prg+0x22>
+  32:	f06f 006d 	mvn.w	r0, #109	; 0x6d
+  36:	2800      	cmp	r0, #0
+  38:	d13c      	bne.n	b4 <FDy_scan_mgr_io_scan_chain_prg+0xb4>
+  3a:	685a      	ldr	r2, [r3, #4]
+  3c:	2101      	movs	r1, #1
+  3e:	fa01 f404 	lsl.w	r4, r1, r4
+  42:	4606      	mov	r6, r0
+  44:	4322      	orrs	r2, r4
+  46:	605a      	str	r2, [r3, #4]
+  48:	4b29      	ldr	r3, [pc, #164]	; (f0 <FDy_scan_mgr_io_scan_chain_prg+0xf0>)
+  4a:	9a00      	ldr	r2, [sp, #0]
+  4c:	b922      	cbnz	r2, 58 <FDy_scan_mgr_io_scan_chain_prg+0x58>
+  4e:	685a      	ldr	r2, [r3, #4]
+  50:	ea22 0404 	bic.w	r4, r2, r4
+  54:	605c      	str	r4, [r3, #4]
+  56:	e02d      	b.n	b4 <FDy_scan_mgr_io_scan_chain_prg+0xb4>
+  58:	2a80      	cmp	r2, #128	; 0x80
+  5a:	9901      	ldr	r1, [sp, #4]
+  5c:	bf28      	it	cs
+  5e:	2280      	movcs	r2, #128	; 0x80
+  60:	1e55      	subs	r5, r2, #1
+  62:	4431      	add	r1, r6
+  64:	022d      	lsls	r5, r5, #8
+  66:	f045 0580 	orr.w	r5, r5, #128	; 0x80
+  6a:	f3bf 8f5f 	dmb	sy
+  6e:	ea4f 1e52 	mov.w	lr, r2, lsr #5
+  72:	615d      	str	r5, [r3, #20]
+  74:	460d      	mov	r5, r1
+  76:	eb01 0c8e 	add.w	ip, r1, lr, lsl #2
+  7a:	4565      	cmp	r5, ip
+  7c:	d11c      	bne.n	b8 <FDy_scan_mgr_io_scan_chain_prg+0xb8>
+  7e:	f002 071f 	and.w	r7, r2, #31
+  82:	2f18      	cmp	r7, #24
+  84:	d91e      	bls.n	c4 <FDy_scan_mgr_io_scan_chain_prg+0xc4>
+  86:	f851 102e 	ldr.w	r1, [r1, lr, lsl #2]
+  8a:	f3bf 8f5f 	dmb	sy
+  8e:	61d9      	str	r1, [r3, #28]
+  90:	2565      	movs	r5, #101	; 0x65
+  92:	6819      	ldr	r1, [r3, #0]
+  94:	f3bf 8f5f 	dmb	sy
+  98:	f011 4170 	ands.w	r1, r1, #4026531840	; 0xf0000000
+  9c:	d003      	beq.n	a6 <FDy_scan_mgr_io_scan_chain_prg+0xa6>
+  9e:	3d01      	subs	r5, #1
+  a0:	d1f7      	bne.n	92 <FDy_scan_mgr_io_scan_chain_prg+0x92>
+  a2:	f06f 016d 	mvn.w	r1, #109	; 0x6d
+  a6:	3610      	adds	r6, #16
+  a8:	b1d1      	cbz	r1, e0 <FDy_scan_mgr_io_scan_chain_prg+0xe0>
+  aa:	6858      	ldr	r0, [r3, #4]
+  ac:	ea20 0404 	bic.w	r4, r0, r4
+  b0:	4608      	mov	r0, r1
+  b2:	605c      	str	r4, [r3, #4]
+  b4:	b003      	add	sp, #12
+  b6:	bdf0      	pop	{r4, r5, r6, r7, pc}
+  b8:	f855 7b04 	ldr.w	r7, [r5], #4
+  bc:	f3bf 8f5f 	dmb	sy
+  c0:	61df      	str	r7, [r3, #28]
+  c2:	e7da      	b.n	7a <FDy_scan_mgr_io_scan_chain_prg+0x7a>
+  c4:	2f00      	cmp	r7, #0
+  c6:	d0e3      	beq.n	90 <FDy_scan_mgr_io_scan_chain_prg+0x90>
+  c8:	2500      	movs	r5, #0
+  ca:	f8dc 1000 	ldr.w	r1, [ip]
+  ce:	40e9      	lsrs	r1, r5
+  d0:	b2c9      	uxtb	r1, r1
+  d2:	f3bf 8f5f 	dmb	sy
+  d6:	3508      	adds	r5, #8
+  d8:	6119      	str	r1, [r3, #16]
+  da:	42af      	cmp	r7, r5
+  dc:	d8f5      	bhi.n	ca <FDy_scan_mgr_io_scan_chain_prg+0xca>
+  de:	e7d7      	b.n	90 <FDy_scan_mgr_io_scan_chain_prg+0x90>
+  e0:	9900      	ldr	r1, [sp, #0]
+  e2:	1a8a      	subs	r2, r1, r2
+  e4:	9200      	str	r2, [sp, #0]
+  e6:	e7b0      	b.n	4a <FDy_scan_mgr_io_scan_chain_prg+0x4a>
+  e8:	2001      	movs	r0, #1
+  ea:	e7e3      	b.n	b4 <FDy_scan_mgr_io_scan_chain_prg+0xb4>
+  ec:	ffd08000 	.word	0xffd08000
+  f0:	fff02000 	.word	0xfff02000
+
+Disassembly of section .text.FDy_scan_mgr_configure_iocsr:
+
+00000000 <FDy_scan_mgr_configure_iocsr>:
+   0:	b510      	push	{r4, lr}
+   2:	2000      	movs	r0, #0
+   4:	f7ff fffe 	bl	0 <FDy_scan_mgr_configure_iocsr>
+   8:	4604      	mov	r4, r0
+   a:	2001      	movs	r0, #1
+   c:	f7ff fffe 	bl	0 <FDy_scan_mgr_configure_iocsr>
+  10:	4304      	orrs	r4, r0
+  12:	2002      	movs	r0, #2
+  14:	f7ff fffe 	bl	0 <FDy_scan_mgr_configure_iocsr>
+  18:	4304      	orrs	r4, r0
+  1a:	2003      	movs	r0, #3
+  1c:	f7ff fffe 	bl	0 <FDy_scan_mgr_configure_iocsr>
+  20:	4320      	orrs	r0, r4
+  22:	bd10      	pop	{r4, pc}
+
+Disassembly of section .text.FDy_sysmgr_get_pinmux_table:
+
+00000000 <FDy_sysmgr_get_pinmux_table>:
+   0:	4b02      	ldr	r3, [pc, #8]	; (c <FDy_sysmgr_get_pinmux_table+0xc>)
+   2:	6003      	str	r3, [r0, #0]
+   4:	23cf      	movs	r3, #207	; 0xcf
+   6:	600b      	str	r3, [r1, #0]
+   8:	4770      	bx	lr
+   a:	bf00      	nop
+   c:	00000000 	.word	0x00000000
+
+Disassembly of section .text.FDy_sysmgr_pinmux_init:
+
+00000000 <FDy_sysmgr_pinmux_init>:
+   0:	4a05      	ldr	r2, [pc, #20]	; (18 <FDy_sysmgr_pinmux_init+0x18>)
+   2:	4b06      	ldr	r3, [pc, #24]	; (1c <FDy_sysmgr_pinmux_init+0x1c>)
+   4:	4906      	ldr	r1, [pc, #24]	; (20 <FDy_sysmgr_pinmux_init+0x20>)
+   6:	f812 0b01 	ldrb.w	r0, [r2], #1
+   a:	f3bf 8f5f 	dmb	sy
+   e:	f843 0b04 	str.w	r0, [r3], #4
+  12:	428b      	cmp	r3, r1
+  14:	d1f7      	bne.n	6 <FDy_sysmgr_pinmux_init+0x6>
+  16:	4770      	bx	lr
+  18:	00000000 	.word	0x00000000
+  1c:	ffd08400 	.word	0xffd08400
+  20:	ffd0873c 	.word	0xffd0873c

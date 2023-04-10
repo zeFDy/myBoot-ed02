@@ -1,0 +1,3457 @@
+
+sequencer.o:     file format elf32-littlearm
+
+
+Disassembly of section .text.set_failing_group_stage:
+
+00000000 <set_failing_group_stage>:
+   0:	4b04      	ldr	r3, [pc, #16]	; (14 <set_failing_group_stage+0x14>)
+   2:	b510      	push	{r4, lr}
+   4:	681b      	ldr	r3, [r3, #0]
+   6:	68dc      	ldr	r4, [r3, #12]
+   8:	b914      	cbnz	r4, 10 <set_failing_group_stage+0x10>
+   a:	609a      	str	r2, [r3, #8]
+   c:	60d9      	str	r1, [r3, #12]
+   e:	6118      	str	r0, [r3, #16]
+  10:	bd10      	pop	{r4, pc}
+  12:	bf00      	nop
+  14:	00000000 	.word	0x00000000
+
+Disassembly of section .text.reg_file_set_group:
+
+00000000 <reg_file_set_group>:
+   0:	4a04      	ldr	r2, [pc, #16]	; (14 <reg_file_set_group+0x14>)
+   2:	f8d2 3808 	ldr.w	r3, [r2, #2056]	; 0x808
+   6:	b29b      	uxth	r3, r3
+   8:	ea43 4300 	orr.w	r3, r3, r0, lsl #16
+   c:	f8c2 3808 	str.w	r3, [r2, #2056]	; 0x808
+  10:	4770      	bx	lr
+  12:	bf00      	nop
+  14:	ffc24000 	.word	0xffc24000
+
+Disassembly of section .text.reg_file_set_stage:
+
+00000000 <reg_file_set_stage>:
+   0:	4a04      	ldr	r2, [pc, #16]	; (14 <reg_file_set_stage+0x14>)
+   2:	f8d2 3808 	ldr.w	r3, [r2, #2056]	; 0x808
+   6:	0c1b      	lsrs	r3, r3, #16
+   8:	041b      	lsls	r3, r3, #16
+   a:	4303      	orrs	r3, r0
+   c:	f8c2 3808 	str.w	r3, [r2, #2056]	; 0x808
+  10:	4770      	bx	lr
+  12:	bf00      	nop
+  14:	ffc24000 	.word	0xffc24000
+
+Disassembly of section .text.reg_file_set_sub_stage:
+
+00000000 <reg_file_set_sub_stage>:
+   0:	4a04      	ldr	r2, [pc, #16]	; (14 <reg_file_set_sub_stage+0x14>)
+   2:	f8d2 3808 	ldr.w	r3, [r2, #2056]	; 0x808
+   6:	f423 437f 	bic.w	r3, r3, #65280	; 0xff00
+   a:	ea43 2300 	orr.w	r3, r3, r0, lsl #8
+   e:	f8c2 3808 	str.w	r3, [r2, #2056]	; 0x808
+  12:	4770      	bx	lr
+  14:	ffc24000 	.word	0xffc24000
+
+Disassembly of section .text.set_rank_and_odt_mask:
+
+00000000 <set_rank_and_odt_mask>:
+   0:	2301      	movs	r3, #1
+   2:	b510      	push	{r4, lr}
+   4:	4083      	lsls	r3, r0
+   6:	43da      	mvns	r2, r3
+   8:	b341      	cbz	r1, 5c <set_rank_and_odt_mask+0x5c>
+   a:	4917      	ldr	r1, [pc, #92]	; (68 <set_rank_and_odt_mask+0x68>)
+   c:	680c      	ldr	r4, [r1, #0]
+   e:	f894 1038 	ldrb.w	r1, [r4, #56]	; 0x38
+  12:	2902      	cmp	r1, #2
+  14:	d006      	beq.n	24 <set_rank_and_odt_mask+0x24>
+  16:	2904      	cmp	r1, #4
+  18:	d019      	beq.n	4e <set_rank_and_odt_mask+0x4e>
+  1a:	3901      	subs	r1, #1
+  1c:	424b      	negs	r3, r1
+  1e:	414b      	adcs	r3, r1
+  20:	2100      	movs	r1, #0
+  22:	e006      	b.n	32 <set_rank_and_odt_mask+0x32>
+  24:	f894 1037 	ldrb.w	r1, [r4, #55]	; 0x37
+  28:	2901      	cmp	r1, #1
+  2a:	d10d      	bne.n	48 <set_rank_and_odt_mask+0x48>
+  2c:	f002 0103 	and.w	r1, r2, #3
+  30:	2303      	movs	r3, #3
+  32:	041b      	lsls	r3, r3, #16
+  34:	b2d2      	uxtb	r2, r2
+  36:	ea43 2301 	orr.w	r3, r3, r1, lsl #8
+  3a:	4313      	orrs	r3, r2
+  3c:	f3bf 8f5f 	dmb	sy
+  40:	4a0a      	ldr	r2, [pc, #40]	; (6c <set_rank_and_odt_mask+0x6c>)
+  42:	f8c2 3400 	str.w	r3, [r2, #1024]	; 0x400
+  46:	bd10      	pop	{r4, pc}
+  48:	f003 0303 	and.w	r3, r3, #3
+  4c:	e7e8      	b.n	20 <set_rank_and_odt_mask+0x20>
+  4e:	2803      	cmp	r0, #3
+  50:	d806      	bhi.n	60 <set_rank_and_odt_mask+0x60>
+  52:	4b07      	ldr	r3, [pc, #28]	; (70 <set_rank_and_odt_mask+0x70>)
+  54:	5c19      	ldrb	r1, [r3, r0]
+  56:	4b07      	ldr	r3, [pc, #28]	; (74 <set_rank_and_odt_mask+0x74>)
+  58:	5c1b      	ldrb	r3, [r3, r0]
+  5a:	e7ea      	b.n	32 <set_rank_and_odt_mask+0x32>
+  5c:	460b      	mov	r3, r1
+  5e:	e7e8      	b.n	32 <set_rank_and_odt_mask+0x32>
+  60:	2300      	movs	r3, #0
+  62:	4619      	mov	r1, r3
+  64:	e7e5      	b.n	32 <set_rank_and_odt_mask+0x32>
+  66:	bf00      	nop
+  68:	00000000 	.word	0x00000000
+  6c:	ffc23000 	.word	0xffc23000
+	...
+
+Disassembly of section .text.scc_mgr_set:
+
+00000000 <scc_mgr_set>:
+   0:	f3bf 8f5f 	dmb	sy
+   4:	ea40 0181 	orr.w	r1, r0, r1, lsl #2
+   8:	f041 417f 	orr.w	r1, r1, #4278190080	; 0xff000000
+   c:	f441 0142 	orr.w	r1, r1, #12713984	; 0xc20000
+  10:	600a      	str	r2, [r1, #0]
+  12:	4770      	bx	lr
+
+Disassembly of section .text.scc_mgr_set_dqs_out1_delay:
+
+00000000 <scc_mgr_set_dqs_out1_delay>:
+   0:	4b04      	ldr	r3, [pc, #16]	; (14 <scc_mgr_set_dqs_out1_delay+0x14>)
+   2:	4602      	mov	r2, r0
+   4:	f44f 60e0 	mov.w	r0, #1792	; 0x700
+   8:	681b      	ldr	r3, [r3, #0]
+   a:	f893 1034 	ldrb.w	r1, [r3, #52]	; 0x34
+   e:	f7ff bffe 	b.w	0 <scc_mgr_set_dqs_out1_delay>
+  12:	bf00      	nop
+  14:	00000000 	.word	0x00000000
+
+Disassembly of section .text.scc_mgr_set_all_ranks:
+
+00000000 <scc_mgr_set_all_ranks>:
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   2:	460d      	mov	r5, r1
+   4:	4e0d      	ldr	r6, [pc, #52]	; (3c <scc_mgr_set_all_ranks+0x3c>)
+   6:	2400      	movs	r4, #0
+   8:	6831      	ldr	r1, [r6, #0]
+   a:	f891 1038 	ldrb.w	r1, [r1, #56]	; 0x38
+   e:	42a1      	cmp	r1, r4
+  10:	d800      	bhi.n	14 <scc_mgr_set_all_ranks+0x14>
+  12:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+  14:	4629      	mov	r1, r5
+  16:	f7ff fffe 	bl	0 <scc_mgr_set_all_ranks>
+  1a:	b903      	cbnz	r3, 1e <scc_mgr_set_all_ranks+0x1e>
+  1c:	b94c      	cbnz	r4, 32 <scc_mgr_set_all_ranks+0x32>
+  1e:	f3bf 8f5f 	dmb	sy
+  22:	4907      	ldr	r1, [pc, #28]	; (40 <scc_mgr_set_all_ranks+0x40>)
+  24:	f8c1 5e00 	str.w	r5, [r1, #3584]	; 0xe00
+  28:	f3bf 8f5f 	dmb	sy
+  2c:	2700      	movs	r7, #0
+  2e:	f8c1 7e20 	str.w	r7, [r1, #3616]	; 0xe20
+  32:	6831      	ldr	r1, [r6, #0]
+  34:	f891 1038 	ldrb.w	r1, [r1, #56]	; 0x38
+  38:	440c      	add	r4, r1
+  3a:	e7e5      	b.n	8 <scc_mgr_set_all_ranks+0x8>
+  3c:	00000000 	.word	0x00000000
+  40:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.scc_mgr_set_dqs_en_phase_all_ranks:
+
+00000000 <scc_mgr_set_dqs_en_phase_all_ranks>:
+   0:	460a      	mov	r2, r1
+   2:	2300      	movs	r3, #0
+   4:	4601      	mov	r1, r0
+   6:	f44f 7000 	mov.w	r0, #512	; 0x200
+   a:	f7ff bffe 	b.w	0 <scc_mgr_set_dqs_en_phase_all_ranks>
+
+Disassembly of section .text.scc_mgr_set_dqs_en_delay_all_ranks:
+
+00000000 <scc_mgr_set_dqs_en_delay_all_ranks>:
+   0:	460a      	mov	r2, r1
+   2:	2301      	movs	r3, #1
+   4:	4601      	mov	r1, r0
+   6:	f44f 7040 	mov.w	r0, #768	; 0x300
+   a:	f7ff bffe 	b.w	0 <scc_mgr_set_dqs_en_delay_all_ranks>
+
+Disassembly of section .text.scc_mgr_set_oct_out1_delay:
+
+00000000 <scc_mgr_set_oct_out1_delay>:
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4604      	mov	r4, r0
+   4:	4b0b      	ldr	r3, [pc, #44]	; (34 <scc_mgr_set_oct_out1_delay+0x34>)
+   6:	460d      	mov	r5, r1
+   8:	681b      	ldr	r3, [r3, #0]
+   a:	f893 1036 	ldrb.w	r1, [r3, #54]	; 0x36
+   e:	f893 0035 	ldrb.w	r0, [r3, #53]	; 0x35
+  12:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+  16:	b2c0      	uxtb	r0, r0
+  18:	fb04 f300 	mul.w	r3, r4, r0
+  1c:	18c4      	adds	r4, r0, r3
+  1e:	42a3      	cmp	r3, r4
+  20:	d100      	bne.n	24 <scc_mgr_set_oct_out1_delay+0x24>
+  22:	bd38      	pop	{r3, r4, r5, pc}
+  24:	4619      	mov	r1, r3
+  26:	462a      	mov	r2, r5
+  28:	f44f 60a0 	mov.w	r0, #1280	; 0x500
+  2c:	3301      	adds	r3, #1
+  2e:	f7ff fffe 	bl	0 <scc_mgr_set_oct_out1_delay>
+  32:	e7f4      	b.n	1e <scc_mgr_set_oct_out1_delay+0x1e>
+  34:	00000000 	.word	0x00000000
+
+Disassembly of section .text.scc_mgr_load_dqs_for_write_group:
+
+00000000 <scc_mgr_load_dqs_for_write_group>:
+   0:	4b0b      	ldr	r3, [pc, #44]	; (30 <scc_mgr_load_dqs_for_write_group+0x30>)
+   2:	b510      	push	{r4, lr}
+   4:	4604      	mov	r4, r0
+   6:	681b      	ldr	r3, [r3, #0]
+   8:	f893 1036 	ldrb.w	r1, [r3, #54]	; 0x36
+   c:	f893 0035 	ldrb.w	r0, [r3, #53]	; 0x35
+  10:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+  14:	b2c0      	uxtb	r0, r0
+  16:	4a07      	ldr	r2, [pc, #28]	; (34 <scc_mgr_load_dqs_for_write_group+0x34>)
+  18:	2300      	movs	r3, #0
+  1a:	4344      	muls	r4, r0
+  1c:	4283      	cmp	r3, r0
+  1e:	db00      	blt.n	22 <scc_mgr_load_dqs_for_write_group+0x22>
+  20:	bd10      	pop	{r4, pc}
+  22:	1919      	adds	r1, r3, r4
+  24:	f3bf 8f5f 	dmb	sy
+  28:	3301      	adds	r3, #1
+  2a:	f8c2 1e00 	str.w	r1, [r2, #3584]	; 0xe00
+  2e:	e7f5      	b.n	1c <scc_mgr_load_dqs_for_write_group+0x1c>
+  30:	00000000 	.word	0x00000000
+  34:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.set_jump_as_return:
+
+00000000 <set_jump_as_return>:
+   0:	f3bf 8f5f 	dmb	sy
+   4:	4b06      	ldr	r3, [pc, #24]	; (20 <set_jump_as_return+0x20>)
+   6:	22ff      	movs	r2, #255	; 0xff
+   8:	f8c3 2800 	str.w	r2, [r3, #2048]	; 0x800
+   c:	4a05      	ldr	r2, [pc, #20]	; (24 <set_jump_as_return+0x24>)
+   e:	6812      	ldr	r2, [r2, #0]
+  10:	f892 202c 	ldrb.w	r2, [r2, #44]	; 0x2c
+  14:	f3bf 8f5f 	dmb	sy
+  18:	f8c3 2c00 	str.w	r2, [r3, #3072]	; 0xc00
+  1c:	4770      	bx	lr
+  1e:	bf00      	nop
+  20:	ffc22000 	.word	0xffc22000
+  24:	00000000 	.word	0x00000000
+
+Disassembly of section .text.delay_for_n_mem_clocks:
+
+00000000 <delay_for_n_mem_clocks>:
+   0:	4b29      	ldr	r3, [pc, #164]	; (a8 <delay_for_n_mem_clocks+0xa8>)
+   2:	b570      	push	{r4, r5, r6, lr}
+   4:	681b      	ldr	r3, [r3, #0]
+   6:	791d      	ldrb	r5, [r3, #4]
+   8:	182c      	adds	r4, r5, r0
+   a:	4629      	mov	r1, r5
+   c:	3c01      	subs	r4, #1
+   e:	4620      	mov	r0, r4
+  10:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+  14:	42a5      	cmp	r5, r4
+  16:	bf98      	it	ls
+  18:	f100 30ff 	addls.w	r0, r0, #4294967295
+  1c:	0c02      	lsrs	r2, r0, #16
+  1e:	d11d      	bne.n	5c <delay_for_n_mem_clocks+0x5c>
+  20:	f3c0 2107 	ubfx	r1, r0, #8, #8
+  24:	0a03      	lsrs	r3, r0, #8
+  26:	d11a      	bne.n	5e <delay_for_n_mem_clocks+0x5e>
+  28:	b2c3      	uxtb	r3, r0
+  2a:	4611      	mov	r1, r2
+  2c:	4d1f      	ldr	r5, [pc, #124]	; (ac <delay_for_n_mem_clocks+0xac>)
+  2e:	28ff      	cmp	r0, #255	; 0xff
+  30:	4e1f      	ldr	r6, [pc, #124]	; (b0 <delay_for_n_mem_clocks+0xb0>)
+  32:	882c      	ldrh	r4, [r5, #0]
+  34:	ea04 0403 	and.w	r4, r4, r3
+  38:	4b1e      	ldr	r3, [pc, #120]	; (b4 <delay_for_n_mem_clocks+0xb4>)
+  3a:	d812      	bhi.n	62 <delay_for_n_mem_clocks+0x62>
+  3c:	f3bf 8f5f 	dmb	sy
+  40:	6832      	ldr	r2, [r6, #0]
+  42:	f8c3 4804 	str.w	r4, [r3, #2052]	; 0x804
+  46:	7b52      	ldrb	r2, [r2, #13]
+  48:	f3bf 8f5f 	dmb	sy
+  4c:	f8c3 2c04 	str.w	r2, [r3, #3076]	; 0xc04
+  50:	6832      	ldr	r2, [r6, #0]
+  52:	7b52      	ldrb	r2, [r2, #13]
+  54:	f3bf 8f5f 	dmb	sy
+  58:	601a      	str	r2, [r3, #0]
+  5a:	bd70      	pop	{r4, r5, r6, pc}
+  5c:	21ff      	movs	r1, #255	; 0xff
+  5e:	23ff      	movs	r3, #255	; 0xff
+  60:	e7e4      	b.n	2c <delay_for_n_mem_clocks+0x2c>
+  62:	b292      	uxth	r2, r2
+  64:	f3bf 8f5f 	dmb	sy
+  68:	8828      	ldrh	r0, [r5, #0]
+  6a:	f8c3 4800 	str.w	r4, [r3, #2048]	; 0x800
+  6e:	4001      	ands	r1, r0
+  70:	f3bf 8f5f 	dmb	sy
+  74:	f8c3 1804 	str.w	r1, [r3, #2052]	; 0x804
+  78:	6831      	ldr	r1, [r6, #0]
+  7a:	7b89      	ldrb	r1, [r1, #14]
+  7c:	f3bf 8f5f 	dmb	sy
+  80:	f8c3 1c00 	str.w	r1, [r3, #3072]	; 0xc00
+  84:	6831      	ldr	r1, [r6, #0]
+  86:	7b89      	ldrb	r1, [r1, #14]
+  88:	f3bf 8f5f 	dmb	sy
+  8c:	f8c3 1c04 	str.w	r1, [r3, #3076]	; 0xc04
+  90:	6831      	ldr	r1, [r6, #0]
+  92:	7b89      	ldrb	r1, [r1, #14]
+  94:	f3bf 8f5f 	dmb	sy
+  98:	6019      	str	r1, [r3, #0]
+  9a:	4611      	mov	r1, r2
+  9c:	3a01      	subs	r2, #1
+  9e:	b292      	uxth	r2, r2
+  a0:	2900      	cmp	r1, #0
+  a2:	d1f5      	bne.n	90 <delay_for_n_mem_clocks+0x90>
+  a4:	e7d9      	b.n	5a <delay_for_n_mem_clocks+0x5a>
+  a6:	bf00      	nop
+	...
+  b4:	ffc22000 	.word	0xffc22000
+
+Disassembly of section .text.rw_mgr_mem_init_load_regs:
+
+00000000 <rw_mgr_mem_init_load_regs>:
+   0:	b530      	push	{r4, r5, lr}
+   2:	4d12      	ldr	r5, [pc, #72]	; (4c <rw_mgr_mem_init_load_regs+0x4c>)
+   4:	882c      	ldrh	r4, [r5, #0]
+   6:	4020      	ands	r0, r4
+   8:	f3bf 8f5f 	dmb	sy
+   c:	4c10      	ldr	r4, [pc, #64]	; (50 <rw_mgr_mem_init_load_regs+0x50>)
+   e:	f8c4 0800 	str.w	r0, [r4, #2048]	; 0x800
+  12:	8828      	ldrh	r0, [r5, #0]
+  14:	4001      	ands	r1, r0
+  16:	f3bf 8f5f 	dmb	sy
+  1a:	f8c4 1804 	str.w	r1, [r4, #2052]	; 0x804
+  1e:	8829      	ldrh	r1, [r5, #0]
+  20:	400a      	ands	r2, r1
+  22:	f3bf 8f5f 	dmb	sy
+  26:	f8c4 2808 	str.w	r2, [r4, #2056]	; 0x808
+  2a:	f3bf 8f5f 	dmb	sy
+  2e:	f8c4 3c00 	str.w	r3, [r4, #3072]	; 0xc00
+  32:	f3bf 8f5f 	dmb	sy
+  36:	f8c4 3c04 	str.w	r3, [r4, #3076]	; 0xc04
+  3a:	f3bf 8f5f 	dmb	sy
+  3e:	f8c4 3c08 	str.w	r3, [r4, #3080]	; 0xc08
+  42:	f3bf 8f5f 	dmb	sy
+  46:	6023      	str	r3, [r4, #0]
+  48:	bd30      	pop	{r4, r5, pc}
+  4a:	bf00      	nop
+  4c:	00000000 	.word	0x00000000
+  50:	ffc22000 	.word	0xffc22000
+
+Disassembly of section .text.rw_mgr_mem_load_user:
+
+00000000 <rw_mgr_mem_load_user>:
+   0:	e92d 45f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, sl, lr}
+   4:	4680      	mov	r8, r0
+   6:	4c3c      	ldr	r4, [pc, #240]	; (f8 <rw_mgr_mem_load_user+0xf8>)
+   8:	468a      	mov	sl, r1
+   a:	4617      	mov	r7, r2
+   c:	2600      	movs	r6, #0
+   e:	6823      	ldr	r3, [r4, #0]
+  10:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+  14:	42b3      	cmp	r3, r6
+  16:	d801      	bhi.n	1c <rw_mgr_mem_load_user+0x1c>
+  18:	e8bd 85f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, sl, pc}
+  1c:	4630      	mov	r0, r6
+  1e:	2100      	movs	r1, #0
+  20:	4d36      	ldr	r5, [pc, #216]	; (fc <rw_mgr_mem_load_user+0xfc>)
+  22:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  26:	b12f      	cbz	r7, 34 <rw_mgr_mem_load_user+0x34>
+  28:	6823      	ldr	r3, [r4, #0]
+  2a:	f893 3027 	ldrb.w	r3, [r3, #39]	; 0x27
+  2e:	f3bf 8f5f 	dmb	sy
+  32:	602b      	str	r3, [r5, #0]
+  34:	6823      	ldr	r3, [r4, #0]
+  36:	f893 3030 	ldrb.w	r3, [r3, #48]	; 0x30
+  3a:	4133      	asrs	r3, r6
+  3c:	07db      	lsls	r3, r3, #31
+  3e:	d535      	bpl.n	ac <rw_mgr_mem_load_user+0xac>
+  40:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  44:	6823      	ldr	r3, [r4, #0]
+  46:	f893 3024 	ldrb.w	r3, [r3, #36]	; 0x24
+  4a:	f3bf 8f5f 	dmb	sy
+  4e:	2004      	movs	r0, #4
+  50:	602b      	str	r3, [r5, #0]
+  52:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  56:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  5a:	6823      	ldr	r3, [r4, #0]
+  5c:	f893 3026 	ldrb.w	r3, [r3, #38]	; 0x26
+  60:	f3bf 8f5f 	dmb	sy
+  64:	2004      	movs	r0, #4
+  66:	602b      	str	r3, [r5, #0]
+  68:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  6c:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  70:	6823      	ldr	r3, [r4, #0]
+  72:	f893 3022 	ldrb.w	r3, [r3, #34]	; 0x22
+  76:	f3bf 8f5f 	dmb	sy
+  7a:	2004      	movs	r0, #4
+  7c:	602b      	str	r3, [r5, #0]
+  7e:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  82:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  86:	f3bf 8f5f 	dmb	sy
+  8a:	f8c5 8000 	str.w	r8, [r5]
+  8e:	b95f      	cbnz	r7, a8 <rw_mgr_mem_load_user+0xa8>
+  90:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  94:	6823      	ldr	r3, [r4, #0]
+  96:	f893 302e 	ldrb.w	r3, [r3, #46]	; 0x2e
+  9a:	f3bf 8f5f 	dmb	sy
+  9e:	f44f 7000 	mov.w	r0, #512	; 0x200
+  a2:	602b      	str	r3, [r5, #0]
+  a4:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  a8:	3601      	adds	r6, #1
+  aa:	e7b0      	b.n	e <rw_mgr_mem_load_user+0xe>
+  ac:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  b0:	6823      	ldr	r3, [r4, #0]
+  b2:	f893 3023 	ldrb.w	r3, [r3, #35]	; 0x23
+  b6:	f3bf 8f5f 	dmb	sy
+  ba:	2004      	movs	r0, #4
+  bc:	602b      	str	r3, [r5, #0]
+  be:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  c2:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  c6:	6823      	ldr	r3, [r4, #0]
+  c8:	f893 3025 	ldrb.w	r3, [r3, #37]	; 0x25
+  cc:	f3bf 8f5f 	dmb	sy
+  d0:	2004      	movs	r0, #4
+  d2:	602b      	str	r3, [r5, #0]
+  d4:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  d8:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  dc:	6823      	ldr	r3, [r4, #0]
+  de:	f893 3021 	ldrb.w	r3, [r3, #33]	; 0x21
+  e2:	f3bf 8f5f 	dmb	sy
+  e6:	602b      	str	r3, [r5, #0]
+  e8:	f7ff fffe 	bl	0 <rw_mgr_mem_load_user>
+  ec:	f3bf 8f5f 	dmb	sy
+  f0:	f8c5 a000 	str.w	sl, [r5]
+  f4:	e7cb      	b.n	8e <rw_mgr_mem_load_user+0x8e>
+  f6:	bf00      	nop
+  f8:	00000000 	.word	0x00000000
+  fc:	ffc22000 	.word	0xffc22000
+
+Disassembly of section .text.rw_mgr_decr_vfifo:
+
+00000000 <rw_mgr_decr_vfifo>:
+   0:	b510      	push	{r4, lr}
+   2:	2300      	movs	r3, #0
+   4:	4906      	ldr	r1, [pc, #24]	; (20 <rw_mgr_decr_vfifo+0x20>)
+   6:	4c07      	ldr	r4, [pc, #28]	; (24 <rw_mgr_decr_vfifo+0x24>)
+   8:	680a      	ldr	r2, [r1, #0]
+   a:	7a52      	ldrb	r2, [r2, #9]
+   c:	3a01      	subs	r2, #1
+   e:	429a      	cmp	r2, r3
+  10:	d800      	bhi.n	14 <rw_mgr_decr_vfifo+0x14>
+  12:	bd10      	pop	{r4, pc}
+  14:	f3bf 8f5f 	dmb	sy
+  18:	3301      	adds	r3, #1
+  1a:	6060      	str	r0, [r4, #4]
+  1c:	e7f4      	b.n	8 <rw_mgr_decr_vfifo+0x8>
+  1e:	bf00      	nop
+  20:	00000000 	.word	0x00000000
+  24:	ffc21000 	.word	0xffc21000
+
+Disassembly of section .text.mem_precharge_and_activate:
+
+00000000 <mem_precharge_and_activate>:
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	2000      	movs	r0, #0
+   4:	4d16      	ldr	r5, [pc, #88]	; (60 <mem_precharge_and_activate+0x60>)
+   6:	4c17      	ldr	r4, [pc, #92]	; (64 <mem_precharge_and_activate+0x64>)
+   8:	682b      	ldr	r3, [r5, #0]
+   a:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+   e:	4283      	cmp	r3, r0
+  10:	dc00      	bgt.n	14 <mem_precharge_and_activate+0x14>
+  12:	bd38      	pop	{r3, r4, r5, pc}
+  14:	2100      	movs	r1, #0
+  16:	f7ff fffe 	bl	0 <mem_precharge_and_activate>
+  1a:	682b      	ldr	r3, [r5, #0]
+  1c:	f893 3027 	ldrb.w	r3, [r3, #39]	; 0x27
+  20:	f3bf 8f5f 	dmb	sy
+  24:	6023      	str	r3, [r4, #0]
+  26:	f3bf 8f5f 	dmb	sy
+  2a:	682a      	ldr	r2, [r5, #0]
+  2c:	230f      	movs	r3, #15
+  2e:	f8c4 3800 	str.w	r3, [r4, #2048]	; 0x800
+  32:	7852      	ldrb	r2, [r2, #1]
+  34:	f3bf 8f5f 	dmb	sy
+  38:	f8c4 2c00 	str.w	r2, [r4, #3072]	; 0xc00
+  3c:	f3bf 8f5f 	dmb	sy
+  40:	f8c4 3804 	str.w	r3, [r4, #2052]	; 0x804
+  44:	682b      	ldr	r3, [r5, #0]
+  46:	789b      	ldrb	r3, [r3, #2]
+  48:	f3bf 8f5f 	dmb	sy
+  4c:	f8c4 3c04 	str.w	r3, [r4, #3076]	; 0xc04
+  50:	682b      	ldr	r3, [r5, #0]
+  52:	781b      	ldrb	r3, [r3, #0]
+  54:	f3bf 8f5f 	dmb	sy
+  58:	3001      	adds	r0, #1
+  5a:	6023      	str	r3, [r4, #0]
+  5c:	e7d4      	b.n	8 <mem_precharge_and_activate+0x8>
+  5e:	bf00      	nop
+  60:	00000000 	.word	0x00000000
+  64:	ffc22000 	.word	0xffc22000
+
+Disassembly of section .text.rw_mgr_mem_calibrate_read_test.constprop.0:
+
+00000000 <rw_mgr_mem_calibrate_read_test.constprop.0>:
+   0:	e92d 4df0 	stmdb	sp!, {r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	461e      	mov	r6, r3
+   6:	4605      	mov	r5, r0
+   8:	b086      	sub	sp, #24
+   a:	9204      	str	r2, [sp, #16]
+   c:	4a60      	ldr	r2, [pc, #384]	; (190 <rw_mgr_mem_calibrate_read_test.constprop.0+0x190>)
+   e:	9b0f      	ldr	r3, [sp, #60]	; 0x3c
+  10:	9101      	str	r1, [sp, #4]
+  12:	6812      	ldr	r2, [r2, #0]
+  14:	f892 a038 	ldrb.w	sl, [r2, #56]	; 0x38
+  18:	b903      	cbnz	r3, 1c <rw_mgr_mem_calibrate_read_test.constprop.0+0x1c>
+  1a:	4482      	add	sl, r0
+  1c:	4b5d      	ldr	r3, [pc, #372]	; (194 <rw_mgr_mem_calibrate_read_test.constprop.0+0x194>)
+  1e:	4c5e      	ldr	r4, [pc, #376]	; (198 <rw_mgr_mem_calibrate_read_test.constprop.0+0x198>)
+  20:	681b      	ldr	r3, [r3, #0]
+  22:	685a      	ldr	r2, [r3, #4]
+  24:	681b      	ldr	r3, [r3, #0]
+  26:	9202      	str	r2, [sp, #8]
+  28:	6033      	str	r3, [r6, #0]
+  2a:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+  2c:	4b5b      	ldr	r3, [pc, #364]	; (19c <rw_mgr_mem_calibrate_read_test.constprop.0+0x19c>)
+  2e:	2a00      	cmp	r2, #0
+  30:	bf08      	it	eq
+  32:	4623      	moveq	r3, r4
+  34:	9303      	str	r3, [sp, #12]
+  36:	4f56      	ldr	r7, [pc, #344]	; (190 <rw_mgr_mem_calibrate_read_test.constprop.0+0x190>)
+  38:	4555      	cmp	r5, sl
+  3a:	d31c      	bcc.n	76 <rw_mgr_mem_calibrate_read_test.constprop.0+0x76>
+  3c:	683b      	ldr	r3, [r7, #0]
+  3e:	791b      	ldrb	r3, [r3, #4]
+  40:	f3bf 8f5f 	dmb	sy
+  44:	9a01      	ldr	r2, [sp, #4]
+  46:	0091      	lsls	r1, r2, #2
+  48:	f5a1 1177 	sub.w	r1, r1, #4046848	; 0x3dc000
+  4c:	f5a1 5100 	sub.w	r1, r1, #8192	; 0x2000
+  50:	600b      	str	r3, [r1, #0]
+  52:	2100      	movs	r1, #0
+  54:	4608      	mov	r0, r1
+  56:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_read_test.constprop.0>
+  5a:	9b04      	ldr	r3, [sp, #16]
+  5c:	6830      	ldr	r0, [r6, #0]
+  5e:	2b00      	cmp	r3, #0
+  60:	f000 8091 	beq.w	186 <rw_mgr_mem_calibrate_read_test.constprop.0+0x186>
+  64:	4b4b      	ldr	r3, [pc, #300]	; (194 <rw_mgr_mem_calibrate_read_test.constprop.0+0x194>)
+  66:	681b      	ldr	r3, [r3, #0]
+  68:	681b      	ldr	r3, [r3, #0]
+  6a:	1a1b      	subs	r3, r3, r0
+  6c:	4258      	negs	r0, r3
+  6e:	4158      	adcs	r0, r3
+  70:	b006      	add	sp, #24
+  72:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+  76:	4628      	mov	r0, r5
+  78:	2101      	movs	r1, #1
+  7a:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_read_test.constprop.0>
+  7e:	f3bf 8f5f 	dmb	sy
+  82:	683a      	ldr	r2, [r7, #0]
+  84:	2310      	movs	r3, #16
+  86:	f8c4 3804 	str.w	r3, [r4, #2052]	; 0x804
+  8a:	f892 2029 	ldrb.w	r2, [r2, #41]	; 0x29
+  8e:	f3bf 8f5f 	dmb	sy
+  92:	f8c4 2c04 	str.w	r2, [r4, #3076]	; 0xc04
+  96:	f3bf 8f5f 	dmb	sy
+  9a:	f8c4 3808 	str.w	r3, [r4, #2056]	; 0x808
+  9e:	683b      	ldr	r3, [r7, #0]
+  a0:	f893 302a 	ldrb.w	r3, [r3, #42]	; 0x2a
+  a4:	f3bf 8f5f 	dmb	sy
+  a8:	f8c4 3c08 	str.w	r3, [r4, #3080]	; 0xc08
+  ac:	9b0e      	ldr	r3, [sp, #56]	; 0x38
+  ae:	b38b      	cbz	r3, 114 <rw_mgr_mem_calibrate_read_test.constprop.0+0x114>
+  b0:	f3bf 8f5f 	dmb	sy
+  b4:	2306      	movs	r3, #6
+  b6:	f8c4 3800 	str.w	r3, [r4, #2048]	; 0x800
+  ba:	683b      	ldr	r3, [r7, #0]
+  bc:	f893 3028 	ldrb.w	r3, [r3, #40]	; 0x28
+  c0:	f3bf 8f5f 	dmb	sy
+  c4:	f8c4 3c00 	str.w	r3, [r4, #3072]	; 0xc00
+  c8:	9b0e      	ldr	r3, [sp, #56]	; 0x38
+  ca:	b33b      	cbz	r3, 11c <rw_mgr_mem_calibrate_read_test.constprop.0+0x11c>
+  cc:	683a      	ldr	r2, [r7, #0]
+  ce:	f892 3035 	ldrb.w	r3, [r2, #53]	; 0x35
+  d2:	f892 2039 	ldrb.w	r2, [r2, #57]	; 0x39
+  d6:	fb13 f302 	smulbb	r3, r3, r2
+  da:	3b01      	subs	r3, #1
+  dc:	f3bf 8f5f 	dmb	sy
+  e0:	f8c4 380c 	str.w	r3, [r4, #2060]	; 0x80c
+  e4:	683b      	ldr	r3, [r7, #0]
+  e6:	f893 3028 	ldrb.w	r3, [r3, #40]	; 0x28
+  ea:	f3bf 8f5f 	dmb	sy
+  ee:	f8c4 3c0c 	str.w	r3, [r4, #3084]	; 0xc0c
+  f2:	f04f 0800 	mov.w	r8, #0
+  f6:	683b      	ldr	r3, [r7, #0]
+  f8:	4642      	mov	r2, r8
+  fa:	f8df b094 	ldr.w	fp, [pc, #148]	; 190 <rw_mgr_mem_calibrate_read_test.constprop.0+0x190>
+  fe:	f893 7039 	ldrb.w	r7, [r3, #57]	; 0x39
+ 102:	3f01      	subs	r7, #1
+ 104:	1c79      	adds	r1, r7, #1
+ 106:	d10d      	bne.n	124 <rw_mgr_mem_calibrate_read_test.constprop.0+0x124>
+ 108:	6833      	ldr	r3, [r6, #0]
+ 10a:	3501      	adds	r5, #1
+ 10c:	ea03 0308 	and.w	r3, r3, r8
+ 110:	6033      	str	r3, [r6, #0]
+ 112:	e790      	b.n	36 <rw_mgr_mem_calibrate_read_test.constprop.0+0x36>
+ 114:	f3bf 8f5f 	dmb	sy
+ 118:	2332      	movs	r3, #50	; 0x32
+ 11a:	e7cc      	b.n	b6 <rw_mgr_mem_calibrate_read_test.constprop.0+0xb6>
+ 11c:	f3bf 8f5f 	dmb	sy
+ 120:	9b0e      	ldr	r3, [sp, #56]	; 0x38
+ 122:	e7dd      	b.n	e0 <rw_mgr_mem_calibrate_read_test.constprop.0+0xe0>
+ 124:	f3bf 8f5f 	dmb	sy
+ 128:	4b1d      	ldr	r3, [pc, #116]	; (1a0 <rw_mgr_mem_calibrate_read_test.constprop.0+0x1a0>)
+ 12a:	609a      	str	r2, [r3, #8]
+ 12c:	f3bf 8f5f 	dmb	sy
+ 130:	f503 5300 	add.w	r3, r3, #8192	; 0x2000
+ 134:	601a      	str	r2, [r3, #0]
+ 136:	f8db 3000 	ldr.w	r3, [fp]
+ 13a:	f893 1028 	ldrb.w	r1, [r3, #40]	; 0x28
+ 13e:	f3bf 8f5f 	dmb	sy
+ 142:	f8db 3000 	ldr.w	r3, [fp]
+ 146:	9a01      	ldr	r2, [sp, #4]
+ 148:	f893 3039 	ldrb.w	r3, [r3, #57]	; 0x39
+ 14c:	fb02 7303 	mla	r3, r2, r3, r7
+ 150:	9a03      	ldr	r2, [sp, #12]
+ 152:	f842 1023 	str.w	r1, [r2, r3, lsl #2]
+ 156:	6823      	ldr	r3, [r4, #0]
+ 158:	9305      	str	r3, [sp, #20]
+ 15a:	f3bf 8f5f 	dmb	sy
+ 15e:	f8db 0000 	ldr.w	r0, [fp]
+ 162:	3f01      	subs	r7, #1
+ 164:	f890 1039 	ldrb.w	r1, [r0, #57]	; 0x39
+ 168:	f890 0033 	ldrb.w	r0, [r0, #51]	; 0x33
+ 16c:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+ 170:	9a02      	ldr	r2, [sp, #8]
+ 172:	9b05      	ldr	r3, [sp, #20]
+ 174:	b2c0      	uxtb	r0, r0
+ 176:	ea22 0303 	bic.w	r3, r2, r3
+ 17a:	fa08 f800 	lsl.w	r8, r8, r0
+ 17e:	ea43 0808 	orr.w	r8, r3, r8
+ 182:	2200      	movs	r2, #0
+ 184:	e7be      	b.n	104 <rw_mgr_mem_calibrate_read_test.constprop.0+0x104>
+ 186:	3800      	subs	r0, #0
+ 188:	bf18      	it	ne
+ 18a:	2001      	movne	r0, #1
+ 18c:	e770      	b.n	70 <rw_mgr_mem_calibrate_read_test.constprop.0+0x70>
+ 18e:	bf00      	nop
+	...
+ 198:	ffc22000 	.word	0xffc22000
+ 19c:	ffc22400 	.word	0xffc22400
+ 1a0:	ffc21000 	.word	0xffc21000
+
+Disassembly of section .text.rw_mgr_mem_calibrate_read_load_patterns.constprop.0:
+
+00000000 <rw_mgr_mem_calibrate_read_load_patterns.constprop.0>:
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	2000      	movs	r0, #0
+   4:	4d20      	ldr	r5, [pc, #128]	; (88 <rw_mgr_mem_calibrate_read_load_patterns.constprop.0+0x88>)
+   6:	4c21      	ldr	r4, [pc, #132]	; (8c <rw_mgr_mem_calibrate_read_load_patterns.constprop.0+0x8c>)
+   8:	682b      	ldr	r3, [r5, #0]
+   a:	f893 6038 	ldrb.w	r6, [r3, #56]	; 0x38
+   e:	4286      	cmp	r6, r0
+  10:	d805      	bhi.n	1e <rw_mgr_mem_calibrate_read_load_patterns.constprop.0+0x1e>
+  12:	2100      	movs	r1, #0
+  14:	4608      	mov	r0, r1
+  16:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+  1a:	f7ff bffe 	b.w	0 <rw_mgr_mem_calibrate_read_load_patterns.constprop.0>
+  1e:	2101      	movs	r1, #1
+  20:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_read_load_patterns.constprop.0>
+  24:	f3bf 8f5f 	dmb	sy
+  28:	682a      	ldr	r2, [r5, #0]
+  2a:	2320      	movs	r3, #32
+  2c:	f8c4 3800 	str.w	r3, [r4, #2048]	; 0x800
+  30:	7a12      	ldrb	r2, [r2, #8]
+  32:	f3bf 8f5f 	dmb	sy
+  36:	f8c4 2c00 	str.w	r2, [r4, #3072]	; 0xc00
+  3a:	f3bf 8f5f 	dmb	sy
+  3e:	f8c4 3804 	str.w	r3, [r4, #2052]	; 0x804
+  42:	682b      	ldr	r3, [r5, #0]
+  44:	7a5b      	ldrb	r3, [r3, #9]
+  46:	f3bf 8f5f 	dmb	sy
+  4a:	f8c4 3c04 	str.w	r3, [r4, #3076]	; 0xc04
+  4e:	f3bf 8f5f 	dmb	sy
+  52:	682a      	ldr	r2, [r5, #0]
+  54:	2304      	movs	r3, #4
+  56:	f8c4 3808 	str.w	r3, [r4, #2056]	; 0x808
+  5a:	7a92      	ldrb	r2, [r2, #10]
+  5c:	f3bf 8f5f 	dmb	sy
+  60:	f8c4 2c08 	str.w	r2, [r4, #3080]	; 0xc08
+  64:	f3bf 8f5f 	dmb	sy
+  68:	f8c4 380c 	str.w	r3, [r4, #2060]	; 0x80c
+  6c:	682b      	ldr	r3, [r5, #0]
+  6e:	7adb      	ldrb	r3, [r3, #11]
+  70:	f3bf 8f5f 	dmb	sy
+  74:	f8c4 3c0c 	str.w	r3, [r4, #3084]	; 0xc0c
+  78:	682b      	ldr	r3, [r5, #0]
+  7a:	79db      	ldrb	r3, [r3, #7]
+  7c:	f3bf 8f5f 	dmb	sy
+  80:	3001      	adds	r0, #1
+  82:	6023      	str	r3, [r4, #0]
+  84:	e7c3      	b.n	e <rw_mgr_mem_calibrate_read_load_patterns.constprop.0+0xe>
+  86:	bf00      	nop
+  88:	00000000 	.word	0x00000000
+  8c:	ffc22000 	.word	0xffc22000
+
+Disassembly of section .text.rw_mgr_mem_calibrate_write_test.constprop.0:
+
+00000000 <rw_mgr_mem_calibrate_write_test.constprop.0>:
+   0:	e92d 4df0 	stmdb	sp!, {r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	4614      	mov	r4, r2
+   6:	4605      	mov	r5, r0
+   8:	b086      	sub	sp, #24
+   a:	9305      	str	r3, [sp, #20]
+   c:	4b68      	ldr	r3, [pc, #416]	; (1b0 <rw_mgr_mem_calibrate_write_test.constprop.0+0x1b0>)
+   e:	9104      	str	r1, [sp, #16]
+  10:	f8dd 8038 	ldr.w	r8, [sp, #56]	; 0x38
+  14:	681b      	ldr	r3, [r3, #0]
+  16:	f893 2038 	ldrb.w	r2, [r3, #56]	; 0x38
+  1a:	f893 103a 	ldrb.w	r1, [r3, #58]	; 0x3a
+  1e:	4402      	add	r2, r0
+  20:	f893 0034 	ldrb.w	r0, [r3, #52]	; 0x34
+  24:	9201      	str	r2, [sp, #4]
+  26:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+  2a:	b2c3      	uxtb	r3, r0
+  2c:	9302      	str	r3, [sp, #8]
+  2e:	4b61      	ldr	r3, [pc, #388]	; (1b4 <rw_mgr_mem_calibrate_write_test.constprop.0+0x1b4>)
+  30:	4628      	mov	r0, r5
+  32:	681b      	ldr	r3, [r3, #0]
+  34:	68da      	ldr	r2, [r3, #12]
+  36:	689b      	ldr	r3, [r3, #8]
+  38:	9203      	str	r2, [sp, #12]
+  3a:	f8c8 3000 	str.w	r3, [r8]
+  3e:	9b01      	ldr	r3, [sp, #4]
+  40:	4283      	cmp	r3, r0
+  42:	d812      	bhi.n	6a <rw_mgr_mem_calibrate_write_test.constprop.0+0x6a>
+  44:	2100      	movs	r1, #0
+  46:	4608      	mov	r0, r1
+  48:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_write_test.constprop.0>
+  4c:	9b05      	ldr	r3, [sp, #20]
+  4e:	f8d8 0000 	ldr.w	r0, [r8]
+  52:	2b00      	cmp	r3, #0
+  54:	f000 80a8 	beq.w	1a8 <rw_mgr_mem_calibrate_write_test.constprop.0+0x1a8>
+  58:	4b56      	ldr	r3, [pc, #344]	; (1b4 <rw_mgr_mem_calibrate_write_test.constprop.0+0x1b4>)
+  5a:	681b      	ldr	r3, [r3, #0]
+  5c:	689b      	ldr	r3, [r3, #8]
+  5e:	1a1b      	subs	r3, r3, r0
+  60:	4258      	negs	r0, r3
+  62:	4158      	adcs	r0, r3
+  64:	b006      	add	sp, #24
+  66:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+  6a:	2101      	movs	r1, #1
+  6c:	f8df a148 	ldr.w	sl, [pc, #328]	; 1b8 <rw_mgr_mem_calibrate_write_test.constprop.0+0x1b8>
+  70:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_write_test.constprop.0>
+  74:	494e      	ldr	r1, [pc, #312]	; (1b0 <rw_mgr_mem_calibrate_write_test.constprop.0+0x1b0>)
+  76:	2200      	movs	r2, #0
+  78:	4616      	mov	r6, r2
+  7a:	f04f 0eff 	mov.w	lr, #255	; 0xff
+  7e:	680b      	ldr	r3, [r1, #0]
+  80:	f893 503a 	ldrb.w	r5, [r3, #58]	; 0x3a
+  84:	4b4d      	ldr	r3, [pc, #308]	; (1bc <rw_mgr_mem_calibrate_write_test.constprop.0+0x1bc>)
+  86:	3d01      	subs	r5, #1
+  88:	1c6f      	adds	r7, r5, #1
+  8a:	d106      	bne.n	9a <rw_mgr_mem_calibrate_write_test.constprop.0+0x9a>
+  8c:	f8d8 3000 	ldr.w	r3, [r8]
+  90:	3001      	adds	r0, #1
+  92:	4013      	ands	r3, r2
+  94:	f8c8 3000 	str.w	r3, [r8]
+  98:	e7d1      	b.n	3e <rw_mgr_mem_calibrate_write_test.constprop.0+0x3e>
+  9a:	f3bf 8f5f 	dmb	sy
+  9e:	4f48      	ldr	r7, [pc, #288]	; (1c0 <rw_mgr_mem_calibrate_write_test.constprop.0+0x1c0>)
+  a0:	60be      	str	r6, [r7, #8]
+  a2:	680f      	ldr	r7, [r1, #0]
+  a4:	f897 b03a 	ldrb.w	fp, [r7, #58]	; 0x3a
+  a8:	9f04      	ldr	r7, [sp, #16]
+  aa:	fb07 5b0b 	mla	fp, r7, fp, r5
+  ae:	f8da 7000 	ldr.w	r7, [sl]
+  b2:	69ff      	ldr	r7, [r7, #28]
+  b4:	f1b7 3fff 	cmp.w	r7, #4294967295
+  b8:	d11d      	bne.n	f6 <rw_mgr_mem_calibrate_write_test.constprop.0+0xf6>
+  ba:	f3bf 8f5f 	dmb	sy
+  be:	680f      	ldr	r7, [r1, #0]
+  c0:	f8c3 e808 	str.w	lr, [r3, #2056]	; 0x808
+  c4:	b16c      	cbz	r4, e2 <rw_mgr_mem_calibrate_write_test.constprop.0+0xe2>
+  c6:	f897 c01c 	ldrb.w	ip, [r7, #28]
+  ca:	7e3f      	ldrb	r7, [r7, #24]
+  cc:	f3bf 8f5f 	dmb	sy
+  d0:	f8c3 7c08 	str.w	r7, [r3, #3080]	; 0xc08
+  d4:	680f      	ldr	r7, [r1, #0]
+  d6:	7ebf      	ldrb	r7, [r7, #26]
+  d8:	f3bf 8f5f 	dmb	sy
+  dc:	f8c3 7c0c 	str.w	r7, [r3, #3084]	; 0xc0c
+  e0:	e018      	b.n	114 <rw_mgr_mem_calibrate_write_test.constprop.0+0x114>
+  e2:	f897 c016 	ldrb.w	ip, [r7, #22]
+  e6:	7cbf      	ldrb	r7, [r7, #18]
+  e8:	f3bf 8f5f 	dmb	sy
+  ec:	f8c3 7c08 	str.w	r7, [r3, #3080]	; 0xc08
+  f0:	680f      	ldr	r7, [r1, #0]
+  f2:	7d3f      	ldrb	r7, [r7, #20]
+  f4:	e7f0      	b.n	d8 <rw_mgr_mem_calibrate_write_test.constprop.0+0xd8>
+  f6:	2f00      	cmp	r7, #0
+  f8:	d13f      	bne.n	17a <rw_mgr_mem_calibrate_write_test.constprop.0+0x17a>
+  fa:	f3bf 8f5f 	dmb	sy
+  fe:	680f      	ldr	r7, [r1, #0]
+ 100:	f8c3 e808 	str.w	lr, [r3, #2056]	; 0x808
+ 104:	b3ac      	cbz	r4, 172 <rw_mgr_mem_calibrate_write_test.constprop.0+0x172>
+ 106:	f897 c017 	ldrb.w	ip, [r7, #23]
+ 10a:	7e7f      	ldrb	r7, [r7, #25]
+ 10c:	f3bf 8f5f 	dmb	sy
+ 110:	f8c3 7c08 	str.w	r7, [r3, #3080]	; 0xc08
+ 114:	f3bf 8f5f 	dmb	sy
+ 118:	4f2a      	ldr	r7, [pc, #168]	; (1c4 <rw_mgr_mem_calibrate_write_test.constprop.0+0x1c4>)
+ 11a:	603e      	str	r6, [r7, #0]
+ 11c:	f3bf 8f5f 	dmb	sy
+ 120:	2740      	movs	r7, #64	; 0x40
+ 122:	f8c3 7800 	str.w	r7, [r3, #2048]	; 0x800
+ 126:	f3bf 8f5f 	dmb	sy
+ 12a:	f8c3 cc00 	str.w	ip, [r3, #3072]	; 0xc00
+ 12e:	f3bf 8f5f 	dmb	sy
+ 132:	2730      	movs	r7, #48	; 0x30
+ 134:	f8c3 7804 	str.w	r7, [r3, #2052]	; 0x804
+ 138:	680f      	ldr	r7, [r1, #0]
+ 13a:	b39c      	cbz	r4, 1a4 <rw_mgr_mem_calibrate_write_test.constprop.0+0x1a4>
+ 13c:	7eff      	ldrb	r7, [r7, #27]
+ 13e:	f3bf 8f5f 	dmb	sy
+ 142:	f8c3 7c04 	str.w	r7, [r3, #3076]	; 0xc04
+ 146:	f3bf 8f5f 	dmb	sy
+ 14a:	ea4f 0b8b 	mov.w	fp, fp, lsl #2
+ 14e:	f5ab 1b77 	sub.w	fp, fp, #4046848	; 0x3dc000
+ 152:	f5ab 5b00 	sub.w	fp, fp, #8192	; 0x2000
+ 156:	f8cb c000 	str.w	ip, [fp]
+ 15a:	f8d3 c000 	ldr.w	ip, [r3]
+ 15e:	f3bf 8f5f 	dmb	sy
+ 162:	9f02      	ldr	r7, [sp, #8]
+ 164:	3d01      	subs	r5, #1
+ 166:	40ba      	lsls	r2, r7
+ 168:	9f03      	ldr	r7, [sp, #12]
+ 16a:	ea27 070c 	bic.w	r7, r7, ip
+ 16e:	433a      	orrs	r2, r7
+ 170:	e78a      	b.n	88 <rw_mgr_mem_calibrate_write_test.constprop.0+0x88>
+ 172:	f897 c011 	ldrb.w	ip, [r7, #17]
+ 176:	7cff      	ldrb	r7, [r7, #19]
+ 178:	e7c8      	b.n	10c <rw_mgr_mem_calibrate_write_test.constprop.0+0x10c>
+ 17a:	f3bf 8f5f 	dmb	sy
+ 17e:	f8c3 6808 	str.w	r6, [r3, #2056]	; 0x808
+ 182:	f3bf 8f5f 	dmb	sy
+ 186:	3f01      	subs	r7, #1
+ 188:	f8c3 6c08 	str.w	r6, [r3, #3080]	; 0xc08
+ 18c:	f3bf 8f5f 	dmb	sy
+ 190:	f8c3 780c 	str.w	r7, [r3, #2060]	; 0x80c
+ 194:	680f      	ldr	r7, [r1, #0]
+ 196:	b114      	cbz	r4, 19e <rw_mgr_mem_calibrate_write_test.constprop.0+0x19e>
+ 198:	f897 c017 	ldrb.w	ip, [r7, #23]
+ 19c:	e79b      	b.n	d6 <rw_mgr_mem_calibrate_write_test.constprop.0+0xd6>
+ 19e:	f897 c011 	ldrb.w	ip, [r7, #17]
+ 1a2:	e7a6      	b.n	f2 <rw_mgr_mem_calibrate_write_test.constprop.0+0xf2>
+ 1a4:	7d7f      	ldrb	r7, [r7, #21]
+ 1a6:	e7ca      	b.n	13e <rw_mgr_mem_calibrate_write_test.constprop.0+0x13e>
+ 1a8:	3800      	subs	r0, #0
+ 1aa:	bf18      	it	ne
+ 1ac:	2001      	movne	r0, #1
+ 1ae:	e759      	b.n	64 <rw_mgr_mem_calibrate_write_test.constprop.0+0x64>
+	...
+ 1bc:	ffc22000 	.word	0xffc22000
+ 1c0:	ffc21000 	.word	0xffc21000
+ 1c4:	ffc23000 	.word	0xffc23000
+
+Disassembly of section .text.search_stop_check.constprop.0:
+
+00000000 <search_stop_check.constprop.0>:
+   0:	e92d 4df3 	stmdb	sp!, {r0, r1, r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	4616      	mov	r6, r2
+   6:	4a22      	ldr	r2, [pc, #136]	; (90 <search_stop_check.constprop.0+0x90>)
+   8:	4607      	mov	r7, r0
+   a:	461c      	mov	r4, r3
+   c:	4608      	mov	r0, r1
+   e:	9d0a      	ldr	r5, [sp, #40]	; 0x28
+  10:	9b0c      	ldr	r3, [sp, #48]	; 0x30
+  12:	6811      	ldr	r1, [r2, #0]
+  14:	463a      	mov	r2, r7
+  16:	b1b7      	cbz	r7, 46 <search_stop_check.constprop.0+0x46>
+  18:	688f      	ldr	r7, [r1, #8]
+  1a:	2300      	movs	r3, #0
+  1c:	4631      	mov	r1, r6
+  1e:	461a      	mov	r2, r3
+  20:	9500      	str	r5, [sp, #0]
+  22:	f7ff fffe 	bl	0 <search_stop_check.constprop.0>
+  26:	9b0b      	ldr	r3, [sp, #44]	; 0x2c
+  28:	fab0 f080 	clz	r0, r0
+  2c:	682a      	ldr	r2, [r5, #0]
+  2e:	0940      	lsrs	r0, r0, #5
+  30:	681b      	ldr	r3, [r3, #0]
+  32:	4313      	orrs	r3, r2
+  34:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+  36:	6013      	str	r3, [r2, #0]
+  38:	b110      	cbz	r0, 40 <search_stop_check.constprop.0+0x40>
+  3a:	1bdb      	subs	r3, r3, r7
+  3c:	4258      	negs	r0, r3
+  3e:	4158      	adcs	r0, r3
+  40:	b002      	add	sp, #8
+  42:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+  46:	680f      	ldr	r7, [r1, #0]
+  48:	b133      	cbz	r3, 58 <search_stop_check.constprop.0+0x58>
+  4a:	462b      	mov	r3, r5
+  4c:	4621      	mov	r1, r4
+  4e:	9201      	str	r2, [sp, #4]
+  50:	9200      	str	r2, [sp, #0]
+  52:	f7ff fffe 	bl	0 <search_stop_check.constprop.0>
+  56:	e7e6      	b.n	26 <search_stop_check.constprop.0+0x26>
+  58:	4a0e      	ldr	r2, [pc, #56]	; (94 <search_stop_check.constprop.0+0x94>)
+  5a:	4631      	mov	r1, r6
+  5c:	6812      	ldr	r2, [r2, #0]
+  5e:	f892 a035 	ldrb.w	sl, [r2, #53]	; 0x35
+  62:	f892 b036 	ldrb.w	fp, [r2, #54]	; 0x36
+  66:	f892 8033 	ldrb.w	r8, [r2, #51]	; 0x33
+  6a:	461a      	mov	r2, r3
+  6c:	9500      	str	r5, [sp, #0]
+  6e:	f7ff fffe 	bl	0 <search_stop_check.constprop.0>
+  72:	4659      	mov	r1, fp
+  74:	4650      	mov	r0, sl
+  76:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+  7a:	b2c0      	uxtb	r0, r0
+  7c:	fb06 4010 	mls	r0, r6, r0, r4
+  80:	fb08 f800 	mul.w	r8, r8, r0
+  84:	6828      	ldr	r0, [r5, #0]
+  86:	fa20 f008 	lsr.w	r0, r0, r8
+  8a:	6028      	str	r0, [r5, #0]
+  8c:	e7cb      	b.n	26 <search_stop_check.constprop.0+0x26>
+  8e:	bf00      	nop
+	...
+
+Disassembly of section .text.scc_mgr_zero_group:
+
+00000000 <scc_mgr_zero_group>:
+   0:	e92d 45f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, sl, lr}
+   4:	4607      	mov	r7, r0
+   6:	4d39      	ldr	r5, [pc, #228]	; (ec <scc_mgr_zero_group+0xec>)
+   8:	460c      	mov	r4, r1
+   a:	f04f 0800 	mov.w	r8, #0
+   e:	682b      	ldr	r3, [r5, #0]
+  10:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+  14:	4543      	cmp	r3, r8
+  16:	dc50      	bgt.n	ba <scc_mgr_zero_group+0xba>
+  18:	e8bd 85f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, sl, pc}
+  1c:	4619      	mov	r1, r3
+  1e:	2200      	movs	r2, #0
+  20:	f44f 60e0 	mov.w	r0, #1792	; 0x700
+  24:	f7ff fffe 	bl	0 <scc_mgr_zero_group>
+  28:	b924      	cbnz	r4, 34 <scc_mgr_zero_group+0x34>
+  2a:	4619      	mov	r1, r3
+  2c:	f44f 6010 	mov.w	r0, #2304	; 0x900
+  30:	f7ff fffe 	bl	0 <scc_mgr_zero_group>
+  34:	3301      	adds	r3, #1
+  36:	682a      	ldr	r2, [r5, #0]
+  38:	f892 2034 	ldrb.w	r2, [r2, #52]	; 0x34
+  3c:	429a      	cmp	r2, r3
+  3e:	dced      	bgt.n	1c <scc_mgr_zero_group+0x1c>
+  40:	f3bf 8f5f 	dmb	sy
+  44:	4b2a      	ldr	r3, [pc, #168]	; (f0 <scc_mgr_zero_group+0xf0>)
+  46:	22ff      	movs	r2, #255	; 0xff
+  48:	2600      	movs	r6, #0
+  4a:	f8c3 2e08 	str.w	r2, [r3, #3592]	; 0xe08
+  4e:	f8d5 a000 	ldr.w	sl, [r5]
+  52:	f89a 1036 	ldrb.w	r1, [sl, #54]	; 0x36
+  56:	f89a 0031 	ldrb.w	r0, [sl, #49]	; 0x31
+  5a:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+  5e:	b2c0      	uxtb	r0, r0
+  60:	42b0      	cmp	r0, r6
+  62:	dc2c      	bgt.n	be <scc_mgr_zero_group+0xbe>
+  64:	f3bf 8f5f 	dmb	sy
+  68:	4b21      	ldr	r3, [pc, #132]	; (f0 <scc_mgr_zero_group+0xf0>)
+  6a:	22ff      	movs	r2, #255	; 0xff
+  6c:	f8c3 2e0c 	str.w	r2, [r3, #3596]	; 0xe0c
+  70:	b93c      	cbnz	r4, 82 <scc_mgr_zero_group+0x82>
+  72:	682b      	ldr	r3, [r5, #0]
+  74:	4622      	mov	r2, r4
+  76:	f44f 6010 	mov.w	r0, #2304	; 0x900
+  7a:	f893 1034 	ldrb.w	r1, [r3, #52]	; 0x34
+  7e:	f7ff fffe 	bl	0 <scc_mgr_zero_group>
+  82:	4e1c      	ldr	r6, [pc, #112]	; (f4 <scc_mgr_zero_group+0xf4>)
+  84:	6833      	ldr	r3, [r6, #0]
+  86:	7ad8      	ldrb	r0, [r3, #11]
+  88:	f7ff fffe 	bl	0 <scc_mgr_zero_group>
+  8c:	6833      	ldr	r3, [r6, #0]
+  8e:	4638      	mov	r0, r7
+  90:	7ad9      	ldrb	r1, [r3, #11]
+  92:	f7ff fffe 	bl	0 <scc_mgr_zero_group>
+  96:	4638      	mov	r0, r7
+  98:	f7ff fffe 	bl	0 <scc_mgr_zero_group>
+  9c:	f3bf 8f5f 	dmb	sy
+  a0:	4b13      	ldr	r3, [pc, #76]	; (f0 <scc_mgr_zero_group+0xf0>)
+  a2:	2200      	movs	r2, #0
+  a4:	f8c3 2e04 	str.w	r2, [r3, #3588]	; 0xe04
+  a8:	f3bf 8f5f 	dmb	sy
+  ac:	f8c3 2e20 	str.w	r2, [r3, #3616]	; 0xe20
+  b0:	682b      	ldr	r3, [r5, #0]
+  b2:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+  b6:	4498      	add	r8, r3
+  b8:	e7a9      	b.n	e <scc_mgr_zero_group+0xe>
+  ba:	2300      	movs	r3, #0
+  bc:	e7bb      	b.n	36 <scc_mgr_zero_group+0x36>
+  be:	b944      	cbnz	r4, d2 <scc_mgr_zero_group+0xd2>
+  c0:	f89a 1034 	ldrb.w	r1, [sl, #52]	; 0x34
+  c4:	4622      	mov	r2, r4
+  c6:	f44f 6010 	mov.w	r0, #2304	; 0x900
+  ca:	3101      	adds	r1, #1
+  cc:	4431      	add	r1, r6
+  ce:	f7ff fffe 	bl	0 <scc_mgr_zero_group>
+  d2:	682b      	ldr	r3, [r5, #0]
+  d4:	2200      	movs	r2, #0
+  d6:	f44f 60e0 	mov.w	r0, #1792	; 0x700
+  da:	f893 1034 	ldrb.w	r1, [r3, #52]	; 0x34
+  de:	3101      	adds	r1, #1
+  e0:	4431      	add	r1, r6
+  e2:	3601      	adds	r6, #1
+  e4:	f7ff fffe 	bl	0 <scc_mgr_zero_group>
+  e8:	e7b1      	b.n	4e <scc_mgr_zero_group+0x4e>
+  ea:	bf00      	nop
+  ec:	00000000 	.word	0x00000000
+  f0:	ffc20000 	.word	0xffc20000
+  f4:	00000000 	.word	0x00000000
+
+Disassembly of section .text.rw_mgr_mem_calibrate_read_test_all_ranks.isra.0:
+
+00000000 <rw_mgr_mem_calibrate_read_test_all_ranks.isra.0>:
+   0:	b51f      	push	{r0, r1, r2, r3, r4, lr}
+   2:	2301      	movs	r3, #1
+   4:	e9cd 2300 	strd	r2, r3, [sp]
+   8:	460a      	mov	r2, r1
+   a:	ab03      	add	r3, sp, #12
+   c:	4601      	mov	r1, r0
+   e:	2000      	movs	r0, #0
+  10:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_read_test_all_ranks.isra.0>
+  14:	b005      	add	sp, #20
+  16:	f85d fb04 	ldr.w	pc, [sp], #4
+
+Disassembly of section .text.sdr_find_phase_delay:
+
+00000000 <sdr_find_phase_delay>:
+   0:	e92d 49f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, fp, lr}
+   4:	461e      	mov	r6, r3
+   6:	4b18      	ldr	r3, [pc, #96]	; (68 <sdr_find_phase_delay+0x68>)
+   8:	9f09      	ldr	r7, [sp, #36]	; 0x24
+   a:	4604      	mov	r4, r0
+   c:	4615      	mov	r5, r2
+   e:	4688      	mov	r8, r1
+  10:	681b      	ldr	r3, [r3, #0]
+  12:	b139      	cbz	r1, 24 <sdr_find_phase_delay+0x24>
+  14:	f893 b006 	ldrb.w	fp, [r3, #6]
+  18:	6839      	ldr	r1, [r7, #0]
+  1a:	4559      	cmp	r1, fp
+  1c:	d905      	bls.n	2a <sdr_find_phase_delay+0x2a>
+  1e:	f06f 0415 	mvn.w	r4, #21
+  22:	e00f      	b.n	44 <sdr_find_phase_delay+0x44>
+  24:	f893 b008 	ldrb.w	fp, [r3, #8]
+  28:	e7f6      	b.n	18 <sdr_find_phase_delay+0x18>
+  2a:	4628      	mov	r0, r5
+  2c:	f1b8 0f00 	cmp.w	r8, #0
+  30:	d00b      	beq.n	4a <sdr_find_phase_delay+0x4a>
+  32:	f7ff fffe 	bl	0 <sdr_find_phase_delay>
+  36:	2200      	movs	r2, #0
+  38:	4628      	mov	r0, r5
+  3a:	4611      	mov	r1, r2
+  3c:	f7ff fffe 	bl	0 <sdr_find_phase_delay>
+  40:	b934      	cbnz	r4, 50 <sdr_find_phase_delay+0x50>
+  42:	b930      	cbnz	r0, 52 <sdr_find_phase_delay+0x52>
+  44:	4620      	mov	r0, r4
+  46:	e8bd 89f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, fp, pc}
+  4a:	f7ff fffe 	bl	0 <sdr_find_phase_delay>
+  4e:	e7f2      	b.n	36 <sdr_find_phase_delay+0x36>
+  50:	b940      	cbnz	r0, 64 <sdr_find_phase_delay+0x64>
+  52:	b11e      	cbz	r6, 5c <sdr_find_phase_delay+0x5c>
+  54:	6833      	ldr	r3, [r6, #0]
+  56:	9a08      	ldr	r2, [sp, #32]
+  58:	4413      	add	r3, r2
+  5a:	6033      	str	r3, [r6, #0]
+  5c:	683b      	ldr	r3, [r7, #0]
+  5e:	3301      	adds	r3, #1
+  60:	603b      	str	r3, [r7, #0]
+  62:	e7d9      	b.n	18 <sdr_find_phase_delay+0x18>
+  64:	2400      	movs	r4, #0
+  66:	e7ed      	b.n	44 <sdr_find_phase_delay+0x44>
+  68:	00000000 	.word	0x00000000
+
+Disassembly of section .text.scc_mgr_apply_group_dqs_io_and_oct_out1:
+
+00000000 <scc_mgr_apply_group_dqs_io_and_oct_out1>:
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4604      	mov	r4, r0
+   4:	4608      	mov	r0, r1
+   6:	460d      	mov	r5, r1
+   8:	f7ff fffe 	bl	0 <scc_mgr_apply_group_dqs_io_and_oct_out1>
+   c:	f3bf 8f5f 	dmb	sy
+  10:	4b06      	ldr	r3, [pc, #24]	; (2c <scc_mgr_apply_group_dqs_io_and_oct_out1+0x2c>)
+  12:	4620      	mov	r0, r4
+  14:	4629      	mov	r1, r5
+  16:	2200      	movs	r2, #0
+  18:	f8c3 2e04 	str.w	r2, [r3, #3588]	; 0xe04
+  1c:	f7ff fffe 	bl	0 <scc_mgr_apply_group_dqs_io_and_oct_out1>
+  20:	4620      	mov	r0, r4
+  22:	e8bd 4038 	ldmia.w	sp!, {r3, r4, r5, lr}
+  26:	f7ff bffe 	b.w	0 <scc_mgr_apply_group_dqs_io_and_oct_out1>
+  2a:	bf00      	nop
+  2c:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.sdr_find_phase:
+
+00000000 <sdr_find_phase>:
+   0:	e92d 4df3 	stmdb	sp!, {r0, r1, r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	461d      	mov	r5, r3
+   6:	4b1a      	ldr	r3, [pc, #104]	; (70 <sdr_find_phase+0x70>)
+   8:	4690      	mov	r8, r2
+   a:	9f0a      	ldr	r7, [sp, #40]	; 0x28
+   c:	f8df a064 	ldr.w	sl, [pc, #100]	; 74 <sdr_find_phase+0x74>
+  10:	4604      	mov	r4, r0
+  12:	460e      	mov	r6, r1
+  14:	681b      	ldr	r3, [r3, #0]
+  16:	7a5a      	ldrb	r2, [r3, #9]
+  18:	f080 0301 	eor.w	r3, r0, #1
+  1c:	eb02 0b03 	add.w	fp, r2, r3
+  20:	682b      	ldr	r3, [r5, #0]
+  22:	455b      	cmp	r3, fp
+  24:	d304      	bcc.n	30 <sdr_find_phase+0x30>
+  26:	f06f 0015 	mvn.w	r0, #21
+  2a:	b002      	add	sp, #8
+  2c:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+  30:	b10c      	cbz	r4, 36 <sdr_find_phase+0x36>
+  32:	2300      	movs	r3, #0
+  34:	603b      	str	r3, [r7, #0]
+  36:	f8da 3000 	ldr.w	r3, [sl]
+  3a:	4632      	mov	r2, r6
+  3c:	9701      	str	r7, [sp, #4]
+  3e:	4620      	mov	r0, r4
+  40:	2100      	movs	r1, #0
+  42:	881b      	ldrh	r3, [r3, #0]
+  44:	9300      	str	r3, [sp, #0]
+  46:	4643      	mov	r3, r8
+  48:	f7ff fffe 	bl	0 <sdr_find_phase>
+  4c:	2800      	cmp	r0, #0
+  4e:	d0ec      	beq.n	2a <sdr_find_phase+0x2a>
+  50:	f8da 3000 	ldr.w	r3, [sl]
+  54:	683a      	ldr	r2, [r7, #0]
+  56:	7a1b      	ldrb	r3, [r3, #8]
+  58:	429a      	cmp	r2, r3
+  5a:	d905      	bls.n	68 <sdr_find_phase+0x68>
+  5c:	f3bf 8f5f 	dmb	sy
+  60:	4b05      	ldr	r3, [pc, #20]	; (78 <sdr_find_phase+0x78>)
+  62:	605e      	str	r6, [r3, #4]
+  64:	b904      	cbnz	r4, 68 <sdr_find_phase+0x68>
+  66:	603c      	str	r4, [r7, #0]
+  68:	682b      	ldr	r3, [r5, #0]
+  6a:	3301      	adds	r3, #1
+  6c:	602b      	str	r3, [r5, #0]
+  6e:	e7d7      	b.n	20 <sdr_find_phase+0x20>
+	...
+  78:	ffc21000 	.word	0xffc21000
+
+Disassembly of section .text.scc_mgr_apply_group_dm_out1_delay:
+
+00000000 <scc_mgr_apply_group_dm_out1_delay>:
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	4606      	mov	r6, r0
+   6:	4f0f      	ldr	r7, [pc, #60]	; (44 <scc_mgr_apply_group_dm_out1_delay+0x44>)
+   8:	f8df 803c 	ldr.w	r8, [pc, #60]	; 48 <scc_mgr_apply_group_dm_out1_delay+0x48>
+   c:	2400      	movs	r4, #0
+   e:	683d      	ldr	r5, [r7, #0]
+  10:	f895 1036 	ldrb.w	r1, [r5, #54]	; 0x36
+  14:	f895 0031 	ldrb.w	r0, [r5, #49]	; 0x31
+  18:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+  1c:	b2c3      	uxtb	r3, r0
+  1e:	42a3      	cmp	r3, r4
+  20:	d801      	bhi.n	26 <scc_mgr_apply_group_dm_out1_delay+0x26>
+  22:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+  26:	f895 1034 	ldrb.w	r1, [r5, #52]	; 0x34
+  2a:	4632      	mov	r2, r6
+  2c:	f44f 60e0 	mov.w	r0, #1792	; 0x700
+  30:	3101      	adds	r1, #1
+  32:	4421      	add	r1, r4
+  34:	f7ff fffe 	bl	0 <scc_mgr_apply_group_dm_out1_delay>
+  38:	f3bf 8f5f 	dmb	sy
+  3c:	f8c8 4e0c 	str.w	r4, [r8, #3596]	; 0xe0c
+  40:	3401      	adds	r4, #1
+  42:	e7e4      	b.n	e <scc_mgr_apply_group_dm_out1_delay+0xe>
+  44:	00000000 	.word	0x00000000
+  48:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.search_window:
+
+00000000 <search_window>:
+   0:	e92d 4df0 	stmdb	sp!, {r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	461d      	mov	r5, r3
+   6:	f8df b0c8 	ldr.w	fp, [pc, #200]	; d0 <search_window+0xd0>
+   a:	b086      	sub	sp, #24
+   c:	4690      	mov	r8, r2
+   e:	2700      	movs	r7, #0
+  10:	f8db 3000 	ldr.w	r3, [fp]
+  14:	f8dd a038 	ldr.w	sl, [sp, #56]	; 0x38
+  18:	9002      	str	r0, [sp, #8]
+  1a:	7b5c      	ldrb	r4, [r3, #13]
+  1c:	9b12      	ldr	r3, [sp, #72]	; 0x48
+  1e:	9103      	str	r1, [sp, #12]
+  20:	1ae4      	subs	r4, r4, r3
+  22:	2c00      	cmp	r4, #0
+  24:	db50      	blt.n	c8 <search_window+0xc8>
+  26:	9b02      	ldr	r3, [sp, #8]
+  28:	2b00      	cmp	r3, #0
+  2a:	d034      	beq.n	96 <search_window+0x96>
+  2c:	4626      	mov	r6, r4
+  2e:	4620      	mov	r0, r4
+  30:	f7ff fffe 	bl	0 <search_window>
+  34:	f3bf 8f5f 	dmb	sy
+  38:	4a26      	ldr	r2, [pc, #152]	; (d4 <search_window+0xd4>)
+  3a:	2300      	movs	r3, #0
+  3c:	9803      	ldr	r0, [sp, #12]
+  3e:	4641      	mov	r1, r8
+  40:	f8c2 3e20 	str.w	r3, [r2, #3616]	; 0xe20
+  44:	ab05      	add	r3, sp, #20
+  46:	9300      	str	r3, [sp, #0]
+  48:	2301      	movs	r3, #1
+  4a:	461a      	mov	r2, r3
+  4c:	f7ff fffe 	bl	0 <search_window>
+  50:	b340      	cbz	r0, a4 <search_window+0xa4>
+  52:	9b02      	ldr	r3, [sp, #8]
+  54:	b103      	cbz	r3, 58 <search_window+0x58>
+  56:	4276      	negs	r6, r6
+  58:	f8db 3000 	ldr.w	r3, [fp]
+  5c:	f8ca 6000 	str.w	r6, [sl]
+  60:	7b5b      	ldrb	r3, [r3, #13]
+  62:	682a      	ldr	r2, [r5, #0]
+  64:	3301      	adds	r3, #1
+  66:	429a      	cmp	r2, r3
+  68:	bf08      	it	eq
+  6a:	602e      	streq	r6, [r5, #0]
+  6c:	682a      	ldr	r2, [r5, #0]
+  6e:	f8da 3000 	ldr.w	r3, [sl]
+  72:	1a9b      	subs	r3, r3, r2
+  74:	9a11      	ldr	r2, [sp, #68]	; 0x44
+  76:	6812      	ldr	r2, [r2, #0]
+  78:	4293      	cmp	r3, r2
+  7a:	db09      	blt.n	90 <search_window+0x90>
+  7c:	9a11      	ldr	r2, [sp, #68]	; 0x44
+  7e:	3301      	adds	r3, #1
+  80:	6013      	str	r3, [r2, #0]
+  82:	9a0f      	ldr	r2, [sp, #60]	; 0x3c
+  84:	682b      	ldr	r3, [r5, #0]
+  86:	6013      	str	r3, [r2, #0]
+  88:	9a10      	ldr	r2, [sp, #64]	; 0x40
+  8a:	f8da 3000 	ldr.w	r3, [sl]
+  8e:	6013      	str	r3, [r2, #0]
+  90:	3c01      	subs	r4, #1
+  92:	3701      	adds	r7, #1
+  94:	e7c5      	b.n	22 <search_window+0x22>
+  96:	9b12      	ldr	r3, [sp, #72]	; 0x48
+  98:	4640      	mov	r0, r8
+  9a:	463e      	mov	r6, r7
+  9c:	19d9      	adds	r1, r3, r7
+  9e:	f7ff fffe 	bl	0 <search_window>
+  a2:	e7c7      	b.n	34 <search_window+0x34>
+  a4:	f8db 3000 	ldr.w	r3, [fp]
+  a8:	7b5b      	ldrb	r3, [r3, #13]
+  aa:	1c5a      	adds	r2, r3, #1
+  ac:	602a      	str	r2, [r5, #0]
+  ae:	f8ca 2000 	str.w	r2, [sl]
+  b2:	9a02      	ldr	r2, [sp, #8]
+  b4:	2a00      	cmp	r2, #0
+  b6:	d1eb      	bne.n	90 <search_window+0x90>
+  b8:	9a11      	ldr	r2, [sp, #68]	; 0x44
+  ba:	9912      	ldr	r1, [sp, #72]	; 0x48
+  bc:	6812      	ldr	r2, [r2, #0]
+  be:	1a5b      	subs	r3, r3, r1
+  c0:	1b9e      	subs	r6, r3, r6
+  c2:	3a01      	subs	r2, #1
+  c4:	42b2      	cmp	r2, r6
+  c6:	dde3      	ble.n	90 <search_window+0x90>
+  c8:	b006      	add	sp, #24
+  ca:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+  ce:	bf00      	nop
+  d0:	00000000 	.word	0x00000000
+  d4:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.scc_mgr_apply_group_dq_out1_delay:
+
+00000000 <scc_mgr_apply_group_dq_out1_delay>:
+   0:	b538      	push	{r3, r4, r5, lr}
+   2:	4602      	mov	r2, r0
+   4:	4c09      	ldr	r4, [pc, #36]	; (2c <scc_mgr_apply_group_dq_out1_delay+0x2c>)
+   6:	4d0a      	ldr	r5, [pc, #40]	; (30 <scc_mgr_apply_group_dq_out1_delay+0x30>)
+   8:	2300      	movs	r3, #0
+   a:	6821      	ldr	r1, [r4, #0]
+   c:	f891 1034 	ldrb.w	r1, [r1, #52]	; 0x34
+  10:	4299      	cmp	r1, r3
+  12:	dc00      	bgt.n	16 <scc_mgr_apply_group_dq_out1_delay+0x16>
+  14:	bd38      	pop	{r3, r4, r5, pc}
+  16:	4619      	mov	r1, r3
+  18:	f44f 60e0 	mov.w	r0, #1792	; 0x700
+  1c:	f7ff fffe 	bl	0 <scc_mgr_apply_group_dq_out1_delay>
+  20:	f3bf 8f5f 	dmb	sy
+  24:	f8c5 3e08 	str.w	r3, [r5, #3592]	; 0xe08
+  28:	3301      	adds	r3, #1
+  2a:	e7ee      	b.n	a <scc_mgr_apply_group_dq_out1_delay+0xa>
+  2c:	00000000 	.word	0x00000000
+  30:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.center_dq_windows:
+
+00000000 <center_dq_windows>:
+   0:	e92d 4df0 	stmdb	sp!, {r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	4d3b      	ldr	r5, [pc, #236]	; (f4 <center_dq_windows+0xf4>)
+   6:	b086      	sub	sp, #24
+   8:	682e      	ldr	r6, [r5, #0]
+   a:	4d3b      	ldr	r5, [pc, #236]	; (f8 <center_dq_windows+0xf8>)
+   c:	9c0f      	ldr	r4, [sp, #60]	; 0x3c
+   e:	9001      	str	r0, [sp, #4]
+  10:	682d      	ldr	r5, [r5, #0]
+  12:	b308      	cbz	r0, 58 <center_dq_windows+0x58>
+  14:	f896 800d 	ldrb.w	r8, [r6, #13]
+  18:	f44f 60e0 	mov.w	r0, #1792	; 0x700
+  1c:	f895 a034 	ldrb.w	sl, [r5, #52]	; 0x34
+  20:	9d12      	ldr	r5, [sp, #72]	; 0x48
+  22:	f040 407f 	orr.w	r0, r0, #4278190080	; 0xff000000
+  26:	f440 0042 	orr.w	r0, r0, #12713984	; 0xc20000
+  2a:	9002      	str	r0, [sp, #8]
+  2c:	f108 0001 	add.w	r0, r8, #1
+  30:	1f16      	subs	r6, r2, #4
+  32:	6028      	str	r0, [r5, #0]
+  34:	2700      	movs	r7, #0
+  36:	9d11      	ldr	r5, [sp, #68]	; 0x44
+  38:	6028      	str	r0, [r5, #0]
+  3a:	eb01 0084 	add.w	r0, r1, r4, lsl #2
+  3e:	9003      	str	r0, [sp, #12]
+  40:	eb02 0084 	add.w	r0, r2, r4, lsl #2
+  44:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+  46:	1f0d      	subs	r5, r1, #4
+  48:	9004      	str	r0, [sp, #16]
+  4a:	1ad2      	subs	r2, r2, r3
+  4c:	9205      	str	r2, [sp, #20]
+  4e:	4557      	cmp	r7, sl
+  50:	d109      	bne.n	66 <center_dq_windows+0x66>
+  52:	b006      	add	sp, #24
+  54:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+  58:	f896 800c 	ldrb.w	r8, [r6, #12]
+  5c:	f44f 6010 	mov.w	r0, #2304	; 0x900
+  60:	f895 a033 	ldrb.w	sl, [r5, #51]	; 0x33
+  64:	e7dc      	b.n	20 <center_dq_windows+0x20>
+  66:	6872      	ldr	r2, [r6, #4]
+  68:	686c      	ldr	r4, [r5, #4]
+  6a:	9904      	ldr	r1, [sp, #16]
+  6c:	1aa4      	subs	r4, r4, r2
+  6e:	9a03      	ldr	r2, [sp, #12]
+  70:	6809      	ldr	r1, [r1, #0]
+  72:	6812      	ldr	r2, [r2, #0]
+  74:	1a52      	subs	r2, r2, r1
+  76:	1aa4      	subs	r4, r4, r2
+  78:	9a05      	ldr	r2, [sp, #20]
+  7a:	eb04 74d4 	add.w	r4, r4, r4, lsr #31
+  7e:	eb02 0464 	add.w	r4, r2, r4, asr #1
+  82:	9a02      	ldr	r2, [sp, #8]
+  84:	f852 2027 	ldr.w	r2, [r2, r7, lsl #2]
+  88:	f3bf 8f5f 	dmb	sy
+  8c:	18a1      	adds	r1, r4, r2
+  8e:	4541      	cmp	r1, r8
+  90:	dd27      	ble.n	e2 <center_dq_windows+0xe2>
+  92:	eba8 0402 	sub.w	r4, r8, r2
+  96:	9910      	ldr	r1, [sp, #64]	; 0x40
+  98:	4422      	add	r2, r4
+  9a:	eb01 0b07 	add.w	fp, r1, r7
+  9e:	9901      	ldr	r1, [sp, #4]
+  a0:	b319      	cbz	r1, ea <center_dq_windows+0xea>
+  a2:	4639      	mov	r1, r7
+  a4:	f44f 60e0 	mov.w	r0, #1792	; 0x700
+  a8:	f7ff fffe 	bl	0 <center_dq_windows>
+  ac:	f3bf 8f5f 	dmb	sy
+  b0:	4a12      	ldr	r2, [pc, #72]	; (fc <center_dq_windows+0xfc>)
+  b2:	3701      	adds	r7, #1
+  b4:	9911      	ldr	r1, [sp, #68]	; 0x44
+  b6:	f8c2 be08 	str.w	fp, [r2, #3592]	; 0xe08
+  ba:	f855 2f04 	ldr.w	r2, [r5, #4]!
+  be:	6809      	ldr	r1, [r1, #0]
+  c0:	1b12      	subs	r2, r2, r4
+  c2:	1ad2      	subs	r2, r2, r3
+  c4:	428a      	cmp	r2, r1
+  c6:	bfbc      	itt	lt
+  c8:	9911      	ldrlt	r1, [sp, #68]	; 0x44
+  ca:	600a      	strlt	r2, [r1, #0]
+  cc:	f856 2f04 	ldr.w	r2, [r6, #4]!
+  d0:	4414      	add	r4, r2
+  d2:	9a12      	ldr	r2, [sp, #72]	; 0x48
+  d4:	441c      	add	r4, r3
+  d6:	6812      	ldr	r2, [r2, #0]
+  d8:	4294      	cmp	r4, r2
+  da:	bfbc      	itt	lt
+  dc:	9a12      	ldrlt	r2, [sp, #72]	; 0x48
+  de:	6014      	strlt	r4, [r2, #0]
+  e0:	e7b5      	b.n	4e <center_dq_windows+0x4e>
+  e2:	2900      	cmp	r1, #0
+  e4:	bfb8      	it	lt
+  e6:	4254      	neglt	r4, r2
+  e8:	e7d5      	b.n	96 <center_dq_windows+0x96>
+  ea:	4659      	mov	r1, fp
+  ec:	f44f 6010 	mov.w	r0, #2304	; 0x900
+  f0:	e7da      	b.n	a8 <center_dq_windows+0xa8>
+  f2:	bf00      	nop
+	...
+  fc:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.scc_mgr_apply_group_dq_in_delay:
+
+00000000 <scc_mgr_apply_group_dq_in_delay>:
+   0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   2:	460a      	mov	r2, r1
+   4:	4e0a      	ldr	r6, [pc, #40]	; (30 <scc_mgr_apply_group_dq_in_delay+0x30>)
+   6:	4f0b      	ldr	r7, [pc, #44]	; (34 <scc_mgr_apply_group_dq_in_delay+0x34>)
+   8:	4604      	mov	r4, r0
+   a:	2300      	movs	r3, #0
+   c:	6831      	ldr	r1, [r6, #0]
+   e:	191d      	adds	r5, r3, r4
+  10:	f891 1033 	ldrb.w	r1, [r1, #51]	; 0x33
+  14:	4299      	cmp	r1, r3
+  16:	d800      	bhi.n	1a <scc_mgr_apply_group_dq_in_delay+0x1a>
+  18:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+  1a:	4629      	mov	r1, r5
+  1c:	f44f 6010 	mov.w	r0, #2304	; 0x900
+  20:	f7ff fffe 	bl	0 <scc_mgr_apply_group_dq_in_delay>
+  24:	f3bf 8f5f 	dmb	sy
+  28:	3301      	adds	r3, #1
+  2a:	f8c7 5e08 	str.w	r5, [r7, #3592]	; 0xe08
+  2e:	e7ed      	b.n	c <scc_mgr_apply_group_dq_in_delay+0xc>
+  30:	00000000 	.word	0x00000000
+  34:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.search_left_edge.constprop.0:
+
+00000000 <search_left_edge.constprop.0>:
+   0:	e92d 4df0 	stmdb	sp!, {r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	4606      	mov	r6, r0
+   6:	b08a      	sub	sp, #40	; 0x28
+   8:	9206      	str	r2, [sp, #24]
+   a:	9307      	str	r3, [sp, #28]
+   c:	4a43      	ldr	r2, [pc, #268]	; (11c <search_left_edge.constprop.0+0x11c>)
+   e:	4b44      	ldr	r3, [pc, #272]	; (120 <search_left_edge.constprop.0+0x120>)
+  10:	f8dd 804c 	ldr.w	r8, [sp, #76]	; 0x4c
+  14:	f8dd a050 	ldr.w	sl, [sp, #80]	; 0x50
+  18:	6812      	ldr	r2, [r2, #0]
+  1a:	681b      	ldr	r3, [r3, #0]
+  1c:	9105      	str	r1, [sp, #20]
+  1e:	b318      	cbz	r0, 68 <search_left_edge.constprop.0+0x68>
+  20:	7b5c      	ldrb	r4, [r3, #13]
+  22:	f892 5034 	ldrb.w	r5, [r2, #52]	; 0x34
+  26:	46a3      	mov	fp, r4
+  28:	2700      	movs	r7, #0
+  2a:	455f      	cmp	r7, fp
+  2c:	d816      	bhi.n	5c <search_left_edge.constprop.0+0x5c>
+  2e:	b30e      	cbz	r6, 74 <search_left_edge.constprop.0+0x74>
+  30:	4638      	mov	r0, r7
+  32:	f7ff fffe 	bl	0 <search_left_edge.constprop.0>
+  36:	f3bf 8f5f 	dmb	sy
+  3a:	4b3a      	ldr	r3, [pc, #232]	; (124 <search_left_edge.constprop.0+0x124>)
+  3c:	2200      	movs	r2, #0
+  3e:	a905      	add	r1, sp, #20
+  40:	4630      	mov	r0, r6
+  42:	f8c3 2e20 	str.w	r2, [r3, #3616]	; 0xe20
+  46:	9b16      	ldr	r3, [sp, #88]	; 0x58
+  48:	9302      	str	r3, [sp, #8]
+  4a:	ab09      	add	r3, sp, #36	; 0x24
+  4c:	f8cd 8004 	str.w	r8, [sp, #4]
+  50:	9300      	str	r3, [sp, #0]
+  52:	c90e      	ldmia	r1, {r1, r2, r3}
+  54:	f7ff fffe 	bl	0 <search_left_edge.constprop.0>
+  58:	2801      	cmp	r0, #1
+  5a:	d110      	bne.n	7e <search_left_edge.constprop.0+0x7e>
+  5c:	bb5e      	cbnz	r6, b6 <search_left_edge.constprop.0+0xb6>
+  5e:	9812      	ldr	r0, [sp, #72]	; 0x48
+  60:	4631      	mov	r1, r6
+  62:	f7ff fffe 	bl	0 <search_left_edge.constprop.0>
+  66:	e029      	b.n	bc <search_left_edge.constprop.0+0xbc>
+  68:	7b1c      	ldrb	r4, [r3, #12]
+  6a:	f893 b009 	ldrb.w	fp, [r3, #9]
+  6e:	f892 5033 	ldrb.w	r5, [r2, #51]	; 0x33
+  72:	e7d9      	b.n	28 <search_left_edge.constprop.0+0x28>
+  74:	9812      	ldr	r0, [sp, #72]	; 0x48
+  76:	4639      	mov	r1, r7
+  78:	f7ff fffe 	bl	0 <search_left_edge.constprop.0>
+  7c:	e7db      	b.n	36 <search_left_edge.constprop.0+0x36>
+  7e:	9a09      	ldr	r2, [sp, #36]	; 0x24
+  80:	2100      	movs	r1, #0
+  82:	1c60      	adds	r0, r4, #1
+  84:	460b      	mov	r3, r1
+  86:	ea6f 0c07 	mvn.w	ip, r7
+  8a:	42ab      	cmp	r3, r5
+  8c:	d103      	bne.n	96 <search_left_edge.constprop.0+0x96>
+  8e:	b101      	cbz	r1, 92 <search_left_edge.constprop.0+0x92>
+  90:	9209      	str	r2, [sp, #36]	; 0x24
+  92:	3701      	adds	r7, #1
+  94:	e7c9      	b.n	2a <search_left_edge.constprop.0+0x2a>
+  96:	07d1      	lsls	r1, r2, #31
+  98:	d505      	bpl.n	a6 <search_left_edge.constprop.0+0xa6>
+  9a:	f84a 7023 	str.w	r7, [sl, r3, lsl #2]
+  9e:	0852      	lsrs	r2, r2, #1
+  a0:	3301      	adds	r3, #1
+  a2:	2101      	movs	r1, #1
+  a4:	e7f1      	b.n	8a <search_left_edge.constprop.0+0x8a>
+  a6:	f85a 1023 	ldr.w	r1, [sl, r3, lsl #2]
+  aa:	4281      	cmp	r1, r0
+  ac:	bf04      	itt	eq
+  ae:	9915      	ldreq	r1, [sp, #84]	; 0x54
+  b0:	f841 c023 	streq.w	ip, [r1, r3, lsl #2]
+  b4:	e7f3      	b.n	9e <search_left_edge.constprop.0+0x9e>
+  b6:	2000      	movs	r0, #0
+  b8:	f7ff fffe 	bl	0 <search_left_edge.constprop.0>
+  bc:	2300      	movs	r3, #0
+  be:	f8c8 3000 	str.w	r3, [r8]
+  c2:	9b15      	ldr	r3, [sp, #84]	; 0x54
+  c4:	3401      	adds	r4, #1
+  c6:	eb03 0285 	add.w	r2, r3, r5, lsl #2
+  ca:	eb0a 0585 	add.w	r5, sl, r5, lsl #2
+  ce:	9b15      	ldr	r3, [sp, #84]	; 0x54
+  d0:	4293      	cmp	r3, r2
+  d2:	d102      	bne.n	da <search_left_edge.constprop.0+0xda>
+  d4:	b00a      	add	sp, #40	; 0x28
+  d6:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+  da:	f855 3c04 	ldr.w	r3, [r5, #-4]
+  de:	42a3      	cmp	r3, r4
+  e0:	d105      	bne.n	ee <search_left_edge.constprop.0+0xee>
+  e2:	f852 3c04 	ldr.w	r3, [r2, #-4]
+  e6:	429c      	cmp	r4, r3
+  e8:	bf18      	it	ne
+  ea:	f842 4c04 	strne.w	r4, [r2, #-4]
+  ee:	f8d8 3000 	ldr.w	r3, [r8]
+  f2:	005b      	lsls	r3, r3, #1
+  f4:	f8c8 3000 	str.w	r3, [r8]
+  f8:	f855 1c04 	ldr.w	r1, [r5, #-4]
+  fc:	b146      	cbz	r6, 110 <search_left_edge.constprop.0+0x110>
+  fe:	428c      	cmp	r4, r1
+ 100:	bf1c      	itt	ne
+ 102:	f043 0301 	orrne.w	r3, r3, #1
+ 106:	f8c8 3000 	strne.w	r3, [r8]
+ 10a:	3a04      	subs	r2, #4
+ 10c:	3d04      	subs	r5, #4
+ 10e:	e7de      	b.n	ce <search_left_edge.constprop.0+0xce>
+ 110:	428c      	cmp	r4, r1
+ 112:	d0fa      	beq.n	10a <search_left_edge.constprop.0+0x10a>
+ 114:	f852 1c04 	ldr.w	r1, [r2, #-4]
+ 118:	e7f1      	b.n	fe <search_left_edge.constprop.0+0xfe>
+ 11a:	bf00      	nop
+	...
+ 124:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.search_right_edge:
+
+00000000 <search_right_edge>:
+   0:	e92d 4df0 	stmdb	sp!, {r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	4693      	mov	fp, r2
+   6:	4698      	mov	r8, r3
+   8:	4a57      	ldr	r2, [pc, #348]	; (168 <search_right_edge+0x168>)
+   a:	b08a      	sub	sp, #40	; 0x28
+   c:	4b57      	ldr	r3, [pc, #348]	; (16c <search_right_edge+0x16c>)
+   e:	4607      	mov	r7, r0
+  10:	9d16      	ldr	r5, [sp, #88]	; 0x58
+  12:	6812      	ldr	r2, [r2, #0]
+  14:	681b      	ldr	r3, [r3, #0]
+  16:	9107      	str	r1, [sp, #28]
+  18:	2800      	cmp	r0, #0
+  1a:	d03b      	beq.n	94 <search_right_edge+0x94>
+  1c:	7b5e      	ldrb	r6, [r3, #13]
+  1e:	f892 3034 	ldrb.w	r3, [r2, #52]	; 0x34
+  22:	9304      	str	r3, [sp, #16]
+  24:	9605      	str	r6, [sp, #20]
+  26:	9b04      	ldr	r3, [sp, #16]
+  28:	2400      	movs	r4, #0
+  2a:	eb05 0383 	add.w	r3, r5, r3, lsl #2
+  2e:	9306      	str	r3, [sp, #24]
+  30:	9b12      	ldr	r3, [sp, #72]	; 0x48
+  32:	191a      	adds	r2, r3, r4
+  34:	2f00      	cmp	r7, #0
+  36:	d034      	beq.n	a2 <search_right_edge+0xa2>
+  38:	4611      	mov	r1, r2
+  3a:	4658      	mov	r0, fp
+  3c:	f7ff fffe 	bl	0 <search_right_edge>
+  40:	f3bf 8f5f 	dmb	sy
+  44:	4b4a      	ldr	r3, [pc, #296]	; (170 <search_right_edge+0x170>)
+  46:	f04f 0a00 	mov.w	sl, #0
+  4a:	9907      	ldr	r1, [sp, #28]
+  4c:	465a      	mov	r2, fp
+  4e:	4638      	mov	r0, r7
+  50:	f8c3 ae20 	str.w	sl, [r3, #3616]	; 0xe20
+  54:	9b17      	ldr	r3, [sp, #92]	; 0x5c
+  56:	9302      	str	r3, [sp, #8]
+  58:	9b14      	ldr	r3, [sp, #80]	; 0x50
+  5a:	9301      	str	r3, [sp, #4]
+  5c:	ab09      	add	r3, sp, #36	; 0x24
+  5e:	9300      	str	r3, [sp, #0]
+  60:	4643      	mov	r3, r8
+  62:	f7ff fffe 	bl	0 <search_right_edge>
+  66:	2801      	cmp	r0, #1
+  68:	d035      	beq.n	d6 <search_right_edge+0xd6>
+  6a:	9909      	ldr	r1, [sp, #36]	; 0x24
+  6c:	4650      	mov	r0, sl
+  6e:	9a15      	ldr	r2, [sp, #84]	; 0x54
+  70:	462b      	mov	r3, r5
+  72:	f106 0c01 	add.w	ip, r6, #1
+  76:	ea6f 0a04 	mvn.w	sl, r4
+  7a:	f8dd e018 	ldr.w	lr, [sp, #24]
+  7e:	459e      	cmp	lr, r3
+  80:	d14b      	bne.n	11a <search_right_edge+0x11a>
+  82:	b100      	cbz	r0, 86 <search_right_edge+0x86>
+  84:	9109      	str	r1, [sp, #36]	; 0x24
+  86:	9b05      	ldr	r3, [sp, #20]
+  88:	3401      	adds	r4, #1
+  8a:	9a12      	ldr	r2, [sp, #72]	; 0x48
+  8c:	1a9b      	subs	r3, r3, r2
+  8e:	429c      	cmp	r4, r3
+  90:	d9ce      	bls.n	30 <search_right_edge+0x30>
+  92:	e021      	b.n	d8 <search_right_edge+0xd8>
+  94:	7b1e      	ldrb	r6, [r3, #12]
+  96:	7a5b      	ldrb	r3, [r3, #9]
+  98:	9305      	str	r3, [sp, #20]
+  9a:	f892 3033 	ldrb.w	r3, [r2, #51]	; 0x33
+  9e:	9304      	str	r3, [sp, #16]
+  a0:	e7c1      	b.n	26 <search_right_edge+0x26>
+  a2:	4b32      	ldr	r3, [pc, #200]	; (16c <search_right_edge+0x16c>)
+  a4:	4641      	mov	r1, r8
+  a6:	f44f 7080 	mov.w	r0, #256	; 0x100
+  aa:	f7ff fffe 	bl	0 <search_right_edge>
+  ae:	681b      	ldr	r3, [r3, #0]
+  b0:	7bda      	ldrb	r2, [r3, #15]
+  b2:	b152      	cbz	r2, ca <search_right_edge+0xca>
+  b4:	799a      	ldrb	r2, [r3, #6]
+  b6:	4641      	mov	r1, r8
+  b8:	9b13      	ldr	r3, [sp, #76]	; 0x4c
+  ba:	f44f 7040 	mov.w	r0, #768	; 0x300
+  be:	4423      	add	r3, r4
+  c0:	429a      	cmp	r2, r3
+  c2:	bf28      	it	cs
+  c4:	461a      	movcs	r2, r3
+  c6:	f7ff fffe 	bl	0 <search_right_edge>
+  ca:	f3bf 8f5f 	dmb	sy
+  ce:	4b28      	ldr	r3, [pc, #160]	; (170 <search_right_edge+0x170>)
+  d0:	f8c3 8e00 	str.w	r8, [r3, #3584]	; 0xe00
+  d4:	e7b4      	b.n	40 <search_right_edge+0x40>
+  d6:	b947      	cbnz	r7, ea <search_right_edge+0xea>
+  d8:	9b05      	ldr	r3, [sp, #20]
+  da:	3d04      	subs	r5, #4
+  dc:	2000      	movs	r0, #0
+  de:	3301      	adds	r3, #1
+  e0:	9a04      	ldr	r2, [sp, #16]
+  e2:	4282      	cmp	r2, r0
+  e4:	d132      	bne.n	14c <search_right_edge+0x14c>
+  e6:	2000      	movs	r0, #0
+  e8:	e03a      	b.n	160 <search_right_edge+0x160>
+  ea:	2c00      	cmp	r4, #0
+  ec:	d1f4      	bne.n	d8 <search_right_edge+0xd8>
+  ee:	4b1e      	ldr	r3, [pc, #120]	; (168 <search_right_edge+0x168>)
+  f0:	3601      	adds	r6, #1
+  f2:	f04f 32ff 	mov.w	r2, #4294967295
+  f6:	681b      	ldr	r3, [r3, #0]
+  f8:	f893 3034 	ldrb.w	r3, [r3, #52]	; 0x34
+  fc:	42a3      	cmp	r3, r4
+  fe:	ddeb      	ble.n	d8 <search_right_edge+0xd8>
+ 100:	f855 1024 	ldr.w	r1, [r5, r4, lsl #2]
+ 104:	42b1      	cmp	r1, r6
+ 106:	d106      	bne.n	116 <search_right_edge+0x116>
+ 108:	9915      	ldr	r1, [sp, #84]	; 0x54
+ 10a:	f851 1024 	ldr.w	r1, [r1, r4, lsl #2]
+ 10e:	428e      	cmp	r6, r1
+ 110:	bf18      	it	ne
+ 112:	f845 2024 	strne.w	r2, [r5, r4, lsl #2]
+ 116:	3401      	adds	r4, #1
+ 118:	e7f0      	b.n	fc <search_right_edge+0xfc>
+ 11a:	07c8      	lsls	r0, r1, #31
+ 11c:	d505      	bpl.n	12a <search_right_edge+0x12a>
+ 11e:	601c      	str	r4, [r3, #0]
+ 120:	0849      	lsrs	r1, r1, #1
+ 122:	3304      	adds	r3, #4
+ 124:	3204      	adds	r2, #4
+ 126:	2001      	movs	r0, #1
+ 128:	e7a7      	b.n	7a <search_right_edge+0x7a>
+ 12a:	6818      	ldr	r0, [r3, #0]
+ 12c:	b124      	cbz	r4, 138 <search_right_edge+0x138>
+ 12e:	4584      	cmp	ip, r0
+ 130:	d1f6      	bne.n	120 <search_right_edge+0x120>
+ 132:	f8c2 a000 	str.w	sl, [r2]
+ 136:	e7f3      	b.n	120 <search_right_edge+0x120>
+ 138:	4584      	cmp	ip, r0
+ 13a:	d1f1      	bne.n	120 <search_right_edge+0x120>
+ 13c:	6810      	ldr	r0, [r2, #0]
+ 13e:	4560      	cmp	r0, ip
+ 140:	f04f 30ff 	mov.w	r0, #4294967295
+ 144:	bf14      	ite	ne
+ 146:	6018      	strne	r0, [r3, #0]
+ 148:	6010      	streq	r0, [r2, #0]
+ 14a:	e7e9      	b.n	120 <search_right_edge+0x120>
+ 14c:	9a15      	ldr	r2, [sp, #84]	; 0x54
+ 14e:	f852 2020 	ldr.w	r2, [r2, r0, lsl #2]
+ 152:	3001      	adds	r0, #1
+ 154:	429a      	cmp	r2, r3
+ 156:	d003      	beq.n	160 <search_right_edge+0x160>
+ 158:	f855 2f04 	ldr.w	r2, [r5, #4]!
+ 15c:	4293      	cmp	r3, r2
+ 15e:	d1bf      	bne.n	e0 <search_right_edge+0xe0>
+ 160:	b00a      	add	sp, #40	; 0x28
+ 162:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+ 166:	bf00      	nop
+	...
+ 170:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.rw_mgr_mem_calibrate_dq_dqs_centering.isra.0:
+
+00000000 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>:
+   0:	e92d 4df0 	stmdb	sp!, {r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	0083      	lsls	r3, r0, #2
+   6:	4d97      	ldr	r5, [pc, #604]	; (264 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x264>)
+   8:	b092      	sub	sp, #72	; 0x48
+   a:	af06      	add	r7, sp, #24
+   c:	f5a3 1377 	sub.w	r3, r3, #4046848	; 0x3dc000
+  10:	4604      	mov	r4, r0
+  12:	f5a3 537c 	sub.w	r3, r3, #16128	; 0x3f00
+  16:	6039      	str	r1, [r7, #0]
+  18:	613b      	str	r3, [r7, #16]
+  1a:	2300      	movs	r3, #0
+  1c:	60fa      	str	r2, [r7, #12]
+  1e:	61bb      	str	r3, [r7, #24]
+  20:	2301      	movs	r3, #1
+  22:	60bb      	str	r3, [r7, #8]
+  24:	682b      	ldr	r3, [r5, #0]
+  26:	69b9      	ldr	r1, [r7, #24]
+  28:	f893 2038 	ldrb.w	r2, [r3, #56]	; 0x38
+  2c:	4291      	cmp	r1, r2
+  2e:	d309      	bcc.n	44 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x44>
+  30:	68bb      	ldr	r3, [r7, #8]
+  32:	3730      	adds	r7, #48	; 0x30
+  34:	2b00      	cmp	r3, #0
+  36:	bf0c      	ite	eq
+  38:	f06f 0004 	mvneq.w	r0, #4
+  3c:	2000      	movne	r0, #0
+  3e:	46bd      	mov	sp, r7
+  40:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+  44:	f893 3033 	ldrb.w	r3, [r3, #51]	; 0x33
+  48:	46eb      	mov	fp, sp
+  4a:	009b      	lsls	r3, r3, #2
+  4c:	3307      	adds	r3, #7
+  4e:	f403 63ff 	and.w	r3, r3, #2040	; 0x7f8
+  52:	ebad 0d03 	sub.w	sp, sp, r3
+  56:	f10d 0818 	add.w	r8, sp, #24
+  5a:	ebad 0d03 	sub.w	sp, sp, r3
+  5e:	693b      	ldr	r3, [r7, #16]
+  60:	f10d 0a18 	add.w	sl, sp, #24
+  64:	681b      	ldr	r3, [r3, #0]
+  66:	617b      	str	r3, [r7, #20]
+  68:	f3bf 8f5f 	dmb	sy
+  6c:	4a7e      	ldr	r2, [pc, #504]	; (268 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x268>)
+  6e:	6811      	ldr	r1, [r2, #0]
+  70:	7bcb      	ldrb	r3, [r1, #15]
+  72:	b12b      	cbz	r3, 80 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x80>
+  74:	79cb      	ldrb	r3, [r1, #7]
+  76:	6939      	ldr	r1, [r7, #16]
+  78:	1acb      	subs	r3, r1, r3
+  7a:	681b      	ldr	r3, [r3, #0]
+  7c:	f3bf 8f5f 	dmb	sy
+  80:	6829      	ldr	r1, [r5, #0]
+  82:	61fb      	str	r3, [r7, #28]
+  84:	2300      	movs	r3, #0
+  86:	627b      	str	r3, [r7, #36]	; 0x24
+  88:	f891 1033 	ldrb.w	r1, [r1, #51]	; 0x33
+  8c:	6079      	str	r1, [r7, #4]
+  8e:	6811      	ldr	r1, [r2, #0]
+  90:	687a      	ldr	r2, [r7, #4]
+  92:	4293      	cmp	r3, r2
+  94:	db4c      	blt.n	130 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x130>
+  96:	68fb      	ldr	r3, [r7, #12]
+  98:	f107 0624 	add.w	r6, r7, #36	; 0x24
+  9c:	9304      	str	r3, [sp, #16]
+  9e:	4622      	mov	r2, r4
+  a0:	9601      	str	r6, [sp, #4]
+  a2:	2000      	movs	r0, #0
+  a4:	f8cd a00c 	str.w	sl, [sp, #12]
+  a8:	f8cd 8008 	str.w	r8, [sp, #8]
+  ac:	683b      	ldr	r3, [r7, #0]
+  ae:	9300      	str	r3, [sp, #0]
+  b0:	4623      	mov	r3, r4
+  b2:	69b9      	ldr	r1, [r7, #24]
+  b4:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>
+  b8:	68fb      	ldr	r3, [r7, #12]
+  ba:	9305      	str	r3, [sp, #20]
+  bc:	4622      	mov	r2, r4
+  be:	9602      	str	r6, [sp, #8]
+  c0:	2000      	movs	r0, #0
+  c2:	f8cd a010 	str.w	sl, [sp, #16]
+  c6:	f8cd 800c 	str.w	r8, [sp, #12]
+  ca:	69fb      	ldr	r3, [r7, #28]
+  cc:	9301      	str	r3, [sp, #4]
+  ce:	697b      	ldr	r3, [r7, #20]
+  d0:	9300      	str	r3, [sp, #0]
+  d2:	4623      	mov	r3, r4
+  d4:	69b9      	ldr	r1, [r7, #24]
+  d6:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>
+  da:	4606      	mov	r6, r0
+  dc:	2800      	cmp	r0, #0
+  de:	d043      	beq.n	168 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x168>
+  e0:	4b61      	ldr	r3, [pc, #388]	; (268 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x268>)
+  e2:	4621      	mov	r1, r4
+  e4:	697a      	ldr	r2, [r7, #20]
+  e6:	f44f 7080 	mov.w	r0, #256	; 0x100
+  ea:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>
+  ee:	681b      	ldr	r3, [r3, #0]
+  f0:	7bdb      	ldrb	r3, [r3, #15]
+  f2:	b12b      	cbz	r3, 100 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x100>
+  f4:	69fa      	ldr	r2, [r7, #28]
+  f6:	4621      	mov	r1, r4
+  f8:	f44f 7040 	mov.w	r0, #768	; 0x300
+  fc:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>
+ 100:	f3bf 8f5f 	dmb	sy
+ 104:	4b59      	ldr	r3, [pc, #356]	; (26c <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x26c>)
+ 106:	f8c3 4e00 	str.w	r4, [r3, #3584]	; 0xe00
+ 10a:	f3bf 8f5f 	dmb	sy
+ 10e:	2600      	movs	r6, #0
+ 110:	f8c3 6e20 	str.w	r6, [r3, #3616]	; 0xe20
+ 114:	68fb      	ldr	r3, [r7, #12]
+ 116:	b19b      	cbz	r3, 140 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x140>
+ 118:	682b      	ldr	r3, [r5, #0]
+ 11a:	2203      	movs	r2, #3
+ 11c:	2101      	movs	r1, #1
+ 11e:	f893 0033 	ldrb.w	r0, [r3, #51]	; 0x33
+ 122:	687b      	ldr	r3, [r7, #4]
+ 124:	fb04 3000 	mla	r0, r4, r0, r3
+ 128:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>
+ 12c:	46dd      	mov	sp, fp
+ 12e:	e013      	b.n	158 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x158>
+ 130:	7b0a      	ldrb	r2, [r1, #12]
+ 132:	3201      	adds	r2, #1
+ 134:	f848 2023 	str.w	r2, [r8, r3, lsl #2]
+ 138:	f84a 2023 	str.w	r2, [sl, r3, lsl #2]
+ 13c:	3301      	adds	r3, #1
+ 13e:	e7a7      	b.n	90 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x90>
+ 140:	682b      	ldr	r3, [r5, #0]
+ 142:	2203      	movs	r2, #3
+ 144:	2109      	movs	r1, #9
+ 146:	f893 0033 	ldrb.w	r0, [r3, #51]	; 0x33
+ 14a:	687b      	ldr	r3, [r7, #4]
+ 14c:	fb04 3000 	mla	r0, r4, r0, r3
+ 150:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>
+ 154:	68fe      	ldr	r6, [r7, #12]
+ 156:	46dd      	mov	sp, fp
+ 158:	682b      	ldr	r3, [r5, #0]
+ 15a:	69ba      	ldr	r2, [r7, #24]
+ 15c:	60be      	str	r6, [r7, #8]
+ 15e:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+ 162:	441a      	add	r2, r3
+ 164:	61ba      	str	r2, [r7, #24]
+ 166:	e75d      	b.n	24 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x24>
+ 168:	682b      	ldr	r3, [r5, #0]
+ 16a:	4601      	mov	r1, r0
+ 16c:	f8d8 2000 	ldr.w	r2, [r8]
+ 170:	f04f 0c01 	mov.w	ip, #1
+ 174:	f893 e033 	ldrb.w	lr, [r3, #51]	; 0x33
+ 178:	f8da 3000 	ldr.w	r3, [sl]
+ 17c:	1ad3      	subs	r3, r2, r3
+ 17e:	45e6      	cmp	lr, ip
+ 180:	d85d      	bhi.n	23e <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x23e>
+ 182:	4a39      	ldr	r2, [pc, #228]	; (268 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x268>)
+ 184:	2b00      	cmp	r3, #0
+ 186:	bfc8      	it	gt
+ 188:	3301      	addgt	r3, #1
+ 18a:	eb03 73d3 	add.w	r3, r3, r3, lsr #31
+ 18e:	6810      	ldr	r0, [r2, #0]
+ 190:	697a      	ldr	r2, [r7, #20]
+ 192:	ea4f 0c63 	mov.w	ip, r3, asr #1
+ 196:	f890 e009 	ldrb.w	lr, [r0, #9]
+ 19a:	eba2 0263 	sub.w	r2, r2, r3, asr #1
+ 19e:	697b      	ldr	r3, [r7, #20]
+ 1a0:	ea22 72e2 	bic.w	r2, r2, r2, asr #31
+ 1a4:	4596      	cmp	lr, r2
+ 1a6:	bfc8      	it	gt
+ 1a8:	1a9b      	subgt	r3, r3, r2
+ 1aa:	7bc2      	ldrb	r2, [r0, #15]
+ 1ac:	bfd8      	it	le
+ 1ae:	eba3 030e 	suble.w	r3, r3, lr
+ 1b2:	b132      	cbz	r2, 1c2 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x1c2>
+ 1b4:	69fa      	ldr	r2, [r7, #28]
+ 1b6:	7980      	ldrb	r0, [r0, #6]
+ 1b8:	1ad2      	subs	r2, r2, r3
+ 1ba:	4282      	cmp	r2, r0
+ 1bc:	dd4b      	ble.n	256 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x256>
+ 1be:	1a12      	subs	r2, r2, r0
+ 1c0:	4413      	add	r3, r2
+ 1c2:	697a      	ldr	r2, [r7, #20]
+ 1c4:	2000      	movs	r0, #0
+ 1c6:	1ad2      	subs	r2, r2, r3
+ 1c8:	617a      	str	r2, [r7, #20]
+ 1ca:	f107 022c 	add.w	r2, r7, #44	; 0x2c
+ 1ce:	9204      	str	r2, [sp, #16]
+ 1d0:	f107 0228 	add.w	r2, r7, #40	; 0x28
+ 1d4:	9203      	str	r2, [sp, #12]
+ 1d6:	683a      	ldr	r2, [r7, #0]
+ 1d8:	9202      	str	r2, [sp, #8]
+ 1da:	4652      	mov	r2, sl
+ 1dc:	9101      	str	r1, [sp, #4]
+ 1de:	4641      	mov	r1, r8
+ 1e0:	f8cd c000 	str.w	ip, [sp]
+ 1e4:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>
+ 1e8:	4a1f      	ldr	r2, [pc, #124]	; (268 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x268>)
+ 1ea:	6812      	ldr	r2, [r2, #0]
+ 1ec:	7bd2      	ldrb	r2, [r2, #15]
+ 1ee:	b15a      	cbz	r2, 208 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x208>
+ 1f0:	69fa      	ldr	r2, [r7, #28]
+ 1f2:	4621      	mov	r1, r4
+ 1f4:	f44f 7040 	mov.w	r0, #768	; 0x300
+ 1f8:	1ad2      	subs	r2, r2, r3
+ 1fa:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>
+ 1fe:	f3bf 8f5f 	dmb	sy
+ 202:	4b1a      	ldr	r3, [pc, #104]	; (26c <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x26c>)
+ 204:	f8c3 4e00 	str.w	r4, [r3, #3584]	; 0xe00
+ 208:	697a      	ldr	r2, [r7, #20]
+ 20a:	4621      	mov	r1, r4
+ 20c:	f44f 7080 	mov.w	r0, #256	; 0x100
+ 210:	f7ff fffe 	bl	0 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0>
+ 214:	f3bf 8f5f 	dmb	sy
+ 218:	4b14      	ldr	r3, [pc, #80]	; (26c <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x26c>)
+ 21a:	f8c3 4e00 	str.w	r4, [r3, #3584]	; 0xe00
+ 21e:	f3bf 8f5f 	dmb	sy
+ 222:	2200      	movs	r2, #0
+ 224:	f8c3 2e20 	str.w	r2, [r3, #3616]	; 0xe20
+ 228:	6abb      	ldr	r3, [r7, #40]	; 0x28
+ 22a:	4293      	cmp	r3, r2
+ 22c:	f6ff af7e 	blt.w	12c <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x12c>
+ 230:	6afb      	ldr	r3, [r7, #44]	; 0x2c
+ 232:	4293      	cmp	r3, r2
+ 234:	f6ff af7a 	blt.w	12c <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x12c>
+ 238:	46dd      	mov	sp, fp
+ 23a:	68be      	ldr	r6, [r7, #8]
+ 23c:	e78c      	b.n	158 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x158>
+ 23e:	f858 202c 	ldr.w	r2, [r8, ip, lsl #2]
+ 242:	f85a 002c 	ldr.w	r0, [sl, ip, lsl #2]
+ 246:	1a12      	subs	r2, r2, r0
+ 248:	429a      	cmp	r2, r3
+ 24a:	bfbc      	itt	lt
+ 24c:	4661      	movlt	r1, ip
+ 24e:	4613      	movlt	r3, r2
+ 250:	f10c 0c01 	add.w	ip, ip, #1
+ 254:	e793      	b.n	17e <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x17e>
+ 256:	69f8      	ldr	r0, [r7, #28]
+ 258:	ea33 0322 	bics.w	r3, r3, r2, asr #32
+ 25c:	bf28      	it	cs
+ 25e:	4603      	movcs	r3, r0
+ 260:	e7af      	b.n	1c2 <rw_mgr_mem_calibrate_dq_dqs_centering.isra.0+0x1c2>
+ 262:	bf00      	nop
+	...
+ 26c:	ffc20000 	.word	0xffc20000
+
+Disassembly of section .text.sdram_calibration_full:
+
+00000000 <sdram_calibration_full>:
+       0:	e92d 4df0 	stmdb	sp!, {r4, r5, r6, r7, r8, sl, fp, lr}
+       4:	2210      	movs	r2, #16
+       6:	f8df 8328 	ldr.w	r8, [pc, #808]	; 330 <sdram_calibration_full+0x330>
+       a:	b0aa      	sub	sp, #168	; 0xa8
+       c:	4dc9      	ldr	r5, [pc, #804]	; (334 <sdram_calibration_full+0x334>)
+       e:	af06      	add	r7, sp, #24
+      10:	f107 0660 	add.w	r6, r7, #96	; 0x60
+      14:	f107 0470 	add.w	r4, r7, #112	; 0x70
+      18:	4630      	mov	r0, r6
+      1a:	2100      	movs	r1, #0
+      1c:	f7ff fffe 	bl	0 <memset>
+      20:	2220      	movs	r2, #32
+      22:	2100      	movs	r1, #0
+      24:	4620      	mov	r0, r4
+      26:	f7ff fffe 	bl	0 <memset>
+      2a:	602e      	str	r6, [r5, #0]
+      2c:	f8c8 4000 	str.w	r4, [r8]
+      30:	f7ff fffe 	bl	0 <socfpga_get_sdram_rwmgr_config>
+      34:	4cc0      	ldr	r4, [pc, #768]	; (338 <sdram_calibration_full+0x338>)
+      36:	4ec1      	ldr	r6, [pc, #772]	; (33c <sdram_calibration_full+0x33c>)
+      38:	f8df a304 	ldr.w	sl, [pc, #772]	; 340 <sdram_calibration_full+0x340>
+      3c:	6020      	str	r0, [r4, #0]
+      3e:	f7ff fffe 	bl	0 <socfpga_get_sdram_io_config>
+      42:	6030      	str	r0, [r6, #0]
+      44:	f7ff fffe 	bl	0 <socfpga_get_sdram_misc_config>
+      48:	f8d8 2000 	ldr.w	r2, [r8]
+      4c:	f8ca 0000 	str.w	r0, [sl]
+      50:	6813      	ldr	r3, [r2, #0]
+      52:	f043 0302 	orr.w	r3, r3, #2
+      56:	6013      	str	r3, [r2, #0]
+      58:	6802      	ldr	r2, [r0, #0]
+      5a:	f3bf 8f5f 	dmb	sy
+      5e:	4bb9      	ldr	r3, [pc, #740]	; (344 <sdram_calibration_full+0x344>)
+      60:	f8c3 2800 	str.w	r2, [r3, #2048]	; 0x800
+      64:	f3bf 8f5f 	dmb	sy
+      68:	2100      	movs	r1, #0
+      6a:	f8c3 1804 	str.w	r1, [r3, #2052]	; 0x804
+      6e:	f3bf 8f5f 	dmb	sy
+      72:	f8c3 1808 	str.w	r1, [r3, #2056]	; 0x808
+      76:	f3bf 8f5f 	dmb	sy
+      7a:	f8c3 180c 	str.w	r1, [r3, #2060]	; 0x80c
+      7e:	f3bf 8f5f 	dmb	sy
+      82:	f8c3 1810 	str.w	r1, [r3, #2064]	; 0x810
+      86:	f3bf 8f5f 	dmb	sy
+      8a:	f8c3 1814 	str.w	r1, [r3, #2068]	; 0x814
+      8e:	f3bf 8f5f 	dmb	sy
+      92:	f8c3 1818 	str.w	r1, [r3, #2072]	; 0x818
+      96:	f3bf 8f5f 	dmb	sy
+      9a:	4aab      	ldr	r2, [pc, #684]	; (348 <sdram_calibration_full+0x348>)
+      9c:	4bab      	ldr	r3, [pc, #684]	; (34c <sdram_calibration_full+0x34c>)
+      9e:	f8c2 3150 	str.w	r3, [r2, #336]	; 0x150
+      a2:	f3bf 8f5f 	dmb	sy
+      a6:	4baa      	ldr	r3, [pc, #680]	; (350 <sdram_calibration_full+0x350>)
+      a8:	f8c2 3154 	str.w	r3, [r2, #340]	; 0x154
+      ac:	f3bf 8f5f 	dmb	sy
+      b0:	460b      	mov	r3, r1
+      b2:	f8c2 1158 	str.w	r1, [r2, #344]	; 0x158
+      b6:	4619      	mov	r1, r3
+      b8:	2200      	movs	r2, #0
+      ba:	3301      	adds	r3, #1
+      bc:	f44f 6030 	mov.w	r0, #2816	; 0xb00
+      c0:	f7ff fffe 	bl	0 <sdram_calibration_full>
+      c4:	2b10      	cmp	r3, #16
+      c6:	d1f6      	bne.n	b6 <sdram_calibration_full+0xb6>
+      c8:	6833      	ldr	r3, [r6, #0]
+      ca:	7899      	ldrb	r1, [r3, #2]
+      cc:	8818      	ldrh	r0, [r3, #0]
+      ce:	4408      	add	r0, r1
+      d0:	3801      	subs	r0, #1
+      d2:	f7ff fffe 	bl	0 <__aeabi_idiv>
+      d6:	3801      	subs	r0, #1
+      d8:	f3bf 8f5f 	dmb	sy
+      dc:	4a99      	ldr	r2, [pc, #612]	; (344 <sdram_calibration_full+0x344>)
+      de:	f8c2 081c 	str.w	r0, [r2, #2076]	; 0x81c
+      e2:	f3bf 8f5f 	dmb	sy
+      e6:	f641 534c 	movw	r3, #7500	; 0x1d4c
+      ea:	f8c2 3820 	str.w	r3, [r2, #2080]	; 0x820
+      ee:	f3bf 8f5f 	dmb	sy
+      f2:	4b98      	ldr	r3, [pc, #608]	; (354 <sdram_calibration_full+0x354>)
+      f4:	f8c2 3824 	str.w	r3, [r2, #2084]	; 0x824
+      f8:	f3bf 8f5f 	dmb	sy
+      fc:	4b96      	ldr	r3, [pc, #600]	; (358 <sdram_calibration_full+0x358>)
+      fe:	6821      	ldr	r1, [r4, #0]
+     100:	f8c2 3828 	str.w	r3, [r2, #2088]	; 0x828
+     104:	78cb      	ldrb	r3, [r1, #3]
+     106:	7b08      	ldrb	r0, [r1, #12]
+     108:	041b      	lsls	r3, r3, #16
+     10a:	ea43 6300 	orr.w	r3, r3, r0, lsl #24
+     10e:	f891 0027 	ldrb.w	r0, [r1, #39]	; 0x27
+     112:	f891 102d 	ldrb.w	r1, [r1, #45]	; 0x2d
+     116:	4303      	orrs	r3, r0
+     118:	ea43 2301 	orr.w	r3, r3, r1, lsl #8
+     11c:	f3bf 8f5f 	dmb	sy
+     120:	f8c2 382c 	str.w	r3, [r2, #2092]	; 0x82c
+     124:	6823      	ldr	r3, [r4, #0]
+     126:	f893 3035 	ldrb.w	r3, [r3, #53]	; 0x35
+     12a:	f3bf 8f5f 	dmb	sy
+     12e:	f8c2 3830 	str.w	r3, [r2, #2096]	; 0x830
+     132:	6823      	ldr	r3, [r4, #0]
+     134:	f893 302b 	ldrb.w	r3, [r3, #43]	; 0x2b
+     138:	061b      	lsls	r3, r3, #24
+     13a:	f443 737a 	orr.w	r3, r3, #1000	; 0x3e8
+     13e:	f3bf 8f5f 	dmb	sy
+     142:	f8c2 3834 	str.w	r3, [r2, #2100]	; 0x834
+     146:	f107 0158 	add.w	r1, r7, #88	; 0x58
+     14a:	f107 005c 	add.w	r0, r7, #92	; 0x5c
+     14e:	f04f 0b00 	mov.w	fp, #0
+     152:	f8c7 b058 	str.w	fp, [r7, #88]	; 0x58
+     156:	f7ff fffe 	bl	0 <socfpga_get_seq_inst_init>
+     15a:	465b      	mov	r3, fp
+     15c:	6dba      	ldr	r2, [r7, #88]	; 0x58
+     15e:	4293      	cmp	r3, r2
+     160:	f0c0 8147 	bcc.w	3f2 <sdram_calibration_full+0x3f2>
+     164:	f107 0158 	add.w	r1, r7, #88	; 0x58
+     168:	f107 005c 	add.w	r0, r7, #92	; 0x5c
+     16c:	f7ff fffe 	bl	0 <socfpga_get_seq_ac_init>
+     170:	2300      	movs	r3, #0
+     172:	6dba      	ldr	r2, [r7, #88]	; 0x58
+     174:	4293      	cmp	r3, r2
+     176:	f0c0 8149 	bcc.w	40c <sdram_calibration_full+0x40c>
+     17a:	2000      	movs	r0, #0
+     17c:	21ff      	movs	r1, #255	; 0xff
+     17e:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     182:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     186:	4b75      	ldr	r3, [pc, #468]	; (35c <sdram_calibration_full+0x35c>)
+     188:	2280      	movs	r2, #128	; 0x80
+     18a:	801a      	strh	r2, [r3, #0]
+     18c:	4a74      	ldr	r2, [pc, #464]	; (360 <sdram_calibration_full+0x360>)
+     18e:	8011      	strh	r1, [r2, #0]
+     190:	f3bf 8f5f 	dmb	sy
+     194:	4973      	ldr	r1, [pc, #460]	; (364 <sdram_calibration_full+0x364>)
+     196:	f8df c1b0 	ldr.w	ip, [pc, #432]	; 348 <sdram_calibration_full+0x348>
+     19a:	64c8      	str	r0, [r1, #76]	; 0x4c
+     19c:	f8dc 2000 	ldr.w	r2, [ip]
+     1a0:	61ba      	str	r2, [r7, #24]
+     1a2:	f3bf 8f5f 	dmb	sy
+     1a6:	69ba      	ldr	r2, [r7, #24]
+     1a8:	f422 0280 	bic.w	r2, r2, #4194304	; 0x400000
+     1ac:	f3bf 8f5f 	dmb	sy
+     1b0:	f8cc 2000 	str.w	r2, [ip]
+     1b4:	f3bf 8f5f 	dmb	sy
+     1b8:	2203      	movs	r2, #3
+     1ba:	648a      	str	r2, [r1, #72]	; 0x48
+     1bc:	f3bf 8f5f 	dmb	sy
+     1c0:	6448      	str	r0, [r1, #68]	; 0x44
+     1c2:	f3bf 8f5f 	dmb	sy
+     1c6:	64c8      	str	r0, [r1, #76]	; 0x4c
+     1c8:	f3bf 8f5f 	dmb	sy
+     1cc:	881b      	ldrh	r3, [r3, #0]
+     1ce:	6508      	str	r0, [r1, #80]	; 0x50
+     1d0:	f003 03f8 	and.w	r3, r3, #248	; 0xf8
+     1d4:	2bf8      	cmp	r3, #248	; 0xf8
+     1d6:	d01b      	beq.n	210 <sdram_calibration_full+0x210>
+     1d8:	6823      	ldr	r3, [r4, #0]
+     1da:	682d      	ldr	r5, [r5, #0]
+     1dc:	63fb      	str	r3, [r7, #60]	; 0x3c
+     1de:	f893 b033 	ldrb.w	fp, [r3, #51]	; 0x33
+     1e2:	f893 1039 	ldrb.w	r1, [r3, #57]	; 0x39
+     1e6:	4658      	mov	r0, fp
+     1e8:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+     1ec:	b2c0      	uxtb	r0, r0
+     1ee:	2201      	movs	r2, #1
+     1f0:	6bfb      	ldr	r3, [r7, #60]	; 0x3c
+     1f2:	fa02 f000 	lsl.w	r0, r2, r0
+     1f6:	fa02 fb0b 	lsl.w	fp, r2, fp
+     1fa:	3801      	subs	r0, #1
+     1fc:	f10b 31ff 	add.w	r1, fp, #4294967295
+     200:	6068      	str	r0, [r5, #4]
+     202:	60e8      	str	r0, [r5, #12]
+     204:	6029      	str	r1, [r5, #0]
+     206:	f893 3034 	ldrb.w	r3, [r3, #52]	; 0x34
+     20a:	409a      	lsls	r2, r3
+     20c:	3a01      	subs	r2, #1
+     20e:	60aa      	str	r2, [r5, #8]
+     210:	f3bf 8f5f 	dmb	sy
+     214:	4b54      	ldr	r3, [pc, #336]	; (368 <sdram_calibration_full+0x368>)
+     216:	2500      	movs	r5, #0
+     218:	f8da 0000 	ldr.w	r0, [sl]
+     21c:	f8c3 5400 	str.w	r5, [r3, #1024]	; 0x400
+     220:	6823      	ldr	r3, [r4, #0]
+     222:	7b02      	ldrb	r2, [r0, #12]
+     224:	7ac1      	ldrb	r1, [r0, #11]
+     226:	7bdb      	ldrb	r3, [r3, #15]
+     228:	7a80      	ldrb	r0, [r0, #10]
+     22a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     22e:	f3bf 8f5f 	dmb	sy
+     232:	4b4c      	ldr	r3, [pc, #304]	; (364 <sdram_calibration_full+0x364>)
+     234:	f04f 0b01 	mov.w	fp, #1
+     238:	f8da 0000 	ldr.w	r0, [sl]
+     23c:	f8c3 b044 	str.w	fp, [r3, #68]	; 0x44
+     240:	6823      	ldr	r3, [r4, #0]
+     242:	7bc2      	ldrb	r2, [r0, #15]
+     244:	7b81      	ldrb	r1, [r0, #14]
+     246:	7c1b      	ldrb	r3, [r3, #16]
+     248:	7b40      	ldrb	r0, [r0, #13]
+     24a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     24e:	20fa      	movs	r0, #250	; 0xfa
+     250:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     254:	6823      	ldr	r3, [r4, #0]
+     256:	462a      	mov	r2, r5
+     258:	7f59      	ldrb	r1, [r3, #29]
+     25a:	7f98      	ldrb	r0, [r3, #30]
+     25c:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     260:	6823      	ldr	r3, [r4, #0]
+     262:	22ff      	movs	r2, #255	; 0xff
+     264:	f893 1035 	ldrb.w	r1, [r3, #53]	; 0x35
+     268:	63f9      	str	r1, [r7, #60]	; 0x3c
+     26a:	f893 1036 	ldrb.w	r1, [r3, #54]	; 0x36
+     26e:	f8d8 3000 	ldr.w	r3, [r8]
+     272:	63b9      	str	r1, [r7, #56]	; 0x38
+     274:	4933      	ldr	r1, [pc, #204]	; (344 <sdram_calibration_full+0x344>)
+     276:	609d      	str	r5, [r3, #8]
+     278:	60dd      	str	r5, [r3, #12]
+     27a:	611a      	str	r2, [r3, #16]
+     27c:	615d      	str	r5, [r3, #20]
+     27e:	619d      	str	r5, [r3, #24]
+     280:	f8da 3000 	ldr.w	r3, [sl]
+     284:	6848      	ldr	r0, [r1, #4]
+     286:	7a1b      	ldrb	r3, [r3, #8]
+     288:	fa0b fb03 	lsl.w	fp, fp, r3
+     28c:	f10b 3bff 	add.w	fp, fp, #4294967295
+     290:	f3bf 8f5f 	dmb	sy
+     294:	688b      	ldr	r3, [r1, #8]
+     296:	f3bf 8f5f 	dmb	sy
+     29a:	f8d8 c000 	ldr.w	ip, [r8]
+     29e:	4418      	add	r0, r3
+     2a0:	1e43      	subs	r3, r0, #1
+     2a2:	f8cc 301c 	str.w	r3, [ip, #28]
+     2a6:	68cb      	ldr	r3, [r1, #12]
+     2a8:	f3bf 8f5f 	dmb	sy
+     2ac:	f8d8 1000 	ldr.w	r1, [r8]
+     2b0:	3310      	adds	r3, #16
+     2b2:	455b      	cmp	r3, fp
+     2b4:	bf28      	it	cs
+     2b6:	465b      	movcs	r3, fp
+     2b8:	604b      	str	r3, [r1, #4]
+     2ba:	f3bf 8f5f 	dmb	sy
+     2be:	4a29      	ldr	r2, [pc, #164]	; (364 <sdram_calibration_full+0x364>)
+     2c0:	6413      	str	r3, [r2, #64]	; 0x40
+     2c2:	f3bf 8f5f 	dmb	sy
+     2c6:	6590      	str	r0, [r2, #88]	; 0x58
+     2c8:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     2cc:	4b27      	ldr	r3, [pc, #156]	; (36c <sdram_calibration_full+0x36c>)
+     2ce:	4628      	mov	r0, r5
+     2d0:	f04f 0c27 	mov.w	ip, #39	; 0x27
+     2d4:	22ff      	movs	r2, #255	; 0xff
+     2d6:	6821      	ldr	r1, [r4, #0]
+     2d8:	f891 1035 	ldrb.w	r1, [r1, #53]	; 0x35
+     2dc:	428d      	cmp	r5, r1
+     2de:	f0c0 80a2 	bcc.w	426 <sdram_calibration_full+0x426>
+     2e2:	4b1e      	ldr	r3, [pc, #120]	; (35c <sdram_calibration_full+0x35c>)
+     2e4:	881b      	ldrh	r3, [r3, #0]
+     2e6:	f003 03f8 	and.w	r3, r3, #248	; 0xf8
+     2ea:	2bf8      	cmp	r3, #248	; 0xf8
+     2ec:	f000 8135 	beq.w	55a <sdram_calibration_full+0x55a>
+     2f0:	f04f 0800 	mov.w	r8, #0
+     2f4:	6823      	ldr	r3, [r4, #0]
+     2f6:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     2fa:	4598      	cmp	r8, r3
+     2fc:	f2c0 8164 	blt.w	5c8 <sdram_calibration_full+0x5c8>
+     300:	6bb9      	ldr	r1, [r7, #56]	; 0x38
+     302:	6bf8      	ldr	r0, [r7, #60]	; 0x3c
+     304:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+     308:	b2c3      	uxtb	r3, r0
+     30a:	617b      	str	r3, [r7, #20]
+     30c:	f3bf 8f5f 	dmb	sy
+     310:	4a16      	ldr	r2, [pc, #88]	; (36c <sdram_calibration_full+0x36c>)
+     312:	23ff      	movs	r3, #255	; 0xff
+     314:	f8c2 3e00 	str.w	r3, [r2, #3584]	; 0xe00
+     318:	f3bf 8f5f 	dmb	sy
+     31c:	2300      	movs	r3, #0
+     31e:	f8c2 3e20 	str.w	r3, [r2, #3616]	; 0xe20
+     322:	633b      	str	r3, [r7, #48]	; 0x30
+     324:	63fb      	str	r3, [r7, #60]	; 0x3c
+     326:	63bb      	str	r3, [r7, #56]	; 0x38
+     328:	f04f 33ff 	mov.w	r3, #4294967295
+     32c:	e020      	b.n	370 <sdram_calibration_full+0x370>
+     32e:	bf00      	nop
+	...
+     344:	ffc24000 	.word	0xffc24000
+     348:	ffc25000 	.word	0xffc25000
+     34c:	01d4c256 	.word	0x01d4c256
+     350:	a0064000 	.word	0xa0064000
+     354:	000a0064 	.word	0x000a0064
+     358:	f30e0a04 	.word	0xf30e0a04
+	...
+     364:	ffc21000 	.word	0xffc21000
+     368:	ffc23000 	.word	0xffc23000
+     36c:	ffc20000 	.word	0xffc20000
+     370:	623b      	str	r3, [r7, #32]
+     372:	2300      	movs	r3, #0
+     374:	62bb      	str	r3, [r7, #40]	; 0x28
+     376:	4b9c      	ldr	r3, [pc, #624]	; (5e8 <sdram_calibration_full+0x5e8>)
+     378:	6bfa      	ldr	r2, [r7, #60]	; 0x3c
+     37a:	681b      	ldr	r3, [r3, #0]
+     37c:	f893 1036 	ldrb.w	r1, [r3, #54]	; 0x36
+     380:	4291      	cmp	r1, r2
+     382:	f200 813b 	bhi.w	5fc <sdram_calibration_full+0x5fc>
+     386:	6bbb      	ldr	r3, [r7, #56]	; 0x38
+     388:	2b00      	cmp	r3, #0
+     38a:	f040 82b7 	bne.w	8fc <sdram_calibration_full+0x8fc>
+     38e:	2003      	movs	r0, #3
+     390:	4c96      	ldr	r4, [pc, #600]	; (5ec <sdram_calibration_full+0x5ec>)
+     392:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     396:	2001      	movs	r0, #1
+     398:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     39c:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     3a0:	6bbd      	ldr	r5, [r7, #56]	; 0x38
+     3a2:	6823      	ldr	r3, [r4, #0]
+     3a4:	685b      	ldr	r3, [r3, #4]
+     3a6:	f3bf 8f5f 	dmb	sy
+     3aa:	4a91      	ldr	r2, [pc, #580]	; (5f0 <sdram_calibration_full+0x5f0>)
+     3ac:	2000      	movs	r0, #0
+     3ae:	6413      	str	r3, [r2, #64]	; 0x40
+     3b0:	2201      	movs	r2, #1
+     3b2:	4611      	mov	r1, r2
+     3b4:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     3b8:	b130      	cbz	r0, 3c8 <sdram_calibration_full+0x3c8>
+     3ba:	6822      	ldr	r2, [r4, #0]
+     3bc:	2501      	movs	r5, #1
+     3be:	6853      	ldr	r3, [r2, #4]
+     3c0:	3b01      	subs	r3, #1
+     3c2:	6053      	str	r3, [r2, #4]
+     3c4:	2b00      	cmp	r3, #0
+     3c6:	d1ec      	bne.n	3a2 <sdram_calibration_full+0x3a2>
+     3c8:	f3bf 8f5f 	dmb	sy
+     3cc:	4888      	ldr	r0, [pc, #544]	; (5f0 <sdram_calibration_full+0x5f0>)
+     3ce:	2200      	movs	r2, #0
+     3d0:	6082      	str	r2, [r0, #8]
+     3d2:	2d00      	cmp	r5, #0
+     3d4:	f000 84e4 	beq.w	da0 <sdram_calibration_full+0xda0>
+     3d8:	6821      	ldr	r1, [r4, #0]
+     3da:	684b      	ldr	r3, [r1, #4]
+     3dc:	3302      	adds	r3, #2
+     3de:	604b      	str	r3, [r1, #4]
+     3e0:	f3bf 8f5f 	dmb	sy
+     3e4:	6403      	str	r3, [r0, #64]	; 0x40
+     3e6:	f3bf 8f5f 	dmb	sy
+     3ea:	4b82      	ldr	r3, [pc, #520]	; (5f4 <sdram_calibration_full+0x5f4>)
+     3ec:	f8c3 2e20 	str.w	r2, [r3, #3616]	; 0xe20
+     3f0:	e0a9      	b.n	546 <sdram_calibration_full+0x546>
+     3f2:	6df9      	ldr	r1, [r7, #92]	; 0x5c
+     3f4:	009a      	lsls	r2, r3, #2
+     3f6:	f851 1023 	ldr.w	r1, [r1, r3, lsl #2]
+     3fa:	f3bf 8f5f 	dmb	sy
+     3fe:	f5a2 1277 	sub.w	r2, r2, #4046848	; 0x3dc000
+     402:	3301      	adds	r3, #1
+     404:	f5a2 6200 	sub.w	r2, r2, #2048	; 0x800
+     408:	6011      	str	r1, [r2, #0]
+     40a:	e6a7      	b.n	15c <sdram_calibration_full+0x15c>
+     40c:	6df9      	ldr	r1, [r7, #92]	; 0x5c
+     40e:	009a      	lsls	r2, r3, #2
+     410:	f851 1023 	ldr.w	r1, [r1, r3, lsl #2]
+     414:	f3bf 8f5f 	dmb	sy
+     418:	f5a2 1277 	sub.w	r2, r2, #4046848	; 0x3dc000
+     41c:	3301      	adds	r3, #1
+     41e:	f5a2 6280 	sub.w	r2, r2, #1024	; 0x400
+     422:	6011      	str	r1, [r2, #0]
+     424:	e6a5      	b.n	172 <sdram_calibration_full+0x172>
+     426:	f3bf 8f5f 	dmb	sy
+     42a:	601d      	str	r5, [r3, #0]
+     42c:	b91d      	cbnz	r5, 436 <sdram_calibration_full+0x436>
+     42e:	f3bf 8f5f 	dmb	sy
+     432:	f8c3 ca00 	str.w	ip, [r3, #2560]	; 0xa00
+     436:	f3bf 8f5f 	dmb	sy
+     43a:	f8c3 2e08 	str.w	r2, [r3, #3592]	; 0xe08
+     43e:	f3bf 8f5f 	dmb	sy
+     442:	f8c3 2e0c 	str.w	r2, [r3, #3596]	; 0xe0c
+     446:	f3bf 8f5f 	dmb	sy
+     44a:	f8c3 0e04 	str.w	r0, [r3, #3588]	; 0xe04
+     44e:	f3bf 8f5f 	dmb	sy
+     452:	f8c3 5e00 	str.w	r5, [r3, #3584]	; 0xe00
+     456:	f3bf 8f5f 	dmb	sy
+     45a:	3501      	adds	r5, #1
+     45c:	f8c3 0e20 	str.w	r0, [r3, #3616]	; 0xe20
+     460:	e739      	b.n	2d6 <sdram_calibration_full+0x2d6>
+     462:	4659      	mov	r1, fp
+     464:	2200      	movs	r2, #0
+     466:	f44f 7000 	mov.w	r0, #512	; 0x200
+     46a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     46e:	6832      	ldr	r2, [r6, #0]
+     470:	4659      	mov	r1, fp
+     472:	f44f 6080 	mov.w	r0, #1024	; 0x400
+     476:	7912      	ldrb	r2, [r2, #4]
+     478:	2a06      	cmp	r2, #6
+     47a:	bf18      	it	ne
+     47c:	2207      	movne	r2, #7
+     47e:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     482:	6832      	ldr	r2, [r6, #0]
+     484:	f44f 6080 	mov.w	r0, #1024	; 0x400
+     488:	7912      	ldrb	r2, [r2, #4]
+     48a:	ebc2 1142 	rsb	r1, r2, r2, lsl #5
+     48e:	eb02 0281 	add.w	r2, r2, r1, lsl #2
+     492:	fba2 2105 	umull	r2, r1, r2, r5
+     496:	094a      	lsrs	r2, r1, #5
+     498:	4659      	mov	r1, fp
+     49a:	f10b 0b01 	add.w	fp, fp, #1
+     49e:	3a02      	subs	r2, #2
+     4a0:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     4a4:	6822      	ldr	r2, [r4, #0]
+     4a6:	f892 2035 	ldrb.w	r2, [r2, #53]	; 0x35
+     4aa:	4593      	cmp	fp, r2
+     4ac:	d3d9      	bcc.n	462 <sdram_calibration_full+0x462>
+     4ae:	f3bf 8f5f 	dmb	sy
+     4b2:	4a50      	ldr	r2, [pc, #320]	; (5f4 <sdram_calibration_full+0x5f4>)
+     4b4:	21ff      	movs	r1, #255	; 0xff
+     4b6:	f8c2 1e00 	str.w	r1, [r2, #3584]	; 0xe00
+     4ba:	f3bf 8f5f 	dmb	sy
+     4be:	f8c2 1e04 	str.w	r1, [r2, #3588]	; 0xe04
+     4c2:	2100      	movs	r1, #0
+     4c4:	6820      	ldr	r0, [r4, #0]
+     4c6:	f890 0036 	ldrb.w	r0, [r0, #54]	; 0x36
+     4ca:	4281      	cmp	r1, r0
+     4cc:	d340      	bcc.n	550 <sdram_calibration_full+0x550>
+     4ce:	f3bf 8f5f 	dmb	sy
+     4d2:	21ff      	movs	r1, #255	; 0xff
+     4d4:	f8c2 1e08 	str.w	r1, [r2, #3592]	; 0xe08
+     4d8:	f3bf 8f5f 	dmb	sy
+     4dc:	f8c2 1e0c 	str.w	r1, [r2, #3596]	; 0xe0c
+     4e0:	f3bf 8f5f 	dmb	sy
+     4e4:	2100      	movs	r1, #0
+     4e6:	f8c2 1e20 	str.w	r1, [r2, #3616]	; 0xe20
+     4ea:	6822      	ldr	r2, [r4, #0]
+     4ec:	f892 2038 	ldrb.w	r2, [r2, #56]	; 0x38
+     4f0:	4413      	add	r3, r2
+     4f2:	6822      	ldr	r2, [r4, #0]
+     4f4:	f892 2038 	ldrb.w	r2, [r2, #56]	; 0x38
+     4f8:	4293      	cmp	r3, r2
+     4fa:	d326      	bcc.n	54a <sdram_calibration_full+0x54a>
+     4fc:	4d3d      	ldr	r5, [pc, #244]	; (5f4 <sdram_calibration_full+0x5f4>)
+     4fe:	2300      	movs	r3, #0
+     500:	6822      	ldr	r2, [r4, #0]
+     502:	f892 2035 	ldrb.w	r2, [r2, #53]	; 0x35
+     506:	4293      	cmp	r3, r2
+     508:	d32a      	bcc.n	560 <sdram_calibration_full+0x560>
+     50a:	f3bf 8f5f 	dmb	sy
+     50e:	f8da 2000 	ldr.w	r2, [sl]
+     512:	2300      	movs	r3, #0
+     514:	f8c5 3e20 	str.w	r3, [r5, #3616]	; 0xe20
+     518:	21ff      	movs	r1, #255	; 0xff
+     51a:	7992      	ldrb	r2, [r2, #6]
+     51c:	429a      	cmp	r2, r3
+     51e:	d82b      	bhi.n	578 <sdram_calibration_full+0x578>
+     520:	f3bf 8f5f 	dmb	sy
+     524:	4832      	ldr	r0, [pc, #200]	; (5f0 <sdram_calibration_full+0x5f0>)
+     526:	2300      	movs	r3, #0
+     528:	f8da 2000 	ldr.w	r2, [sl]
+     52c:	f8d8 1000 	ldr.w	r1, [r8]
+     530:	6083      	str	r3, [r0, #8]
+     532:	7952      	ldrb	r2, [r2, #5]
+     534:	604a      	str	r2, [r1, #4]
+     536:	f3bf 8f5f 	dmb	sy
+     53a:	6402      	str	r2, [r0, #64]	; 0x40
+     53c:	f3bf 8f5f 	dmb	sy
+     540:	4a2c      	ldr	r2, [pc, #176]	; (5f4 <sdram_calibration_full+0x5f4>)
+     542:	f8c2 3e20 	str.w	r3, [r2, #3616]	; 0xe20
+     546:	2301      	movs	r3, #1
+     548:	e1d9      	b.n	8fe <sdram_calibration_full+0x8fe>
+     54a:	f04f 0b00 	mov.w	fp, #0
+     54e:	e7a9      	b.n	4a4 <sdram_calibration_full+0x4a4>
+     550:	f3bf 8f5f 	dmb	sy
+     554:	6011      	str	r1, [r2, #0]
+     556:	3101      	adds	r1, #1
+     558:	e7b4      	b.n	4c4 <sdram_calibration_full+0x4c4>
+     55a:	4d27      	ldr	r5, [pc, #156]	; (5f8 <sdram_calibration_full+0x5f8>)
+     55c:	2300      	movs	r3, #0
+     55e:	e7c8      	b.n	4f2 <sdram_calibration_full+0x4f2>
+     560:	4619      	mov	r1, r3
+     562:	220a      	movs	r2, #10
+     564:	f44f 7080 	mov.w	r0, #256	; 0x100
+     568:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     56c:	f3bf 8f5f 	dmb	sy
+     570:	f8c5 3e00 	str.w	r3, [r5, #3584]	; 0xe00
+     574:	3301      	adds	r3, #1
+     576:	e7c3      	b.n	500 <sdram_calibration_full+0x500>
+     578:	f3bf 8f5f 	dmb	sy
+     57c:	481c      	ldr	r0, [pc, #112]	; (5f0 <sdram_calibration_full+0x5f0>)
+     57e:	3301      	adds	r3, #1
+     580:	6041      	str	r1, [r0, #4]
+     582:	e7cb      	b.n	51c <sdram_calibration_full+0x51c>
+     584:	6832      	ldr	r2, [r6, #0]
+     586:	4619      	mov	r1, r3
+     588:	f44f 7080 	mov.w	r0, #256	; 0x100
+     58c:	7a92      	ldrb	r2, [r2, #10]
+     58e:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     592:	4619      	mov	r1, r3
+     594:	2200      	movs	r2, #0
+     596:	f44f 7000 	mov.w	r0, #512	; 0x200
+     59a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     59e:	4619      	mov	r1, r3
+     5a0:	3301      	adds	r3, #1
+     5a2:	f44f 7040 	mov.w	r0, #768	; 0x300
+     5a6:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     5aa:	6822      	ldr	r2, [r4, #0]
+     5ac:	f892 2035 	ldrb.w	r2, [r2, #53]	; 0x35
+     5b0:	4293      	cmp	r3, r2
+     5b2:	dbe7      	blt.n	584 <sdram_calibration_full+0x584>
+     5b4:	2500      	movs	r5, #0
+     5b6:	6823      	ldr	r3, [r4, #0]
+     5b8:	f893 2036 	ldrb.w	r2, [r3, #54]	; 0x36
+     5bc:	4295      	cmp	r5, r2
+     5be:	db05      	blt.n	5cc <sdram_calibration_full+0x5cc>
+     5c0:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     5c4:	4498      	add	r8, r3
+     5c6:	e695      	b.n	2f4 <sdram_calibration_full+0x2f4>
+     5c8:	2300      	movs	r3, #0
+     5ca:	e7ee      	b.n	5aa <sdram_calibration_full+0x5aa>
+     5cc:	4629      	mov	r1, r5
+     5ce:	2200      	movs	r2, #0
+     5d0:	f44f 6080 	mov.w	r0, #1024	; 0x400
+     5d4:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     5d8:	6833      	ldr	r3, [r6, #0]
+     5da:	4628      	mov	r0, r5
+     5dc:	3501      	adds	r5, #1
+     5de:	7ad9      	ldrb	r1, [r3, #11]
+     5e0:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     5e4:	e7e7      	b.n	5b6 <sdram_calibration_full+0x5b6>
+     5e6:	bf00      	nop
+	...
+     5f0:	ffc21000 	.word	0xffc21000
+     5f4:	ffc20000 	.word	0xffc20000
+     5f8:	51eb851f 	.word	0x51eb851f
+     5fc:	f893 0035 	ldrb.w	r0, [r3, #53]	; 0x35
+     600:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+     604:	b2c0      	uxtb	r0, r0
+     606:	6a3a      	ldr	r2, [r7, #32]
+     608:	2301      	movs	r3, #1
+     60a:	4083      	lsls	r3, r0
+     60c:	3b01      	subs	r3, #1
+     60e:	4013      	ands	r3, r2
+     610:	40c2      	lsrs	r2, r0
+     612:	623a      	str	r2, [r7, #32]
+     614:	b34b      	cbz	r3, 66a <sdram_calibration_full+0x66a>
+     616:	f3bf 8f5f 	dmb	sy
+     61a:	4b95      	ldr	r3, [pc, #596]	; (870 <sdram_calibration_full+0x870>)
+     61c:	2100      	movs	r1, #0
+     61e:	6bfa      	ldr	r2, [r7, #60]	; 0x3c
+     620:	6bf8      	ldr	r0, [r7, #60]	; 0x3c
+     622:	601a      	str	r2, [r3, #0]
+     624:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     628:	6b3c      	ldr	r4, [r7, #48]	; 0x30
+     62a:	2300      	movs	r3, #0
+     62c:	62fb      	str	r3, [r7, #44]	; 0x2c
+     62e:	697b      	ldr	r3, [r7, #20]
+     630:	6b3a      	ldr	r2, [r7, #48]	; 0x30
+     632:	4413      	add	r3, r2
+     634:	61fb      	str	r3, [r7, #28]
+     636:	429c      	cmp	r4, r3
+     638:	d326      	bcc.n	688 <sdram_calibration_full+0x688>
+     63a:	f8df a238 	ldr.w	sl, [pc, #568]	; 874 <sdram_calibration_full+0x874>
+     63e:	2300      	movs	r3, #0
+     640:	f8df b234 	ldr.w	fp, [pc, #564]	; 878 <sdram_calibration_full+0x878>
+     644:	4698      	mov	r8, r3
+     646:	637b      	str	r3, [r7, #52]	; 0x34
+     648:	f8da 3000 	ldr.w	r3, [sl]
+     64c:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     650:	4598      	cmp	r8, r3
+     652:	f0c0 8269 	bcc.w	b28 <sdram_calibration_full+0xb28>
+     656:	6b7b      	ldr	r3, [r7, #52]	; 0x34
+     658:	2b00      	cmp	r3, #0
+     65a:	f040 839d 	bne.w	d98 <sdram_calibration_full+0xd98>
+     65e:	6b3c      	ldr	r4, [r7, #48]	; 0x30
+     660:	4d84      	ldr	r5, [pc, #528]	; (874 <sdram_calibration_full+0x874>)
+     662:	69fb      	ldr	r3, [r7, #28]
+     664:	429c      	cmp	r4, r3
+     666:	f0c0 8383 	bcc.w	d70 <sdram_calibration_full+0xd70>
+     66a:	4b82      	ldr	r3, [pc, #520]	; (874 <sdram_calibration_full+0x874>)
+     66c:	6aba      	ldr	r2, [r7, #40]	; 0x28
+     66e:	681b      	ldr	r3, [r3, #0]
+     670:	f893 3034 	ldrb.w	r3, [r3, #52]	; 0x34
+     674:	441a      	add	r2, r3
+     676:	6bfb      	ldr	r3, [r7, #60]	; 0x3c
+     678:	62ba      	str	r2, [r7, #40]	; 0x28
+     67a:	3301      	adds	r3, #1
+     67c:	697a      	ldr	r2, [r7, #20]
+     67e:	63fb      	str	r3, [r7, #60]	; 0x3c
+     680:	6b3b      	ldr	r3, [r7, #48]	; 0x30
+     682:	4413      	add	r3, r2
+     684:	633b      	str	r3, [r7, #48]	; 0x30
+     686:	e676      	b.n	376 <sdram_calibration_full+0x376>
+     688:	b2a0      	uxth	r0, r4
+     68a:	f04f 0b01 	mov.w	fp, #1
+     68e:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     692:	2001      	movs	r0, #1
+     694:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     698:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     69c:	4b76      	ldr	r3, [pc, #472]	; (878 <sdram_calibration_full+0x878>)
+     69e:	681b      	ldr	r3, [r3, #0]
+     6a0:	78d9      	ldrb	r1, [r3, #3]
+     6a2:	8818      	ldrh	r0, [r3, #0]
+     6a4:	4408      	add	r0, r1
+     6a6:	3801      	subs	r0, #1
+     6a8:	f7ff fffe 	bl	0 <__aeabi_idiv>
+     6ac:	1e43      	subs	r3, r0, #1
+     6ae:	613b      	str	r3, [r7, #16]
+     6b0:	00a3      	lsls	r3, r4, #2
+     6b2:	f5a3 1377 	sub.w	r3, r3, #4046848	; 0x3dc000
+     6b6:	f5a3 5300 	sub.w	r3, r3, #8192	; 0x2000
+     6ba:	61fb      	str	r3, [r7, #28]
+     6bc:	2300      	movs	r3, #0
+     6be:	637b      	str	r3, [r7, #52]	; 0x34
+     6c0:	2300      	movs	r3, #0
+     6c2:	627b      	str	r3, [r7, #36]	; 0x24
+     6c4:	2300      	movs	r3, #0
+     6c6:	6a7a      	ldr	r2, [r7, #36]	; 0x24
+     6c8:	4621      	mov	r1, r4
+     6ca:	f44f 6080 	mov.w	r0, #1024	; 0x400
+     6ce:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     6d2:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     6d6:	4b69      	ldr	r3, [pc, #420]	; (87c <sdram_calibration_full+0x87c>)
+     6d8:	681b      	ldr	r3, [r3, #0]
+     6da:	681d      	ldr	r5, [r3, #0]
+     6dc:	f015 0510 	ands.w	r5, r5, #16
+     6e0:	f000 80d0 	beq.w	884 <sdram_calibration_full+0x884>
+     6e4:	4d63      	ldr	r5, [pc, #396]	; (874 <sdram_calibration_full+0x874>)
+     6e6:	2600      	movs	r6, #0
+     6e8:	4b63      	ldr	r3, [pc, #396]	; (878 <sdram_calibration_full+0x878>)
+     6ea:	f8df a184 	ldr.w	sl, [pc, #388]	; 870 <sdram_calibration_full+0x870>
+     6ee:	682a      	ldr	r2, [r5, #0]
+     6f0:	681b      	ldr	r3, [r3, #0]
+     6f2:	f892 1033 	ldrb.w	r1, [r2, #51]	; 0x33
+     6f6:	7b18      	ldrb	r0, [r3, #12]
+     6f8:	3901      	subs	r1, #1
+     6fa:	f7ff fffe 	bl	0 <__aeabi_idiv>
+     6fe:	4680      	mov	r8, r0
+     700:	682b      	ldr	r3, [r5, #0]
+     702:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     706:	429e      	cmp	r6, r3
+     708:	f0c0 81a0 	bcc.w	a4c <sdram_calibration_full+0xa4c>
+     70c:	2003      	movs	r0, #3
+     70e:	2100      	movs	r1, #0
+     710:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     714:	4620      	mov	r0, r4
+     716:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     71a:	4620      	mov	r0, r4
+     71c:	2100      	movs	r1, #0
+     71e:	f8df 8160 	ldr.w	r8, [pc, #352]	; 880 <sdram_calibration_full+0x880>
+     722:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     726:	4b54      	ldr	r3, [pc, #336]	; (878 <sdram_calibration_full+0x878>)
+     728:	2600      	movs	r6, #0
+     72a:	4635      	mov	r5, r6
+     72c:	681b      	ldr	r3, [r3, #0]
+     72e:	78d9      	ldrb	r1, [r3, #3]
+     730:	8818      	ldrh	r0, [r3, #0]
+     732:	f7ff fffe 	bl	0 <__aeabi_idiv>
+     736:	4682      	mov	sl, r0
+     738:	f8d8 3000 	ldr.w	r3, [r8]
+     73c:	7a5b      	ldrb	r3, [r3, #9]
+     73e:	429d      	cmp	r5, r3
+     740:	d20a      	bcs.n	758 <sdram_calibration_full+0x758>
+     742:	2200      	movs	r2, #0
+     744:	4620      	mov	r0, r4
+     746:	4611      	mov	r1, r2
+     748:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     74c:	2800      	cmp	r0, #0
+     74e:	f040 8181 	bne.w	a54 <sdram_calibration_full+0xa54>
+     752:	2e00      	cmp	r6, #0
+     754:	f000 817d 	beq.w	a52 <sdram_calibration_full+0xa52>
+     758:	f8df 811c 	ldr.w	r8, [pc, #284]	; 878 <sdram_calibration_full+0x878>
+     75c:	2600      	movs	r6, #0
+     75e:	65be      	str	r6, [r7, #88]	; 0x58
+     760:	f8d8 3000 	ldr.w	r3, [r8]
+     764:	78d9      	ldrb	r1, [r3, #3]
+     766:	8818      	ldrh	r0, [r3, #0]
+     768:	f7ff fffe 	bl	0 <__aeabi_idiv>
+     76c:	4605      	mov	r5, r0
+     76e:	64fe      	str	r6, [r7, #76]	; 0x4c
+     770:	6cf9      	ldr	r1, [r7, #76]	; 0x4c
+     772:	428d      	cmp	r5, r1
+     774:	f080 8174 	bcs.w	a60 <sdram_calibration_full+0xa60>
+     778:	f06f 0515 	mvn.w	r5, #21
+     77c:	4e3d      	ldr	r6, [pc, #244]	; (874 <sdram_calibration_full+0x874>)
+     77e:	f04f 0800 	mov.w	r8, #0
+     782:	6833      	ldr	r3, [r6, #0]
+     784:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     788:	4598      	cmp	r8, r3
+     78a:	f0c0 819a 	bcc.w	ac2 <sdram_calibration_full+0xac2>
+     78e:	2d00      	cmp	r5, #0
+     790:	f040 81a6 	bne.w	ae0 <sdram_calibration_full+0xae0>
+     794:	6af9      	ldr	r1, [r7, #44]	; 0x2c
+     796:	4620      	mov	r0, r4
+     798:	2201      	movs	r2, #1
+     79a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     79e:	2800      	cmp	r0, #0
+     7a0:	f040 81ab 	bne.w	afa <sdram_calibration_full+0xafa>
+     7a4:	6b7b      	ldr	r3, [r7, #52]	; 0x34
+     7a6:	2b02      	cmp	r3, #2
+     7a8:	d903      	bls.n	7b2 <sdram_calibration_full+0x7b2>
+     7aa:	4620      	mov	r0, r4
+     7ac:	2101      	movs	r1, #1
+     7ae:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     7b2:	6833      	ldr	r3, [r6, #0]
+     7b4:	3401      	adds	r4, #1
+     7b6:	6afa      	ldr	r2, [r7, #44]	; 0x2c
+     7b8:	f893 3033 	ldrb.w	r3, [r3, #51]	; 0x33
+     7bc:	441a      	add	r2, r3
+     7be:	62fa      	str	r2, [r7, #44]	; 0x2c
+     7c0:	e735      	b.n	62e <sdram_calibration_full+0x62e>
+     7c2:	6b7b      	ldr	r3, [r7, #52]	; 0x34
+     7c4:	2b00      	cmp	r3, #0
+     7c6:	f43f af7b 	beq.w	6c0 <sdram_calibration_full+0x6c0>
+     7ca:	4d29      	ldr	r5, [pc, #164]	; (870 <sdram_calibration_full+0x870>)
+     7cc:	2600      	movs	r6, #0
+     7ce:	e03f      	b.n	850 <sdram_calibration_full+0x850>
+     7d0:	f3bf 8f5f 	dmb	sy
+     7d4:	f8c5 3e08 	str.w	r3, [r5, #3592]	; 0xe08
+     7d8:	3301      	adds	r3, #1
+     7da:	6811      	ldr	r1, [r2, #0]
+     7dc:	f891 1034 	ldrb.w	r1, [r1, #52]	; 0x34
+     7e0:	428b      	cmp	r3, r1
+     7e2:	d3f5      	bcc.n	7d0 <sdram_calibration_full+0x7d0>
+     7e4:	f8df a08c 	ldr.w	sl, [pc, #140]	; 874 <sdram_calibration_full+0x874>
+     7e8:	f04f 0800 	mov.w	r8, #0
+     7ec:	f8da 3000 	ldr.w	r3, [sl]
+     7f0:	f893 1036 	ldrb.w	r1, [r3, #54]	; 0x36
+     7f4:	f893 0031 	ldrb.w	r0, [r3, #49]	; 0x31
+     7f8:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+     7fc:	b2c0      	uxtb	r0, r0
+     7fe:	4580      	cmp	r8, r0
+     800:	d32f      	bcc.n	862 <sdram_calibration_full+0x862>
+     802:	f8df 8074 	ldr.w	r8, [pc, #116]	; 878 <sdram_calibration_full+0x878>
+     806:	f8d8 3000 	ldr.w	r3, [r8]
+     80a:	7b98      	ldrb	r0, [r3, #14]
+     80c:	6b7b      	ldr	r3, [r7, #52]	; 0x34
+     80e:	4283      	cmp	r3, r0
+     810:	d902      	bls.n	818 <sdram_calibration_full+0x818>
+     812:	1a18      	subs	r0, r3, r0
+     814:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     818:	f3bf 8f5f 	dmb	sy
+     81c:	2300      	movs	r3, #0
+     81e:	f8c5 3e04 	str.w	r3, [r5, #3588]	; 0xe04
+     822:	f8d8 3000 	ldr.w	r3, [r8]
+     826:	7b99      	ldrb	r1, [r3, #14]
+     828:	6b7b      	ldr	r3, [r7, #52]	; 0x34
+     82a:	428b      	cmp	r3, r1
+     82c:	d903      	bls.n	836 <sdram_calibration_full+0x836>
+     82e:	1a59      	subs	r1, r3, r1
+     830:	4620      	mov	r0, r4
+     832:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     836:	4620      	mov	r0, r4
+     838:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     83c:	f3bf 8f5f 	dmb	sy
+     840:	2300      	movs	r3, #0
+     842:	f8c5 3e20 	str.w	r3, [r5, #3616]	; 0xe20
+     846:	4b0b      	ldr	r3, [pc, #44]	; (874 <sdram_calibration_full+0x874>)
+     848:	681b      	ldr	r3, [r3, #0]
+     84a:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     84e:	441e      	add	r6, r3
+     850:	4a08      	ldr	r2, [pc, #32]	; (874 <sdram_calibration_full+0x874>)
+     852:	6813      	ldr	r3, [r2, #0]
+     854:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     858:	429e      	cmp	r6, r3
+     85a:	f6bf af31 	bge.w	6c0 <sdram_calibration_full+0x6c0>
+     85e:	2300      	movs	r3, #0
+     860:	e7bb      	b.n	7da <sdram_calibration_full+0x7da>
+     862:	f3bf 8f5f 	dmb	sy
+     866:	f8c5 8e0c 	str.w	r8, [r5, #3596]	; 0xe0c
+     86a:	f108 0801 	add.w	r8, r8, #1
+     86e:	e7bd      	b.n	7ec <sdram_calibration_full+0x7ec>
+     870:	ffc20000 	.word	0xffc20000
+	...
+     884:	4b9e      	ldr	r3, [pc, #632]	; (b00 <sdram_calibration_full+0xb00>)
+     886:	681b      	ldr	r3, [r3, #0]
+     888:	f893 1039 	ldrb.w	r1, [r3, #57]	; 0x39
+     88c:	f893 0033 	ldrb.w	r0, [r3, #51]	; 0x33
+     890:	f893 a038 	ldrb.w	sl, [r3, #56]	; 0x38
+     894:	fb04 f201 	mul.w	r2, r4, r1
+     898:	0092      	lsls	r2, r2, #2
+     89a:	60fa      	str	r2, [r7, #12]
+     89c:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+     8a0:	4b98      	ldr	r3, [pc, #608]	; (b04 <sdram_calibration_full+0xb04>)
+     8a2:	fa5f f880 	uxtb.w	r8, r0
+     8a6:	4628      	mov	r0, r5
+     8a8:	681b      	ldr	r3, [r3, #0]
+     8aa:	681e      	ldr	r6, [r3, #0]
+     8ac:	685a      	ldr	r2, [r3, #4]
+     8ae:	60ba      	str	r2, [r7, #8]
+     8b0:	4d93      	ldr	r5, [pc, #588]	; (b00 <sdram_calibration_full+0xb00>)
+     8b2:	4582      	cmp	sl, r0
+     8b4:	d868      	bhi.n	988 <sdram_calibration_full+0x988>
+     8b6:	682b      	ldr	r3, [r5, #0]
+     8b8:	791b      	ldrb	r3, [r3, #4]
+     8ba:	f3bf 8f5f 	dmb	sy
+     8be:	69fa      	ldr	r2, [r7, #28]
+     8c0:	2100      	movs	r1, #0
+     8c2:	4608      	mov	r0, r1
+     8c4:	6013      	str	r3, [r2, #0]
+     8c6:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     8ca:	4b8e      	ldr	r3, [pc, #568]	; (b04 <sdram_calibration_full+0xb04>)
+     8cc:	681b      	ldr	r3, [r3, #0]
+     8ce:	681b      	ldr	r3, [r3, #0]
+     8d0:	429e      	cmp	r6, r3
+     8d2:	f43f af07 	beq.w	6e4 <sdram_calibration_full+0x6e4>
+     8d6:	6b7b      	ldr	r3, [r7, #52]	; 0x34
+     8d8:	3302      	adds	r3, #2
+     8da:	637b      	str	r3, [r7, #52]	; 0x34
+     8dc:	6b7a      	ldr	r2, [r7, #52]	; 0x34
+     8de:	693b      	ldr	r3, [r7, #16]
+     8e0:	4293      	cmp	r3, r2
+     8e2:	f4bf af6e 	bcs.w	7c2 <sdram_calibration_full+0x7c2>
+     8e6:	465a      	mov	r2, fp
+     8e8:	2101      	movs	r1, #1
+     8ea:	4620      	mov	r0, r4
+     8ec:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     8f0:	4b85      	ldr	r3, [pc, #532]	; (b08 <sdram_calibration_full+0xb08>)
+     8f2:	681b      	ldr	r3, [r3, #0]
+     8f4:	681b      	ldr	r3, [r3, #0]
+     8f6:	0719      	lsls	r1, r3, #28
+     8f8:	f100 824e 	bmi.w	d98 <sdram_calibration_full+0xd98>
+     8fc:	2300      	movs	r3, #0
+     8fe:	63bb      	str	r3, [r7, #56]	; 0x38
+     900:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     904:	f3bf 8f5f 	dmb	sy
+     908:	4c80      	ldr	r4, [pc, #512]	; (b0c <sdram_calibration_full+0xb0c>)
+     90a:	2300      	movs	r3, #0
+     90c:	2201      	movs	r2, #1
+     90e:	60a3      	str	r3, [r4, #8]
+     910:	4b7b      	ldr	r3, [pc, #492]	; (b00 <sdram_calibration_full+0xb00>)
+     912:	681b      	ldr	r3, [r3, #0]
+     914:	7fd9      	ldrb	r1, [r3, #31]
+     916:	f893 0020 	ldrb.w	r0, [r3, #32]
+     91a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     91e:	f3bf 8f5f 	dmb	sy
+     922:	2002      	movs	r0, #2
+     924:	64a0      	str	r0, [r4, #72]	; 0x48
+     926:	f3bf 8f5f 	dmb	sy
+     92a:	4b79      	ldr	r3, [pc, #484]	; (b10 <sdram_calibration_full+0xb10>)
+     92c:	69ba      	ldr	r2, [r7, #24]
+     92e:	601a      	str	r2, [r3, #0]
+     930:	6bbb      	ldr	r3, [r7, #56]	; 0x38
+     932:	4a75      	ldr	r2, [pc, #468]	; (b08 <sdram_calibration_full+0xb08>)
+     934:	2b00      	cmp	r3, #0
+     936:	f000 8239 	beq.w	dac <sdram_calibration_full+0xdac>
+     93a:	6813      	ldr	r3, [r2, #0]
+     93c:	6959      	ldr	r1, [r3, #20]
+     93e:	699a      	ldr	r2, [r3, #24]
+     940:	0849      	lsrs	r1, r1, #1
+     942:	6159      	str	r1, [r3, #20]
+     944:	29ff      	cmp	r1, #255	; 0xff
+     946:	ea4f 0252 	mov.w	r2, r2, lsr #1
+     94a:	619a      	str	r2, [r3, #24]
+     94c:	bf84      	itt	hi
+     94e:	21ff      	movhi	r1, #255	; 0xff
+     950:	6159      	strhi	r1, [r3, #20]
+     952:	2aff      	cmp	r2, #255	; 0xff
+     954:	bf84      	itt	hi
+     956:	22ff      	movhi	r2, #255	; 0xff
+     958:	619a      	strhi	r2, [r3, #24]
+     95a:	695a      	ldr	r2, [r3, #20]
+     95c:	699b      	ldr	r3, [r3, #24]
+     95e:	ea42 2303 	orr.w	r3, r2, r3, lsl #8
+     962:	f3bf 8f5f 	dmb	sy
+     966:	4a6b      	ldr	r2, [pc, #428]	; (b14 <sdram_calibration_full+0xb14>)
+     968:	f8c2 380c 	str.w	r3, [r2, #2060]	; 0x80c
+     96c:	f3bf 8f5f 	dmb	sy
+     970:	f5a2 5240 	sub.w	r2, r2, #12288	; 0x3000
+     974:	6513      	str	r3, [r2, #80]	; 0x50
+     976:	f3bf 8f5f 	dmb	sy
+     97a:	2301      	movs	r3, #1
+     97c:	64d3      	str	r3, [r2, #76]	; 0x4c
+     97e:	6bb8      	ldr	r0, [r7, #56]	; 0x38
+     980:	3790      	adds	r7, #144	; 0x90
+     982:	46bd      	mov	sp, r7
+     984:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+     988:	2101      	movs	r1, #1
+     98a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     98e:	f3bf 8f5f 	dmb	sy
+     992:	4961      	ldr	r1, [pc, #388]	; (b18 <sdram_calibration_full+0xb18>)
+     994:	2220      	movs	r2, #32
+     996:	682b      	ldr	r3, [r5, #0]
+     998:	f8c1 2800 	str.w	r2, [r1, #2048]	; 0x800
+     99c:	795b      	ldrb	r3, [r3, #5]
+     99e:	f3bf 8f5f 	dmb	sy
+     9a2:	f8c1 3c00 	str.w	r3, [r1, #3072]	; 0xc00
+     9a6:	f3bf 8f5f 	dmb	sy
+     9aa:	682b      	ldr	r3, [r5, #0]
+     9ac:	f8c1 2804 	str.w	r2, [r1, #2052]	; 0x804
+     9b0:	799b      	ldrb	r3, [r3, #6]
+     9b2:	f3bf 8f5f 	dmb	sy
+     9b6:	f8c1 3c04 	str.w	r3, [r1, #3076]	; 0xc04
+     9ba:	682b      	ldr	r3, [r5, #0]
+     9bc:	f8df c15c 	ldr.w	ip, [pc, #348]	; b1c <sdram_calibration_full+0xb1c>
+     9c0:	68fa      	ldr	r2, [r7, #12]
+     9c2:	f893 1039 	ldrb.w	r1, [r3, #57]	; 0x39
+     9c6:	2300      	movs	r3, #0
+     9c8:	4494      	add	ip, r2
+     9ca:	469e      	mov	lr, r3
+     9cc:	b911      	cbnz	r1, 9d4 <sdram_calibration_full+0x9d4>
+     9ce:	401e      	ands	r6, r3
+     9d0:	3001      	adds	r0, #1
+     9d2:	e76d      	b.n	8b0 <sdram_calibration_full+0x8b0>
+     9d4:	f3bf 8f5f 	dmb	sy
+     9d8:	4a4c      	ldr	r2, [pc, #304]	; (b0c <sdram_calibration_full+0xb0c>)
+     9da:	f8c2 e008 	str.w	lr, [r2, #8]
+     9de:	f3bf 8f5f 	dmb	sy
+     9e2:	f502 5200 	add.w	r2, r2, #8192	; 0x2000
+     9e6:	f8c2 e000 	str.w	lr, [r2]
+     9ea:	682a      	ldr	r2, [r5, #0]
+     9ec:	7952      	ldrb	r2, [r2, #5]
+     9ee:	f3bf 8f5f 	dmb	sy
+     9f2:	f84c 2021 	str.w	r2, [ip, r1, lsl #2]
+     9f6:	4a48      	ldr	r2, [pc, #288]	; (b18 <sdram_calibration_full+0xb18>)
+     9f8:	6812      	ldr	r2, [r2, #0]
+     9fa:	f3bf 8f5f 	dmb	sy
+     9fe:	fa03 f308 	lsl.w	r3, r3, r8
+     a02:	607b      	str	r3, [r7, #4]
+     a04:	68bb      	ldr	r3, [r7, #8]
+     a06:	3901      	subs	r1, #1
+     a08:	ea23 0202 	bic.w	r2, r3, r2
+     a0c:	687b      	ldr	r3, [r7, #4]
+     a0e:	4313      	orrs	r3, r2
+     a10:	e7dc      	b.n	9cc <sdram_calibration_full+0x9cc>
+     a12:	4659      	mov	r1, fp
+     a14:	f44f 6010 	mov.w	r0, #2304	; 0x900
+     a18:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     a1c:	f3bf 8f5f 	dmb	sy
+     a20:	3301      	adds	r3, #1
+     a22:	4442      	add	r2, r8
+     a24:	f8ca be08 	str.w	fp, [sl, #3592]	; 0xe08
+     a28:	6af9      	ldr	r1, [r7, #44]	; 0x2c
+     a2a:	eb01 0b03 	add.w	fp, r1, r3
+     a2e:	6829      	ldr	r1, [r5, #0]
+     a30:	f891 1033 	ldrb.w	r1, [r1, #51]	; 0x33
+     a34:	428b      	cmp	r3, r1
+     a36:	d3ec      	bcc.n	a12 <sdram_calibration_full+0xa12>
+     a38:	f3bf 8f5f 	dmb	sy
+     a3c:	2300      	movs	r3, #0
+     a3e:	f8ca 3e20 	str.w	r3, [sl, #3616]	; 0xe20
+     a42:	682b      	ldr	r3, [r5, #0]
+     a44:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     a48:	441e      	add	r6, r3
+     a4a:	e659      	b.n	700 <sdram_calibration_full+0x700>
+     a4c:	2200      	movs	r2, #0
+     a4e:	4613      	mov	r3, r2
+     a50:	e7ea      	b.n	a28 <sdram_calibration_full+0xa28>
+     a52:	2601      	movs	r6, #1
+     a54:	f3bf 8f5f 	dmb	sy
+     a58:	4b2c      	ldr	r3, [pc, #176]	; (b0c <sdram_calibration_full+0xb0c>)
+     a5a:	3501      	adds	r5, #1
+     a5c:	605c      	str	r4, [r3, #4]
+     a5e:	e66b      	b.n	738 <sdram_calibration_full+0x738>
+     a60:	4620      	mov	r0, r4
+     a62:	657e      	str	r6, [r7, #84]	; 0x54
+     a64:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     a68:	f107 0350 	add.w	r3, r7, #80	; 0x50
+     a6c:	f107 0258 	add.w	r2, r7, #88	; 0x58
+     a70:	9300      	str	r3, [sp, #0]
+     a72:	4621      	mov	r1, r4
+     a74:	f107 0354 	add.w	r3, r7, #84	; 0x54
+     a78:	2001      	movs	r0, #1
+     a7a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     a7e:	6dbb      	ldr	r3, [r7, #88]	; 0x58
+     a80:	2800      	cmp	r0, #0
+     a82:	f000 81bd 	beq.w	e00 <sdram_calibration_full+0xe00>
+     a86:	f8d8 2000 	ldr.w	r2, [r8]
+     a8a:	78d2      	ldrb	r2, [r2, #3]
+     a8c:	4413      	add	r3, r2
+     a8e:	65bb      	str	r3, [r7, #88]	; 0x58
+     a90:	6cfb      	ldr	r3, [r7, #76]	; 0x4c
+     a92:	3301      	adds	r3, #1
+     a94:	64fb      	str	r3, [r7, #76]	; 0x4c
+     a96:	e66b      	b.n	770 <sdram_calibration_full+0x770>
+     a98:	3b01      	subs	r3, #1
+     a9a:	653b      	str	r3, [r7, #80]	; 0x50
+     a9c:	e1bf      	b.n	e1e <sdram_calibration_full+0xe1e>
+     a9e:	f8d8 3000 	ldr.w	r3, [r8]
+     aa2:	3601      	adds	r6, #1
+     aa4:	78da      	ldrb	r2, [r3, #3]
+     aa6:	799b      	ldrb	r3, [r3, #6]
+     aa8:	4415      	add	r5, r2
+     aaa:	429e      	cmp	r6, r3
+     aac:	f240 81c1 	bls.w	e32 <sdram_calibration_full+0xe32>
+     ab0:	e1cf      	b.n	e52 <sdram_calibration_full+0xe52>
+     ab2:	3b01      	subs	r3, #1
+     ab4:	653b      	str	r3, [r7, #80]	; 0x50
+     ab6:	e210      	b.n	eda <sdram_calibration_full+0xeda>
+     ab8:	3b01      	subs	r3, #1
+     aba:	653b      	str	r3, [r7, #80]	; 0x50
+     abc:	e23d      	b.n	f3a <sdram_calibration_full+0xf3a>
+     abe:	2500      	movs	r5, #0
+     ac0:	e65c      	b.n	77c <sdram_calibration_full+0x77c>
+     ac2:	6af8      	ldr	r0, [r7, #44]	; 0x2c
+     ac4:	2100      	movs	r1, #0
+     ac6:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     aca:	f3bf 8f5f 	dmb	sy
+     ace:	4b14      	ldr	r3, [pc, #80]	; (b20 <sdram_calibration_full+0xb20>)
+     ad0:	2200      	movs	r2, #0
+     ad2:	f8c3 2e20 	str.w	r2, [r3, #3616]	; 0xe20
+     ad6:	6833      	ldr	r3, [r6, #0]
+     ad8:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     adc:	4498      	add	r8, r3
+     ade:	e650      	b.n	782 <sdram_calibration_full+0x782>
+     ae0:	f04f 0b02 	mov.w	fp, #2
+     ae4:	6a7b      	ldr	r3, [r7, #36]	; 0x24
+     ae6:	3301      	adds	r3, #1
+     ae8:	627b      	str	r3, [r7, #36]	; 0x24
+     aea:	4b0e      	ldr	r3, [pc, #56]	; (b24 <sdram_calibration_full+0xb24>)
+     aec:	6a7a      	ldr	r2, [r7, #36]	; 0x24
+     aee:	681b      	ldr	r3, [r3, #0]
+     af0:	795b      	ldrb	r3, [r3, #5]
+     af2:	429a      	cmp	r2, r3
+     af4:	f67f ade6 	bls.w	6c4 <sdram_calibration_full+0x6c4>
+     af8:	e6ed      	b.n	8d6 <sdram_calibration_full+0x8d6>
+     afa:	f04f 0b03 	mov.w	fp, #3
+     afe:	e7f1      	b.n	ae4 <sdram_calibration_full+0xae4>
+	...
+     b0c:	ffc21000 	.word	0xffc21000
+     b10:	ffc25000 	.word	0xffc25000
+     b14:	ffc24000 	.word	0xffc24000
+     b18:	ffc22000 	.word	0xffc22000
+     b1c:	ffc21ffc 	.word	0xffc21ffc
+     b20:	ffc20000 	.word	0xffc20000
+     b24:	00000000 	.word	0x00000000
+     b28:	8fb8      	ldrh	r0, [r7, #60]	; 0x3c
+     b2a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     b2e:	2004      	movs	r0, #4
+     b30:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     b34:	2001      	movs	r0, #1
+     b36:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     b3a:	f8da 3000 	ldr.w	r3, [sl]
+     b3e:	f8c7 d024 	str.w	sp, [r7, #36]	; 0x24
+     b42:	f893 2034 	ldrb.w	r2, [r3, #52]	; 0x34
+     b46:	0093      	lsls	r3, r2, #2
+     b48:	0092      	lsls	r2, r2, #2
+     b4a:	3307      	adds	r3, #7
+     b4c:	f5a2 1277 	sub.w	r2, r2, #4046848	; 0x3dc000
+     b50:	f403 63ff 	and.w	r3, r3, #2040	; 0x7f8
+     b54:	f5a2 5264 	sub.w	r2, r2, #14592	; 0x3900
+     b58:	ebad 0d03 	sub.w	sp, sp, r3
+     b5c:	ad06      	add	r5, sp, #24
+     b5e:	ebad 0d03 	sub.w	sp, sp, r3
+     b62:	f8db 3000 	ldr.w	r3, [fp]
+     b66:	ac06      	add	r4, sp, #24
+     b68:	7b5b      	ldrb	r3, [r3, #13]
+     b6a:	4403      	add	r3, r0
+     b6c:	64fb      	str	r3, [r7, #76]	; 0x4c
+     b6e:	e9c7 3314 	strd	r3, r3, [r7, #80]	; 0x50
+     b72:	65bb      	str	r3, [r7, #88]	; 0x58
+     b74:	2300      	movs	r3, #0
+     b76:	65fb      	str	r3, [r7, #92]	; 0x5c
+     b78:	6812      	ldr	r2, [r2, #0]
+     b7a:	62fa      	str	r2, [r7, #44]	; 0x2c
+     b7c:	f3bf 8f5f 	dmb	sy
+     b80:	f8da 2000 	ldr.w	r2, [sl]
+     b84:	f8db 0000 	ldr.w	r0, [fp]
+     b88:	643b      	str	r3, [r7, #64]	; 0x40
+     b8a:	f892 1034 	ldrb.w	r1, [r2, #52]	; 0x34
+     b8e:	428b      	cmp	r3, r1
+     b90:	db35      	blt.n	bfe <sdram_calibration_full+0xbfe>
+     b92:	2600      	movs	r6, #0
+     b94:	9403      	str	r4, [sp, #12]
+     b96:	9604      	str	r6, [sp, #16]
+     b98:	f107 0340 	add.w	r3, r7, #64	; 0x40
+     b9c:	9502      	str	r5, [sp, #8]
+     b9e:	4641      	mov	r1, r8
+     ba0:	9301      	str	r3, [sp, #4]
+     ba2:	2001      	movs	r0, #1
+     ba4:	6abb      	ldr	r3, [r7, #40]	; 0x28
+     ba6:	9300      	str	r3, [sp, #0]
+     ba8:	4633      	mov	r3, r6
+     baa:	6bfa      	ldr	r2, [r7, #60]	; 0x3c
+     bac:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     bb0:	9605      	str	r6, [sp, #20]
+     bb2:	9601      	str	r6, [sp, #4]
+     bb4:	f107 0340 	add.w	r3, r7, #64	; 0x40
+     bb8:	9404      	str	r4, [sp, #16]
+     bba:	4641      	mov	r1, r8
+     bbc:	9503      	str	r5, [sp, #12]
+     bbe:	2001      	movs	r0, #1
+     bc0:	9302      	str	r3, [sp, #8]
+     bc2:	6afb      	ldr	r3, [r7, #44]	; 0x2c
+     bc4:	9300      	str	r3, [sp, #0]
+     bc6:	4633      	mov	r3, r6
+     bc8:	6bfa      	ldr	r2, [r7, #60]	; 0x3c
+     bca:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     bce:	4606      	mov	r6, r0
+     bd0:	b1e8      	cbz	r0, c0e <sdram_calibration_full+0xc0e>
+     bd2:	6abb      	ldr	r3, [r7, #40]	; 0x28
+     bd4:	2201      	movs	r2, #1
+     bd6:	2104      	movs	r1, #4
+     bd8:	1e58      	subs	r0, r3, #1
+     bda:	4430      	add	r0, r6
+     bdc:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     be0:	2201      	movs	r2, #1
+     be2:	2104      	movs	r1, #4
+     be4:	f8d7 d024 	ldr.w	sp, [r7, #36]	; 0x24
+     be8:	6bf8      	ldr	r0, [r7, #60]	; 0x3c
+     bea:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     bee:	4b80      	ldr	r3, [pc, #512]	; (df0 <sdram_calibration_full+0xdf0>)
+     bf0:	681b      	ldr	r3, [r3, #0]
+     bf2:	681b      	ldr	r3, [r3, #0]
+     bf4:	071b      	lsls	r3, r3, #28
+     bf6:	f57f ae81 	bpl.w	8fc <sdram_calibration_full+0x8fc>
+     bfa:	637a      	str	r2, [r7, #52]	; 0x34
+     bfc:	e0a4      	b.n	d48 <sdram_calibration_full+0xd48>
+     bfe:	7b42      	ldrb	r2, [r0, #13]
+     c00:	3201      	adds	r2, #1
+     c02:	f845 2023 	str.w	r2, [r5, r3, lsl #2]
+     c06:	f844 2023 	str.w	r2, [r4, r3, lsl #2]
+     c0a:	3301      	adds	r3, #1
+     c0c:	e7bf      	b.n	b8e <sdram_calibration_full+0xb8e>
+     c0e:	f8da 3000 	ldr.w	r3, [sl]
+     c12:	4684      	mov	ip, r0
+     c14:	682a      	ldr	r2, [r5, #0]
+     c16:	f893 e034 	ldrb.w	lr, [r3, #52]	; 0x34
+     c1a:	6823      	ldr	r3, [r4, #0]
+     c1c:	1ad3      	subs	r3, r2, r3
+     c1e:	2201      	movs	r2, #1
+     c20:	4596      	cmp	lr, r2
+     c22:	f200 8097 	bhi.w	d54 <sdram_calibration_full+0xd54>
+     c26:	2b00      	cmp	r3, #0
+     c28:	f107 0248 	add.w	r2, r7, #72	; 0x48
+     c2c:	bfc8      	it	gt
+     c2e:	3301      	addgt	r3, #1
+     c30:	4629      	mov	r1, r5
+     c32:	9204      	str	r2, [sp, #16]
+     c34:	2001      	movs	r0, #1
+     c36:	eb03 73d3 	add.w	r3, r3, r3, lsr #31
+     c3a:	f107 0244 	add.w	r2, r7, #68	; 0x44
+     c3e:	f8cd c004 	str.w	ip, [sp, #4]
+     c42:	9203      	str	r2, [sp, #12]
+     c44:	105b      	asrs	r3, r3, #1
+     c46:	2200      	movs	r2, #0
+     c48:	9300      	str	r3, [sp, #0]
+     c4a:	9202      	str	r2, [sp, #8]
+     c4c:	4613      	mov	r3, r2
+     c4e:	4622      	mov	r2, r4
+     c50:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     c54:	6af9      	ldr	r1, [r7, #44]	; 0x2c
+     c56:	6bf8      	ldr	r0, [r7, #60]	; 0x3c
+     c58:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     c5c:	f3bf 8f5f 	dmb	sy
+     c60:	4b64      	ldr	r3, [pc, #400]	; (df4 <sdram_calibration_full+0xdf4>)
+     c62:	2200      	movs	r2, #0
+     c64:	4641      	mov	r1, r8
+     c66:	2001      	movs	r0, #1
+     c68:	f8c3 2e20 	str.w	r2, [r3, #3616]	; 0xe20
+     c6c:	f8db 3000 	ldr.w	r3, [fp]
+     c70:	7b5b      	ldrb	r3, [r3, #13]
+     c72:	3301      	adds	r3, #1
+     c74:	602b      	str	r3, [r5, #0]
+     c76:	6023      	str	r3, [r4, #0]
+     c78:	f107 035c 	add.w	r3, r7, #92	; 0x5c
+     c7c:	9204      	str	r2, [sp, #16]
+     c7e:	9303      	str	r3, [sp, #12]
+     c80:	f107 0358 	add.w	r3, r7, #88	; 0x58
+     c84:	9302      	str	r3, [sp, #8]
+     c86:	f107 0354 	add.w	r3, r7, #84	; 0x54
+     c8a:	9301      	str	r3, [sp, #4]
+     c8c:	f107 0350 	add.w	r3, r7, #80	; 0x50
+     c90:	9300      	str	r3, [sp, #0]
+     c92:	f107 034c 	add.w	r3, r7, #76	; 0x4c
+     c96:	6bfa      	ldr	r2, [r7, #60]	; 0x3c
+     c98:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     c9c:	2000      	movs	r0, #0
+     c9e:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     ca2:	6d3b      	ldr	r3, [r7, #80]	; 0x50
+     ca4:	b12b      	cbz	r3, cb2 <sdram_calibration_full+0xcb2>
+     ca6:	f8db 3000 	ldr.w	r3, [fp]
+     caa:	7b5b      	ldrb	r3, [r3, #13]
+     cac:	3301      	adds	r3, #1
+     cae:	64fb      	str	r3, [r7, #76]	; 0x4c
+     cb0:	653b      	str	r3, [r7, #80]	; 0x50
+     cb2:	6afb      	ldr	r3, [r7, #44]	; 0x2c
+     cb4:	4641      	mov	r1, r8
+     cb6:	9304      	str	r3, [sp, #16]
+     cb8:	f107 035c 	add.w	r3, r7, #92	; 0x5c
+     cbc:	9303      	str	r3, [sp, #12]
+     cbe:	f107 0358 	add.w	r3, r7, #88	; 0x58
+     cc2:	9302      	str	r3, [sp, #8]
+     cc4:	f107 0354 	add.w	r3, r7, #84	; 0x54
+     cc8:	9301      	str	r3, [sp, #4]
+     cca:	f107 0350 	add.w	r3, r7, #80	; 0x50
+     cce:	9300      	str	r3, [sp, #0]
+     cd0:	2000      	movs	r0, #0
+     cd2:	6bfa      	ldr	r2, [r7, #60]	; 0x3c
+     cd4:	f107 034c 	add.w	r3, r7, #76	; 0x4c
+     cd8:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     cdc:	6d7b      	ldr	r3, [r7, #84]	; 0x54
+     cde:	6bf8      	ldr	r0, [r7, #60]	; 0x3c
+     ce0:	425b      	negs	r3, r3
+     ce2:	602b      	str	r3, [r5, #0]
+     ce4:	6dbb      	ldr	r3, [r7, #88]	; 0x58
+     ce6:	6023      	str	r3, [r4, #0]
+     ce8:	6af9      	ldr	r1, [r7, #44]	; 0x2c
+     cea:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     cee:	682b      	ldr	r3, [r5, #0]
+     cf0:	6820      	ldr	r0, [r4, #0]
+     cf2:	1a18      	subs	r0, r3, r0
+     cf4:	1c42      	adds	r2, r0, #1
+     cf6:	6dfa      	ldr	r2, [r7, #92]	; 0x5c
+     cf8:	bfa4      	itt	ge
+     cfa:	eb00 70d0 	addge.w	r0, r0, r0, lsr #31
+     cfe:	1046      	asrge	r6, r0, #1
+     d00:	b39a      	cbz	r2, d6a <sdram_calibration_full+0xd6a>
+     d02:	1b9c      	subs	r4, r3, r6
+     d04:	4630      	mov	r0, r6
+     d06:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     d0a:	f3bf 8f5f 	dmb	sy
+     d0e:	4a39      	ldr	r2, [pc, #228]	; (df4 <sdram_calibration_full+0xdf4>)
+     d10:	2000      	movs	r0, #0
+     d12:	4b37      	ldr	r3, [pc, #220]	; (df0 <sdram_calibration_full+0xdf0>)
+     d14:	f8c2 0e20 	str.w	r0, [r2, #3616]	; 0xe20
+     d18:	681d      	ldr	r5, [r3, #0]
+     d1a:	6cb9      	ldr	r1, [r7, #72]	; 0x48
+     d1c:	6c7b      	ldr	r3, [r7, #68]	; 0x44
+     d1e:	4419      	add	r1, r3
+     d20:	69ab      	ldr	r3, [r5, #24]
+     d22:	440b      	add	r3, r1
+     d24:	61ab      	str	r3, [r5, #24]
+     d26:	f3bf 8f5f 	dmb	sy
+     d2a:	f8c2 0e20 	str.w	r0, [r2, #3616]	; 0xe20
+     d2e:	6c7b      	ldr	r3, [r7, #68]	; 0x44
+     d30:	4283      	cmp	r3, r0
+     d32:	f6ff af55 	blt.w	be0 <sdram_calibration_full+0xbe0>
+     d36:	6cbb      	ldr	r3, [r7, #72]	; 0x48
+     d38:	4283      	cmp	r3, r0
+     d3a:	f6ff af51 	blt.w	be0 <sdram_calibration_full+0xbe0>
+     d3e:	4284      	cmp	r4, r0
+     d40:	f6ff af4e 	blt.w	be0 <sdram_calibration_full+0xbe0>
+     d44:	f8d7 d024 	ldr.w	sp, [r7, #36]	; 0x24
+     d48:	f8da 3000 	ldr.w	r3, [sl]
+     d4c:	f893 3038 	ldrb.w	r3, [r3, #56]	; 0x38
+     d50:	4498      	add	r8, r3
+     d52:	e479      	b.n	648 <sdram_calibration_full+0x648>
+     d54:	f855 1022 	ldr.w	r1, [r5, r2, lsl #2]
+     d58:	f854 0022 	ldr.w	r0, [r4, r2, lsl #2]
+     d5c:	1a09      	subs	r1, r1, r0
+     d5e:	4299      	cmp	r1, r3
+     d60:	bfbc      	itt	lt
+     d62:	4694      	movlt	ip, r2
+     d64:	460b      	movlt	r3, r1
+     d66:	3201      	adds	r2, #1
+     d68:	e75a      	b.n	c20 <sdram_calibration_full+0xc20>
+     d6a:	f04f 34ff 	mov.w	r4, #4294967295
+     d6e:	e7c9      	b.n	d04 <sdram_calibration_full+0xd04>
+     d70:	b2a0      	uxth	r0, r4
+     d72:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     d76:	2009      	movs	r0, #9
+     d78:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     d7c:	2003      	movs	r0, #3
+     d7e:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     d82:	6b79      	ldr	r1, [r7, #52]	; 0x34
+     d84:	4620      	mov	r0, r4
+     d86:	2200      	movs	r2, #0
+     d88:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     d8c:	2800      	cmp	r0, #0
+     d8e:	f000 8140 	beq.w	1012 <sdram_calibration_full+0x1012>
+     d92:	2203      	movs	r2, #3
+     d94:	2109      	movs	r1, #9
+     d96:	e5a8      	b.n	8ea <sdram_calibration_full+0x8ea>
+     d98:	6bbb      	ldr	r3, [r7, #56]	; 0x38
+     d9a:	3301      	adds	r3, #1
+     d9c:	63bb      	str	r3, [r7, #56]	; 0x38
+     d9e:	e464      	b.n	66a <sdram_calibration_full+0x66a>
+     da0:	2201      	movs	r2, #1
+     da2:	2103      	movs	r1, #3
+     da4:	20ff      	movs	r0, #255	; 0xff
+     da6:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     daa:	e5a9      	b.n	900 <sdram_calibration_full+0x900>
+     dac:	6811      	ldr	r1, [r2, #0]
+     dae:	690b      	ldr	r3, [r1, #16]
+     db0:	688d      	ldr	r5, [r1, #8]
+     db2:	68cc      	ldr	r4, [r1, #12]
+     db4:	041b      	lsls	r3, r3, #16
+     db6:	ea43 2305 	orr.w	r3, r3, r5, lsl #8
+     dba:	4323      	orrs	r3, r4
+     dbc:	f3bf 8f5f 	dmb	sy
+     dc0:	490d      	ldr	r1, [pc, #52]	; (df8 <sdram_calibration_full+0xdf8>)
+     dc2:	f8c1 3810 	str.w	r3, [r1, #2064]	; 0x810
+     dc6:	f3bf 8f5f 	dmb	sy
+     dca:	4c0c      	ldr	r4, [pc, #48]	; (dfc <sdram_calibration_full+0xdfc>)
+     dcc:	6523      	str	r3, [r4, #80]	; 0x50
+     dce:	f3bf 8f5f 	dmb	sy
+     dd2:	6812      	ldr	r2, [r2, #0]
+     dd4:	64e0      	str	r0, [r4, #76]	; 0x4c
+     dd6:	6913      	ldr	r3, [r2, #16]
+     dd8:	6894      	ldr	r4, [r2, #8]
+     dda:	68d0      	ldr	r0, [r2, #12]
+     ddc:	041b      	lsls	r3, r3, #16
+     dde:	ea43 2304 	orr.w	r3, r3, r4, lsl #8
+     de2:	4303      	orrs	r3, r0
+     de4:	f3bf 8f5f 	dmb	sy
+     de8:	f8c1 3810 	str.w	r3, [r1, #2064]	; 0x810
+     dec:	e5c7      	b.n	97e <sdram_calibration_full+0x97e>
+     dee:	bf00      	nop
+     df0:	00000000 	.word	0x00000000
+     df4:	ffc20000 	.word	0xffc20000
+     df8:	ffc24000 	.word	0xffc24000
+     dfc:	ffc21000 	.word	0xffc21000
+     e00:	6cfe      	ldr	r6, [r7, #76]	; 0x4c
+     e02:	65fb      	str	r3, [r7, #92]	; 0x5c
+     e04:	2e00      	cmp	r6, #0
+     e06:	d173      	bne.n	ef0 <sdram_calibration_full+0xef0>
+     e08:	6d3b      	ldr	r3, [r7, #80]	; 0x50
+     e0a:	4d86      	ldr	r5, [pc, #536]	; (1024 <sdram_calibration_full+0x1024>)
+     e0c:	2b00      	cmp	r3, #0
+     e0e:	f47f ae43 	bne.w	a98 <sdram_calibration_full+0xa98>
+     e12:	682b      	ldr	r3, [r5, #0]
+     e14:	4620      	mov	r0, r4
+     e16:	7a1b      	ldrb	r3, [r3, #8]
+     e18:	653b      	str	r3, [r7, #80]	; 0x50
+     e1a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     e1e:	682b      	ldr	r3, [r5, #0]
+     e20:	4620      	mov	r0, r4
+     e22:	f8df 8200 	ldr.w	r8, [pc, #512]	; 1024 <sdram_calibration_full+0x1024>
+     e26:	6dbd      	ldr	r5, [r7, #88]	; 0x58
+     e28:	881b      	ldrh	r3, [r3, #0]
+     e2a:	6d39      	ldr	r1, [r7, #80]	; 0x50
+     e2c:	1aed      	subs	r5, r5, r3
+     e2e:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     e32:	6dbb      	ldr	r3, [r7, #88]	; 0x58
+     e34:	429d      	cmp	r5, r3
+     e36:	d20c      	bcs.n	e52 <sdram_calibration_full+0xe52>
+     e38:	4631      	mov	r1, r6
+     e3a:	4620      	mov	r0, r4
+     e3c:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     e40:	2200      	movs	r2, #0
+     e42:	4620      	mov	r0, r4
+     e44:	4611      	mov	r1, r2
+     e46:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     e4a:	2800      	cmp	r0, #0
+     e4c:	f43f ae27 	beq.w	a9e <sdram_calibration_full+0xa9e>
+     e50:	65bd      	str	r5, [r7, #88]	; 0x58
+     e52:	4a74      	ldr	r2, [pc, #464]	; (1024 <sdram_calibration_full+0x1024>)
+     e54:	6d3b      	ldr	r3, [r7, #80]	; 0x50
+     e56:	3301      	adds	r3, #1
+     e58:	653b      	str	r3, [r7, #80]	; 0x50
+     e5a:	6812      	ldr	r2, [r2, #0]
+     e5c:	7a12      	ldrb	r2, [r2, #8]
+     e5e:	4293      	cmp	r3, r2
+     e60:	d908      	bls.n	e74 <sdram_calibration_full+0xe74>
+     e62:	2300      	movs	r3, #0
+     e64:	653b      	str	r3, [r7, #80]	; 0x50
+     e66:	f3bf 8f5f 	dmb	sy
+     e6a:	f5a3 1377 	sub.w	r3, r3, #4046848	; 0x3dc000
+     e6e:	f5a3 5340 	sub.w	r3, r3, #12288	; 0x3000
+     e72:	605c      	str	r4, [r3, #4]
+     e74:	4620      	mov	r0, r4
+     e76:	2100      	movs	r1, #0
+     e78:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     e7c:	4a69      	ldr	r2, [pc, #420]	; (1024 <sdram_calibration_full+0x1024>)
+     e7e:	6d3b      	ldr	r3, [r7, #80]	; 0x50
+     e80:	3301      	adds	r3, #1
+     e82:	653b      	str	r3, [r7, #80]	; 0x50
+     e84:	6811      	ldr	r1, [r2, #0]
+     e86:	6dfa      	ldr	r2, [r7, #92]	; 0x5c
+     e88:	8808      	ldrh	r0, [r1, #0]
+     e8a:	4402      	add	r2, r0
+     e8c:	65fa      	str	r2, [r7, #92]	; 0x5c
+     e8e:	7a0a      	ldrb	r2, [r1, #8]
+     e90:	4293      	cmp	r3, r2
+     e92:	d908      	bls.n	ea6 <sdram_calibration_full+0xea6>
+     e94:	2300      	movs	r3, #0
+     e96:	653b      	str	r3, [r7, #80]	; 0x50
+     e98:	f3bf 8f5f 	dmb	sy
+     e9c:	f5a3 1377 	sub.w	r3, r3, #4046848	; 0x3dc000
+     ea0:	f5a3 5340 	sub.w	r3, r3, #12288	; 0x3000
+     ea4:	605c      	str	r4, [r3, #4]
+     ea6:	f107 0350 	add.w	r3, r7, #80	; 0x50
+     eaa:	f107 025c 	add.w	r2, r7, #92	; 0x5c
+     eae:	9300      	str	r3, [sp, #0]
+     eb0:	4621      	mov	r1, r4
+     eb2:	f107 0354 	add.w	r3, r7, #84	; 0x54
+     eb6:	2000      	movs	r0, #0
+     eb8:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     ebc:	4605      	mov	r5, r0
+     ebe:	2800      	cmp	r0, #0
+     ec0:	f47f ac5c 	bne.w	77c <sdram_calibration_full+0x77c>
+     ec4:	6d3b      	ldr	r3, [r7, #80]	; 0x50
+     ec6:	4d57      	ldr	r5, [pc, #348]	; (1024 <sdram_calibration_full+0x1024>)
+     ec8:	2b00      	cmp	r3, #0
+     eca:	f47f adf2 	bne.w	ab2 <sdram_calibration_full+0xab2>
+     ece:	682b      	ldr	r3, [r5, #0]
+     ed0:	4620      	mov	r0, r4
+     ed2:	7a1b      	ldrb	r3, [r3, #8]
+     ed4:	653b      	str	r3, [r7, #80]	; 0x50
+     ed6:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     eda:	682b      	ldr	r3, [r5, #0]
+     edc:	4620      	mov	r0, r4
+     ede:	6d39      	ldr	r1, [r7, #80]	; 0x50
+     ee0:	881a      	ldrh	r2, [r3, #0]
+     ee2:	6dfb      	ldr	r3, [r7, #92]	; 0x5c
+     ee4:	1a9b      	subs	r3, r3, r2
+     ee6:	65fb      	str	r3, [r7, #92]	; 0x5c
+     ee8:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     eec:	2300      	movs	r3, #0
+     eee:	64fb      	str	r3, [r7, #76]	; 0x4c
+     ef0:	4d4c      	ldr	r5, [pc, #304]	; (1024 <sdram_calibration_full+0x1024>)
+     ef2:	f107 034c 	add.w	r3, r7, #76	; 0x4c
+     ef6:	9301      	str	r3, [sp, #4]
+     ef8:	4622      	mov	r2, r4
+     efa:	2101      	movs	r1, #1
+     efc:	2000      	movs	r0, #0
+     efe:	682b      	ldr	r3, [r5, #0]
+     f00:	78db      	ldrb	r3, [r3, #3]
+     f02:	9300      	str	r3, [sp, #0]
+     f04:	f107 035c 	add.w	r3, r7, #92	; 0x5c
+     f08:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     f0c:	6cfb      	ldr	r3, [r7, #76]	; 0x4c
+     f0e:	b123      	cbz	r3, f1a <sdram_calibration_full+0xf1a>
+     f10:	682b      	ldr	r3, [r5, #0]
+     f12:	78da      	ldrb	r2, [r3, #3]
+     f14:	6dfb      	ldr	r3, [r7, #92]	; 0x5c
+     f16:	1a9b      	subs	r3, r3, r2
+     f18:	65fb      	str	r3, [r7, #92]	; 0x5c
+     f1a:	e9d7 3216 	ldrd	r3, r2, [r7, #88]	; 0x58
+     f1e:	429a      	cmp	r2, r3
+     f20:	f4ff ac2a 	bcc.w	778 <sdram_calibration_full+0x778>
+     f24:	6d3b      	ldr	r3, [r7, #80]	; 0x50
+     f26:	2b00      	cmp	r3, #0
+     f28:	f47f adc6 	bne.w	ab8 <sdram_calibration_full+0xab8>
+     f2c:	4b3d      	ldr	r3, [pc, #244]	; (1024 <sdram_calibration_full+0x1024>)
+     f2e:	4620      	mov	r0, r4
+     f30:	681b      	ldr	r3, [r3, #0]
+     f32:	7a1b      	ldrb	r3, [r3, #8]
+     f34:	653b      	str	r3, [r7, #80]	; 0x50
+     f36:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     f3a:	6d39      	ldr	r1, [r7, #80]	; 0x50
+     f3c:	4620      	mov	r0, r4
+     f3e:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     f42:	f107 054c 	add.w	r5, r7, #76	; 0x4c
+     f46:	6cfe      	ldr	r6, [r7, #76]	; 0x4c
+     f48:	2300      	movs	r3, #0
+     f4a:	2101      	movs	r1, #1
+     f4c:	9300      	str	r3, [sp, #0]
+     f4e:	4622      	mov	r2, r4
+     f50:	4608      	mov	r0, r1
+     f52:	9501      	str	r5, [sp, #4]
+     f54:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     f58:	4603      	mov	r3, r0
+     f5a:	b960      	cbnz	r0, f76 <sdram_calibration_full+0xf76>
+     f5c:	6cfa      	ldr	r2, [r7, #76]	; 0x4c
+     f5e:	2101      	movs	r1, #1
+     f60:	3201      	adds	r2, #1
+     f62:	64fa      	str	r2, [r7, #76]	; 0x4c
+     f64:	4622      	mov	r2, r4
+     f66:	e9cd 0500 	strd	r0, r5, [sp]
+     f6a:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     f6e:	b910      	cbnz	r0, f76 <sdram_calibration_full+0xf76>
+     f70:	6cf8      	ldr	r0, [r7, #76]	; 0x4c
+     f72:	eba0 0a06 	sub.w	sl, r0, r6
+     f76:	f3bf 8f5f 	dmb	sy
+     f7a:	4b2b      	ldr	r3, [pc, #172]	; (1028 <sdram_calibration_full+0x1028>)
+     f7c:	f8c3 a81c 	str.w	sl, [r3, #2076]	; 0x81c
+     f80:	e9d7 0316 	ldrd	r0, r3, [r7, #88]	; 0x58
+     f84:	4418      	add	r0, r3
+     f86:	4b27      	ldr	r3, [pc, #156]	; (1024 <sdram_calibration_full+0x1024>)
+     f88:	0840      	lsrs	r0, r0, #1
+     f8a:	f8d3 a000 	ldr.w	sl, [r3]
+     f8e:	f8ba 6000 	ldrh.w	r6, [sl]
+     f92:	f89a b008 	ldrb.w	fp, [sl, #8]
+     f96:	fb0b 6b06 	mla	fp, fp, r6, r6
+     f9a:	4659      	mov	r1, fp
+     f9c:	ebab 0b06 	sub.w	fp, fp, r6
+     fa0:	f7ff fffe 	bl	0 <__aeabi_uidivmod>
+     fa4:	4688      	mov	r8, r1
+     fa6:	4640      	mov	r0, r8
+     fa8:	4631      	mov	r1, r6
+     faa:	f7ff fffe 	bl	0 <__aeabi_uidivmod>
+     fae:	eba8 0501 	sub.w	r5, r8, r1
+     fb2:	f89a 1003 	ldrb.w	r1, [sl, #3]
+     fb6:	455d      	cmp	r5, fp
+     fb8:	bfa8      	it	ge
+     fba:	465d      	movge	r5, fp
+     fbc:	1e48      	subs	r0, r1, #1
+     fbe:	4440      	add	r0, r8
+     fc0:	1b40      	subs	r0, r0, r5
+     fc2:	f7ff fffe 	bl	0 <__aeabi_uidiv>
+     fc6:	f89a 8006 	ldrb.w	r8, [sl, #6]
+     fca:	4631      	mov	r1, r6
+     fcc:	4e17      	ldr	r6, [pc, #92]	; (102c <sdram_calibration_full+0x102c>)
+     fce:	4580      	cmp	r8, r0
+     fd0:	bfa8      	it	ge
+     fd2:	4680      	movge	r8, r0
+     fd4:	4628      	mov	r0, r5
+     fd6:	f7ff fffe 	bl	0 <__aeabi_idiv>
+     fda:	2500      	movs	r5, #0
+     fdc:	4601      	mov	r1, r0
+     fde:	4620      	mov	r0, r4
+     fe0:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     fe4:	4641      	mov	r1, r8
+     fe6:	4620      	mov	r0, r4
+     fe8:	f7ff fffe 	bl	0 <sdram_calibration_full>
+     fec:	6833      	ldr	r3, [r6, #0]
+     fee:	7a5b      	ldrb	r3, [r3, #9]
+     ff0:	429d      	cmp	r5, r3
+     ff2:	f6bf abc1 	bge.w	778 <sdram_calibration_full+0x778>
+     ff6:	2200      	movs	r2, #0
+     ff8:	4620      	mov	r0, r4
+     ffa:	4611      	mov	r1, r2
+     ffc:	f7ff fffe 	bl	0 <sdram_calibration_full>
+    1000:	2800      	cmp	r0, #0
+    1002:	f47f ad5c 	bne.w	abe <sdram_calibration_full+0xabe>
+    1006:	f3bf 8f5f 	dmb	sy
+    100a:	4b09      	ldr	r3, [pc, #36]	; (1030 <sdram_calibration_full+0x1030>)
+    100c:	3501      	adds	r5, #1
+    100e:	605c      	str	r4, [r3, #4]
+    1010:	e7ec      	b.n	fec <sdram_calibration_full+0xfec>
+    1012:	682b      	ldr	r3, [r5, #0]
+    1014:	3401      	adds	r4, #1
+    1016:	6b7a      	ldr	r2, [r7, #52]	; 0x34
+    1018:	f893 3033 	ldrb.w	r3, [r3, #51]	; 0x33
+    101c:	441a      	add	r2, r3
+    101e:	637a      	str	r2, [r7, #52]	; 0x34
+    1020:	f7ff bb1f 	b.w	662 <sdram_calibration_full+0x662>
+    1024:	00000000 	.word	0x00000000
+    1028:	ffc24000 	.word	0xffc24000
+    102c:	00000000 	.word	0x00000000
+    1030:	ffc21000 	.word	0xffc21000

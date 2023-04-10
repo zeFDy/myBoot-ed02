@@ -1,0 +1,31 @@
+
+// to write menu.rbf (fpga binary) to partition 1 - FAT32
+// start offset sector = 6144 (x 512 bytes per sector) 
+sudo dd if=menu.rbf of=/dev/sdg1
+
+// to write menu.rbf (fpga binary) to partition 2 - Linux
+// start offset sector = 210944 (x 512 bytes per sector) 
+sudo dd if=menu.rbf of=/dev/sdg2
+
+
+// to write myBoot-ed02 to sdcard (partition A2) :
+sudo dd if=QuadSpl.bin of=/dev/sdg3 bs=64k seek=0
+sync
+
+
+
+// menu.rbf en partition 1 :
+//#define 	MENU_RBF_ADDRESS		6144*512
+#define	 	MENU_RBF_ADDRESS		3145728
+#define 	MENU_RBF_SIZE			2399864
+#define 	MENU_RBF_SIZE_ROUND		2400256
+
+
+// HDMI_TX.rbf en partition 2 :
+//#define 	HDMI_TX_RBF_ADDRESS		210944*512
+#define 	HDMI_TX_RBF_ADDRESS		108003328
+#define 	HDMI_TX_RBF_SIZE		7007204
+#define 	HDMI_TX_RBF_SIZE_ROUND		7007232
+
+sudo dd if=HDMI_TX.rbf of=/dev/sdg2
+

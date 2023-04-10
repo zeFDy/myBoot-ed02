@@ -1,0 +1,106 @@
+
+FreezeManager.o:     file format elf32-littlearm
+
+
+Disassembly of section .text.FDy_sys_mgr_frzctrl_freeze_req:
+
+00000000 <FDy_sys_mgr_frzctrl_freeze_req>:
+   0:	f3bf 8f5f 	dmb	sy
+   4:	4b19      	ldr	r3, [pc, #100]	; (6c <FDy_sys_mgr_frzctrl_freeze_req+0x6c>)
+   6:	2200      	movs	r2, #0
+   8:	655a      	str	r2, [r3, #84]	; 0x54
+   a:	6c1a      	ldr	r2, [r3, #64]	; 0x40
+   c:	f022 021c 	bic.w	r2, r2, #28
+  10:	641a      	str	r2, [r3, #64]	; 0x40
+  12:	6c1a      	ldr	r2, [r3, #64]	; 0x40
+  14:	f022 0203 	bic.w	r2, r2, #3
+  18:	641a      	str	r2, [r3, #64]	; 0x40
+  1a:	6c5a      	ldr	r2, [r3, #68]	; 0x44
+  1c:	f022 021c 	bic.w	r2, r2, #28
+  20:	645a      	str	r2, [r3, #68]	; 0x44
+  22:	6c5a      	ldr	r2, [r3, #68]	; 0x44
+  24:	f022 0203 	bic.w	r2, r2, #3
+  28:	645a      	str	r2, [r3, #68]	; 0x44
+  2a:	6c9a      	ldr	r2, [r3, #72]	; 0x48
+  2c:	f022 021c 	bic.w	r2, r2, #28
+  30:	649a      	str	r2, [r3, #72]	; 0x48
+  32:	6c9a      	ldr	r2, [r3, #72]	; 0x48
+  34:	f022 0203 	bic.w	r2, r2, #3
+  38:	649a      	str	r2, [r3, #72]	; 0x48
+  3a:	6d1a      	ldr	r2, [r3, #80]	; 0x50
+  3c:	f022 021c 	bic.w	r2, r2, #28
+  40:	651a      	str	r2, [r3, #80]	; 0x50
+  42:	6d1a      	ldr	r2, [r3, #80]	; 0x50
+  44:	f3bf 8f5f 	dmb	sy
+  48:	f022 0203 	bic.w	r2, r2, #3
+  4c:	f042 02c0 	orr.w	r2, r2, #192	; 0xc0
+  50:	f3bf 8f5f 	dmb	sy
+  54:	651a      	str	r2, [r3, #80]	; 0x50
+  56:	6d1a      	ldr	r2, [r3, #80]	; 0x50
+  58:	f3bf 8f5f 	dmb	sy
+  5c:	f422 7290 	bic.w	r2, r2, #288	; 0x120
+  60:	f042 0220 	orr.w	r2, r2, #32
+  64:	f3bf 8f5f 	dmb	sy
+  68:	651a      	str	r2, [r3, #80]	; 0x50
+  6a:	4770      	bx	lr
+  6c:	ffd08000 	.word	0xffd08000
+
+Disassembly of section .text.FDy_sys_mgr_frzctrl_thaw_req:
+
+00000000 <FDy_sys_mgr_frzctrl_thaw_req>:
+   0:	b082      	sub	sp, #8
+   2:	f3bf 8f5f 	dmb	sy
+   6:	4b21      	ldr	r3, [pc, #132]	; (8c <FDy_sys_mgr_frzctrl_thaw_req+0x8c>)
+   8:	2200      	movs	r2, #0
+   a:	4921      	ldr	r1, [pc, #132]	; (90 <FDy_sys_mgr_frzctrl_thaw_req+0x90>)
+   c:	3340      	adds	r3, #64	; 0x40
+   e:	615a      	str	r2, [r3, #20]
+  10:	681a      	ldr	r2, [r3, #0]
+  12:	f042 0203 	orr.w	r2, r2, #3
+  16:	601a      	str	r2, [r3, #0]
+  18:	681a      	ldr	r2, [r3, #0]
+  1a:	f042 020c 	orr.w	r2, r2, #12
+  1e:	601a      	str	r2, [r3, #0]
+  20:	681a      	ldr	r2, [r3, #0]
+  22:	f042 0210 	orr.w	r2, r2, #16
+  26:	f843 2b04 	str.w	r2, [r3], #4
+  2a:	428b      	cmp	r3, r1
+  2c:	d1f0      	bne.n	10 <FDy_sys_mgr_frzctrl_thaw_req+0x10>
+  2e:	4b17      	ldr	r3, [pc, #92]	; (8c <FDy_sys_mgr_frzctrl_thaw_req+0x8c>)
+  30:	f644 6120 	movw	r1, #20000	; 0x4e20
+  34:	6d1a      	ldr	r2, [r3, #80]	; 0x50
+  36:	f022 0220 	bic.w	r2, r2, #32
+  3a:	651a      	str	r2, [r3, #80]	; 0x50
+  3c:	6d1a      	ldr	r2, [r3, #80]	; 0x50
+  3e:	f442 7280 	orr.w	r2, r2, #256	; 0x100
+  42:	651a      	str	r2, [r3, #80]	; 0x50
+  44:	2200      	movs	r2, #0
+  46:	9200      	str	r2, [sp, #0]
+  48:	3202      	adds	r2, #2
+  4a:	428a      	cmp	r2, r1
+  4c:	d1fb      	bne.n	46 <FDy_sys_mgr_frzctrl_thaw_req+0x46>
+  4e:	6d1a      	ldr	r2, [r3, #80]	; 0x50
+  50:	f3bf 8f5f 	dmb	sy
+  54:	f022 0243 	bic.w	r2, r2, #67	; 0x43
+  58:	f042 0203 	orr.w	r2, r2, #3
+  5c:	f3bf 8f5f 	dmb	sy
+  60:	651a      	str	r2, [r3, #80]	; 0x50
+  62:	2300      	movs	r3, #0
+  64:	9301      	str	r3, [sp, #4]
+  66:	3302      	adds	r3, #2
+  68:	f5b3 6ffa 	cmp.w	r3, #2000	; 0x7d0
+  6c:	d1fa      	bne.n	64 <FDy_sys_mgr_frzctrl_thaw_req+0x64>
+  6e:	4b07      	ldr	r3, [pc, #28]	; (8c <FDy_sys_mgr_frzctrl_thaw_req+0x8c>)
+  70:	6d1a      	ldr	r2, [r3, #80]	; 0x50
+  72:	f042 020c 	orr.w	r2, r2, #12
+  76:	651a      	str	r2, [r3, #80]	; 0x50
+  78:	6d1a      	ldr	r2, [r3, #80]	; 0x50
+  7a:	f022 0280 	bic.w	r2, r2, #128	; 0x80
+  7e:	651a      	str	r2, [r3, #80]	; 0x50
+  80:	6d1a      	ldr	r2, [r3, #80]	; 0x50
+  82:	f042 0210 	orr.w	r2, r2, #16
+  86:	651a      	str	r2, [r3, #80]	; 0x50
+  88:	b002      	add	sp, #8
+  8a:	4770      	bx	lr
+  8c:	ffd08000 	.word	0xffd08000
+  90:	ffd0804c 	.word	0xffd0804c

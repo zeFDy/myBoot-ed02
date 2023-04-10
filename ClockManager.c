@@ -1,0 +1,777 @@
+#include "common.h"
+
+
+#define SOCFPGA_CLKMGR_ADDRESS		0xffd04000
+
+// Altera SoCFPGA Clock and PLL configuration
+
+#define CONFIG_HPS_MAINPLLGRP_VCO_DENOM 0
+#define CONFIG_HPS_MAINPLLGRP_VCO_NUMER 63
+#define CONFIG_HPS_MAINPLLGRP_MPUCLK_CNT 0
+#define CONFIG_HPS_MAINPLLGRP_MAINCLK_CNT 0
+#define CONFIG_HPS_MAINPLLGRP_DBGATCLK_CNT 0
+#define CONFIG_HPS_MAINPLLGRP_MAINQSPICLK_CNT 3
+#define CONFIG_HPS_MAINPLLGRP_MAINNANDSDMMCCLK_CNT 511
+#define CONFIG_HPS_MAINPLLGRP_CFGS2FUSER0CLK_CNT 15
+#define CONFIG_HPS_MAINPLLGRP_MAINDIV_L3MPCLK 1
+#define CONFIG_HPS_MAINPLLGRP_MAINDIV_L3SPCLK 1
+#define CONFIG_HPS_MAINPLLGRP_MAINDIV_L4MPCLK 1
+#define CONFIG_HPS_MAINPLLGRP_MAINDIV_L4SPCLK 1
+#define CONFIG_HPS_MAINPLLGRP_DBGDIV_DBGATCLK 0
+#define CONFIG_HPS_MAINPLLGRP_DBGDIV_DBGCLK 1
+#define CONFIG_HPS_MAINPLLGRP_TRACEDIV_TRACECLK 0
+#define CONFIG_HPS_MAINPLLGRP_L4SRC_L4MP 1
+#define CONFIG_HPS_MAINPLLGRP_L4SRC_L4SP 1
+
+#define CONFIG_HPS_PERPLLGRP_VCO_DENOM 0
+#define CONFIG_HPS_PERPLLGRP_VCO_NUMER 39
+#define CONFIG_HPS_PERPLLGRP_VCO_PSRC 0
+#define CONFIG_HPS_PERPLLGRP_EMAC0CLK_CNT 511
+#define CONFIG_HPS_PERPLLGRP_EMAC1CLK_CNT 3
+#define CONFIG_HPS_PERPLLGRP_PERQSPICLK_CNT 511
+#define CONFIG_HPS_PERPLLGRP_PERNANDSDMMCCLK_CNT 4
+#define CONFIG_HPS_PERPLLGRP_PERBASECLK_CNT 4
+#define CONFIG_HPS_PERPLLGRP_S2FUSER1CLK_CNT 511
+#define CONFIG_HPS_PERPLLGRP_DIV_USBCLK 0
+#define CONFIG_HPS_PERPLLGRP_DIV_SPIMCLK 0
+#define CONFIG_HPS_PERPLLGRP_DIV_CAN0CLK 4
+#define CONFIG_HPS_PERPLLGRP_DIV_CAN1CLK 4
+#define CONFIG_HPS_PERPLLGRP_GPIODIV_GPIODBCLK 6249
+#define CONFIG_HPS_PERPLLGRP_SRC_SDMMC 2
+#define CONFIG_HPS_PERPLLGRP_SRC_NAND 2
+#define CONFIG_HPS_PERPLLGRP_SRC_QSPI 1
+
+#define CONFIG_HPS_SDRPLLGRP_VCO_DENOM 0
+#define CONFIG_HPS_SDRPLLGRP_VCO_NUMER 31
+#define CONFIG_HPS_SDRPLLGRP_VCO_SSRC 0
+#define CONFIG_HPS_SDRPLLGRP_DDRDQSCLK_CNT 1
+#define CONFIG_HPS_SDRPLLGRP_DDRDQSCLK_PHASE 0
+#define CONFIG_HPS_SDRPLLGRP_DDR2XDQSCLK_CNT 0
+#define CONFIG_HPS_SDRPLLGRP_DDR2XDQSCLK_PHASE 0
+#define CONFIG_HPS_SDRPLLGRP_DDRDQCLK_CNT 1
+#define CONFIG_HPS_SDRPLLGRP_DDRDQCLK_PHASE 4
+#define CONFIG_HPS_SDRPLLGRP_S2FUSER2CLK_CNT 5
+#define CONFIG_HPS_SDRPLLGRP_S2FUSER2CLK_PHASE 0
+
+// #define CONFIG_HPS_CLK_OSC1_HZ 25000000
+// #define CONFIG_HPS_CLK_OSC2_HZ 25000000
+// #define CONFIG_HPS_CLK_F2S_SDR_REF_HZ 0
+// #define CONFIG_HPS_CLK_F2S_PER_REF_HZ 0
+// #define CONFIG_HPS_CLK_MAINVCO_HZ 1600000000
+// #define CONFIG_HPS_CLK_PERVCO_HZ 1000000000
+// #define CONFIG_HPS_CLK_SDRVCO_HZ 800000000
+// #define CONFIG_HPS_CLK_EMAC0_HZ 1953125
+// #define CONFIG_HPS_CLK_EMAC1_HZ 250000000
+// #define CONFIG_HPS_CLK_USBCLK_HZ 200000000
+// #define CONFIG_HPS_CLK_NAND_HZ 50000000
+// #define CONFIG_HPS_CLK_SDMMC_HZ 200000000
+// #define CONFIG_HPS_CLK_QSPI_HZ 400000000
+// #define CONFIG_HPS_CLK_SPIM_HZ 200000000
+// #define CONFIG_HPS_CLK_CAN0_HZ 12500000
+// #define CONFIG_HPS_CLK_CAN1_HZ 12500000
+// #define CONFIG_HPS_CLK_GPIODB_HZ 32000
+// #define CONFIG_HPS_CLK_L4_MP_HZ 100000000
+// #define CONFIG_HPS_CLK_L4_SP_HZ 100000000
+
+#define CONFIG_HPS_ALTERAGRP_MPUCLK 1
+#define CONFIG_HPS_ALTERAGRP_MAINCLK 3
+#define CONFIG_HPS_ALTERAGRP_DBGATCLK 3
+
+
+
+
+#define CLKMGR_CTRL_SAFEMODE				(1 << 0)
+#define CLKMGR_CTRL_SAFEMODE_OFFSET			0
+
+#define CLKMGR_BYPASS_PERPLLSRC				(1 << 4)
+#define CLKMGR_BYPASS_PERPLLSRC_OFFSET			4
+#define CLKMGR_BYPASS_PERPLL				(1 << 3)
+#define CLKMGR_BYPASS_PERPLL_OFFSET			3
+#define CLKMGR_BYPASS_SDRPLLSRC				(1 << 2)
+#define CLKMGR_BYPASS_SDRPLLSRC_OFFSET			2
+#define CLKMGR_BYPASS_SDRPLL				(1 << 1)
+#define CLKMGR_BYPASS_SDRPLL_OFFSET			1
+#define CLKMGR_BYPASS_MAINPLL				(1 << 0)
+#define CLKMGR_BYPASS_MAINPLL_OFFSET			0
+
+#define CLKMGR_INTER_SDRPLLLOCKED_MASK			0x00000100
+#define CLKMGR_INTER_PERPLLLOCKED_MASK			0x00000080
+#define CLKMGR_INTER_MAINPLLLOCKED_MASK			0x00000040
+#define CLKMGR_INTER_PERPLLLOST_MASK			0x00000010
+#define CLKMGR_INTER_SDRPLLLOST_MASK			0x00000020
+#define CLKMGR_INTER_MAINPLLLOST_MASK			0x00000008
+
+#define CLKMGR_STAT_BUSY				(1 << 0)
+
+/* Main PLL */
+#define CLKMGR_MAINPLLGRP_VCO_BGPWRDN			(1 << 0)
+#define CLKMGR_MAINPLLGRP_VCO_BGPWRDN_OFFSET		0
+#define CLKMGR_MAINPLLGRP_VCO_DENOM_OFFSET		16
+#define CLKMGR_MAINPLLGRP_VCO_DENOM_MASK		0x003f0000
+#define CLKMGR_MAINPLLGRP_VCO_EN			(1 << 1)
+#define CLKMGR_MAINPLLGRP_VCO_EN_OFFSET			1
+#define CLKMGR_MAINPLLGRP_VCO_NUMER_OFFSET		3
+#define CLKMGR_MAINPLLGRP_VCO_NUMER_MASK		0x0000fff8
+#define CLKMGR_MAINPLLGRP_VCO_OUTRESETALL_MASK		0x01000000
+#define CLKMGR_MAINPLLGRP_VCO_PWRDN			(1 << 2)
+#define CLKMGR_MAINPLLGRP_VCO_PWRDN_OFFSET		2
+#define CLKMGR_MAINPLLGRP_VCO_REGEXTSEL_MASK		0x80000000
+#define CLKMGR_MAINPLLGRP_VCO_RESET_VALUE		0x8001000d
+
+#define CLKMGR_MAINPLLGRP_MPUCLK_CNT_OFFSET		0
+#define CLKMGR_MAINPLLGRP_MPUCLK_CNT_MASK		0x000001ff
+
+#define CLKMGR_MAINPLLGRP_MAINCLK_CNT_OFFSET		0
+#define CLKMGR_MAINPLLGRP_MAINCLK_CNT_MASK		0x000001ff
+
+#define CLKMGR_MAINPLLGRP_DBGATCLK_CNT_OFFSET		0
+#define CLKMGR_MAINPLLGRP_DBGATCLK_CNT_MASK		0x000001ff
+
+#define CLKMGR_MAINPLLGRP_MAINQSPICLK_CNT_OFFSET	0
+#define CLKMGR_MAINPLLGRP_MAINQSPICLK_CNT_MASK		0x000001ff
+
+#define CLKMGR_MAINPLLGRP_MAINNANDSDMMCCLK_CNT_OFFSET	0
+#define CLKMGR_MAINPLLGRP_MAINNANDSDMMCCLK_CNT_MASK	0x000001ff
+
+#define CLKMGR_MAINPLLGRP_CFGS2FUSER0CLK_CNT_OFFSET	0
+#define CLKMGR_MAINPLLGRP_CFGS2FUSER0CLK_CNT_MASK	0x000001ff
+
+#define CLKMGR_MAINPLLGRP_EN_DBGATCLK_MASK		0x00000010
+#define CLKMGR_MAINPLLGRP_EN_DBGCLK_MASK		0x00000020
+#define CLKMGR_MAINPLLGRP_EN_DBGTIMERCLK_MASK		0x00000080
+#define CLKMGR_MAINPLLGRP_EN_DBGTRACECLK_MASK		0x00000040
+#define CLKMGR_MAINPLLGRP_EN_L4MPCLK_MASK		0x00000004
+#define CLKMGR_MAINPLLGRP_EN_S2FUSER0CLK_MASK		0x00000200
+
+#define CLKMGR_MAINPLLGRP_MAINDIV_L3MPCLK_OFFSET	0
+#define CLKMGR_MAINPLLGRP_MAINDIV_L3MPCLK_MASK		0x00000003
+#define CLKMGR_MAINPLLGRP_MAINDIV_L3SPCLK_OFFSET	2
+#define CLKMGR_MAINPLLGRP_MAINDIV_L3SPCLK_MASK		0x0000000c
+#define CLKMGR_MAINPLLGRP_MAINDIV_L4MPCLK_OFFSET	4
+#define CLKMGR_MAINPLLGRP_MAINDIV_L4MPCLK_MASK		0x00000070
+#define CLKMGR_MAINPLLGRP_MAINDIV_L4SPCLK_OFFSET	7
+#define CLKMGR_MAINPLLGRP_MAINDIV_L4SPCLK_MASK		0x00000380
+
+#define CLKMGR_MAINPLLGRP_DBGDIV_DBGATCLK_OFFSET	0
+#define CLKMGR_MAINPLLGRP_DBGDIV_DBGATCLK_MASK		0x00000003
+#define CLKMGR_MAINPLLGRP_DBGDIV_DBGCLK_OFFSET		2
+#define CLKMGR_MAINPLLGRP_DBGDIV_DBGCLK_MASK		0x0000000c
+
+#define CLKMGR_MAINPLLGRP_TRACEDIV_TRACECLK_OFFSET	0
+#define CLKMGR_MAINPLLGRP_TRACEDIV_TRACECLK_MASK	0x00000007
+
+#define CLKMGR_MAINPLLGRP_L4SRC_L4MP			(1 << 0)
+#define CLKMGR_MAINPLLGRP_L4SRC_L4MP_OFFSET		0
+#define CLKMGR_MAINPLLGRP_L4SRC_L4SP			(1 << 1)
+#define CLKMGR_MAINPLLGRP_L4SRC_L4SP_OFFSET		1
+#define CLKMGR_MAINPLLGRP_L4SRC_RESET_VALUE		0x00000000
+#define CLKMGR_L4_SP_CLK_SRC_MAINPLL			0x0
+#define CLKMGR_L4_SP_CLK_SRC_PERPLL			0x1
+
+/* Per PLL */
+#define CLKMGR_PERPLLGRP_VCO_DENOM_OFFSET		16
+#define CLKMGR_PERPLLGRP_VCO_DENOM_MASK			0x003f0000
+#define CLKMGR_PERPLLGRP_VCO_NUMER_OFFSET		3
+#define CLKMGR_PERPLLGRP_VCO_NUMER_MASK			0x0000fff8
+#define CLKMGR_PERPLLGRP_VCO_OUTRESETALL_MASK		0x01000000
+#define CLKMGR_PERPLLGRP_VCO_PSRC_OFFSET		22
+#define CLKMGR_PERPLLGRP_VCO_PSRC_MASK			0x00c00000
+#define CLKMGR_PERPLLGRP_VCO_REGEXTSEL_MASK		0x80000000
+#define CLKMGR_PERPLLGRP_VCO_RESET_VALUE		0x8001000d
+#define CLKMGR_PERPLLGRP_VCO_SSRC_OFFSET		22
+#define CLKMGR_PERPLLGRP_VCO_SSRC_MASK			0x00c00000
+
+#define CLKMGR_VCO_SSRC_EOSC1				0x0
+#define CLKMGR_VCO_SSRC_EOSC2				0x1
+#define CLKMGR_VCO_SSRC_F2S				0x2
+
+#define CLKMGR_PERPLLGRP_EMAC0CLK_CNT_OFFSET		0
+#define CLKMGR_PERPLLGRP_EMAC0CLK_CNT_MASK		0x000001ff
+
+#define CLKMGR_PERPLLGRP_EMAC1CLK_CNT_OFFSET		0
+#define CLKMGR_PERPLLGRP_EMAC1CLK_CNT_MASK		0x000001ff
+
+#define CLKMGR_PERPLLGRP_PERQSPICLK_CNT_OFFSET		0
+#define CLKMGR_PERPLLGRP_PERQSPICLK_CNT_MASK		0x000001ff
+
+#define CLKMGR_PERPLLGRP_PERNANDSDMMCCLK_CNT_OFFSET	0
+#define CLKMGR_PERPLLGRP_PERNANDSDMMCCLK_CNT_MASK	0x000001ff
+
+#define CLKMGR_PERPLLGRP_PERBASECLK_CNT_OFFSET		0
+#define CLKMGR_PERPLLGRP_PERBASECLK_CNT_MASK		0x000001ff
+
+#define CLKMGR_PERPLLGRP_S2FUSER1CLK_CNT_OFFSET		0
+#define CLKMGR_PERPLLGRP_S2FUSER1CLK_CNT_MASK		0x000001ff
+
+#define CLKMGR_PERPLLGRP_EN_NANDCLK_MASK		0x00000400
+#define CLKMGR_PERPLLGRP_EN_SDMMCCLK_MASK		0x00000100
+
+#define CLKMGR_PERPLLGRP_DIV_CAN0CLK_OFFSET		6
+#define CLKMGR_PERPLLGRP_DIV_CAN0CLK_MASK		0x000001c0
+#define CLKMGR_PERPLLGRP_DIV_CAN1CLK_OFFSET		9
+#define CLKMGR_PERPLLGRP_DIV_CAN1CLK_MASK		0x00000e00
+#define CLKMGR_PERPLLGRP_DIV_SPIMCLK_OFFSET		3
+#define CLKMGR_PERPLLGRP_DIV_SPIMCLK_OFFSET		3
+#define CLKMGR_PERPLLGRP_DIV_USBCLK_OFFSET		0
+#define CLKMGR_PERPLLGRP_DIV_USBCLK_MASK		0x00000007
+
+#define CLKMGR_PERPLLGRP_GPIODIV_GPIODBCLK_OFFSET	0
+#define CLKMGR_PERPLLGRP_GPIODIV_GPIODBCLK_MASK		0x00ffffff
+
+#define CLKMGR_PERPLLGRP_SRC_NAND_OFFSET			2
+#define CLKMGR_PERPLLGRP_SRC_NAND_MASK				0x0000000c
+#define CLKMGR_PERPLLGRP_SRC_QSPI_OFFSET			4
+#define CLKMGR_PERPLLGRP_SRC_QSPI_MASK				0x00000030
+#define CLKMGR_PERPLLGRP_SRC_RESET_VALUE			0x00000015
+#define CLKMGR_PERPLLGRP_SRC_SDMMC_OFFSET			0
+#define CLKMGR_PERPLLGRP_SRC_SDMMC_MASK				0x00000003
+#define CLKMGR_SDMMC_CLK_SRC_F2S					0x0
+#define CLKMGR_SDMMC_CLK_SRC_MAIN					0x1
+#define CLKMGR_SDMMC_CLK_SRC_PER					0x2
+#define CLKMGR_QSPI_CLK_SRC_F2S						0x0
+#define CLKMGR_QSPI_CLK_SRC_MAIN					0x1
+#define CLKMGR_QSPI_CLK_SRC_PER						0x2
+
+/* SDR PLL */
+#define CLKMGR_SDRPLLGRP_VCO_DENOM_OFFSET			16
+#define CLKMGR_SDRPLLGRP_VCO_DENOM_MASK				0x003f0000
+#define CLKMGR_SDRPLLGRP_VCO_NUMER_OFFSET			3
+#define CLKMGR_SDRPLLGRP_VCO_NUMER_MASK				0x0000fff8
+#define CLKMGR_SDRPLLGRP_VCO_OUTRESETALL			(1 << 24)
+#define CLKMGR_SDRPLLGRP_VCO_OUTRESETALL_OFFSET		24
+#define CLKMGR_SDRPLLGRP_VCO_OUTRESET_OFFSET		25
+#define CLKMGR_SDRPLLGRP_VCO_OUTRESET_MASK			0x7e000000
+#define CLKMGR_SDRPLLGRP_VCO_REGEXTSEL_MASK			0x80000000
+#define CLKMGR_SDRPLLGRP_VCO_RESET_VALUE			0x8001000d
+#define CLKMGR_SDRPLLGRP_VCO_SSRC_OFFSET			22
+#define CLKMGR_SDRPLLGRP_VCO_SSRC_MASK				0x00c00000
+
+#define CLKMGR_SDRPLLGRP_DDRDQSCLK_CNT_OFFSET		0
+#define CLKMGR_SDRPLLGRP_DDRDQSCLK_CNT_MASK			0x000001ff
+#define CLKMGR_SDRPLLGRP_DDRDQSCLK_PHASE_OFFSET		9
+#define CLKMGR_SDRPLLGRP_DDRDQSCLK_PHASE_MASK		0x00000e00
+
+#define CLKMGR_SDRPLLGRP_DDR2XDQSCLK_CNT_OFFSET		0
+#define CLKMGR_SDRPLLGRP_DDR2XDQSCLK_CNT_MASK		0x000001ff
+#define CLKMGR_SDRPLLGRP_DDR2XDQSCLK_PHASE_OFFSET	9
+#define CLKMGR_SDRPLLGRP_DDR2XDQSCLK_PHASE_MASK		0x00000e00
+
+#define CLKMGR_SDRPLLGRP_DDRDQCLK_CNT_OFFSET		0
+#define CLKMGR_SDRPLLGRP_DDRDQCLK_CNT_MASK			0x000001ff
+#define CLKMGR_SDRPLLGRP_DDRDQCLK_PHASE_OFFSET		9
+#define CLKMGR_SDRPLLGRP_DDRDQCLK_PHASE_MASK		0x00000e00
+
+#define CLKMGR_SDRPLLGRP_S2FUSER2CLK_CNT_OFFSET		0
+#define CLKMGR_SDRPLLGRP_S2FUSER2CLK_CNT_MASK		0x000001ff
+#define CLKMGR_SDRPLLGRP_S2FUSER2CLK_PHASE_OFFSET	9
+#define CLKMGR_SDRPLLGRP_S2FUSER2CLK_PHASE_MASK		0x00000e00
+
+
+// ----------
+
+#define CLKMGR_CTRL							SOCFPGA_CLKMGR_ADDRESS + 0x00
+#define CLKMGR_BYPASS						SOCFPGA_CLKMGR_ADDRESS + 0x04
+#define CLKMGR_INTER						SOCFPGA_CLKMGR_ADDRESS + 0x08
+#define CLKMGR_STAT							SOCFPGA_CLKMGR_ADDRESS + 0x14
+
+
+#define CLKMGR_MAINPLL_VCO					SOCFPGA_CLKMGR_ADDRESS + 0x40
+#define CLKMGR_MAINPLL_MPUCLK				SOCFPGA_CLKMGR_ADDRESS + 0x48
+#define CLKMGR_MAINPLL_EN					SOCFPGA_CLKMGR_ADDRESS + 0x60
+#define CLKMGR_MAINPLL_MAINDIV				SOCFPGA_CLKMGR_ADDRESS + 0x64
+#define CLKMGR_MAINPLL_DBGDIV				SOCFPGA_CLKMGR_ADDRESS + 0x68
+#define CLKMGR_MAINPLL_TRACEDIV				SOCFPGA_CLKMGR_ADDRESS + 0x6C
+#define CLKMGR_MAINPLL_L4SRC				SOCFPGA_CLKMGR_ADDRESS + 0x70
+
+#define CLKMGR_PERIPHPLL_VCO				SOCFPGA_CLKMGR_ADDRESS + 0x80
+#define CLKMGR_PERIPHPLL_EN					SOCFPGA_CLKMGR_ADDRESS + 0xA0
+#define CLKMGR_PERIPHPLL_DIV				SOCFPGA_CLKMGR_ADDRESS + 0xA4
+#define CLKMGR_PERIPHPLL_GPIODIV			SOCFPGA_CLKMGR_ADDRESS + 0xA8
+#define CLKMGR_PERIPHPLL_SRC				SOCFPGA_CLKMGR_ADDRESS + 0xAC
+
+#define CLKMGR_SDRAMPLL_VCO					SOCFPGA_CLKMGR_ADDRESS + 0xC0
+#define CLKMGR_SDRAMPLL_EN					SOCFPGA_CLKMGR_ADDRESS + 0xD8
+
+#define CLKMGR_MAINPLL_MPUCLK				SOCFPGA_CLKMGR_ADDRESS + 0x48
+#define CLKMGR_MAINPLL_MAINCLK				SOCFPGA_CLKMGR_ADDRESS + 0x4C
+#define CLKMGR_MAINPLL_DBGATCLK				SOCFPGA_CLKMGR_ADDRESS + 0x50
+#define CLKMGR_MAINPLL_CFGS2FUSER0CLK		SOCFPGA_CLKMGR_ADDRESS + 0x5C
+#define CLKMGR_MAINPLL_MAINQSPICLK			SOCFPGA_CLKMGR_ADDRESS + 0x54
+#define CLKMGR_MAINPLL_MAINANDSDMMCCLK		SOCFPGA_CLKMGR_ADDRESS + 0x58
+
+#define CLKMGR_PERIPHPLL_EMAC0CLK			SOCFPGA_CLKMGR_ADDRESS + 0x88
+#define CLKMGR_PERIPHPLL_EMAC1CLK			SOCFPGA_CLKMGR_ADDRESS + 0x8C
+#define CLKMGR_PERIPHPLL_PERQSPICLK			SOCFPGA_CLKMGR_ADDRESS + 0x90
+#define CLKMGR_PERIPHPLL_PERNANDSDMMCCLK	SOCFPGA_CLKMGR_ADDRESS + 0x94
+#define CLKMGR_PERIPHPLL_PERBASECLK			SOCFPGA_CLKMGR_ADDRESS + 0x98
+#define CLKMGR_PERIPHPLL_S2FUSER1CLK		SOCFPGA_CLKMGR_ADDRESS + 0x9C
+
+#define CLKMGR_SDRAMPLL_DDRDQSCLK			SOCFPGA_CLKMGR_ADDRESS + 0xC8
+#define CLKMGR_SDRAMPLL_DDR2XDQSCLK			SOCFPGA_CLKMGR_ADDRESS + 0xCC
+#define CLKMGR_SDRAMPLL_DDRDQCLK			SOCFPGA_CLKMGR_ADDRESS + 0xD0
+#define CLKMGR_SDRAMPLL_S2FUSER2CLK			SOCFPGA_CLKMGR_ADDRESS + 0xD4
+
+#define CLKMGR_ALTERA_MPUCLK				SOCFPGA_CLKMGR_ADDRESS + 0xE0
+
+
+static void FDy_cm_wait_for_lock(uint32_t mask)
+{
+	register uint32_t inter_val;
+	uint32_t retry = 0;
+	do 
+	{
+		//inter_val = readl(&clock_manager_base->inter) & mask;
+		inter_val = readl(CLKMGR_INTER) & mask;
+		if (inter_val == mask)
+			retry++;
+		else
+			retry = 0;
+		if (retry >= 10)
+			break;
+	} while (1);
+}
+
+/* function to poll in the fsm busy bit */
+static void FDy_cm_wait_for_fsm(void)
+{
+	//while (readl(&clock_manager_base->stat) & CLKMGR_STAT_BUSY)	;
+	while (readl(CLKMGR_STAT) & CLKMGR_STAT_BUSY)	;
+}
+
+/*
+ * function to write the bypass register which requires a poll of the
+ * busy bit
+ */
+static void FDy_cm_write_bypass(uint32_t val)
+{
+	//writel(val, &clock_manager_base->bypass);
+	writel(val, CLKMGR_BYPASS);
+	FDy_cm_wait_for_fsm();
+}
+
+/* function to write the ctrl register which requires a poll of the busy bit */
+static void FDy_cm_write_ctrl(uint32_t val)
+{
+	//writel(val, &clock_manager_base->ctrl);
+	writel(val, CLKMGR_CTRL);
+	FDy_cm_wait_for_fsm();
+}
+
+/* function to write a clock register that has phase information */
+static void FDy_cm_write_with_phase(uint32_t value,
+				uint32_t reg_address, uint32_t mask)
+{
+	/* poll until phase is zero */
+	while (readl(reg_address) & mask);
+
+	writel(value, reg_address);
+
+	while (readl(reg_address) & mask);
+}
+
+
+
+
+#define MAIN_VCO_BASE (					\
+ 	(CONFIG_HPS_MAINPLLGRP_VCO_DENOM <<		\
+ 		CLKMGR_MAINPLLGRP_VCO_DENOM_OFFSET) |	\
+ 	(CONFIG_HPS_MAINPLLGRP_VCO_NUMER <<		\
+ 		CLKMGR_MAINPLLGRP_VCO_NUMER_OFFSET)	\
+ 	)
+
+#define PERI_VCO_BASE (					\
+ 	(CONFIG_HPS_PERPLLGRP_VCO_PSRC <<		\
+ 		CLKMGR_PERPLLGRP_VCO_PSRC_OFFSET) |	\
+ 	(CONFIG_HPS_PERPLLGRP_VCO_DENOM <<		\
+ 		CLKMGR_PERPLLGRP_VCO_DENOM_OFFSET) |	\
+ 	(CONFIG_HPS_PERPLLGRP_VCO_NUMER <<		\
+ 		CLKMGR_PERPLLGRP_VCO_NUMER_OFFSET)	\
+ 	)
+
+#define SDR_VCO_BASE (					\
+ 	(CONFIG_HPS_SDRPLLGRP_VCO_SSRC <<		\
+ 		CLKMGR_SDRPLLGRP_VCO_SSRC_OFFSET) |	\
+ 	(CONFIG_HPS_SDRPLLGRP_VCO_DENOM <<		\
+ 		CLKMGR_SDRPLLGRP_VCO_DENOM_OFFSET) |	\
+ 	(CONFIG_HPS_SDRPLLGRP_VCO_NUMER <<		\
+ 		CLKMGR_SDRPLLGRP_VCO_NUMER_OFFSET)	\
+ 	)
+
+
+
+
+/*
+ * Setup clocks while making no assumptions about previous state of the clocks.
+ *
+ * Start by being paranoid and gate all sw managed clocks
+ * Put all plls in bypass
+ * Put all plls VCO registers back to reset value (bandgap power down).
+ * Put peripheral and main pll src to reset value to avoid glitch.
+ * Delay 5 us.
+ * Deassert bandgap power down and set numerator and denominator
+ * Start 7 us timer.
+ * set internal dividers
+ * Wait for 7 us timer.
+ * Enable plls
+ * Set external dividers while plls are locking
+ * Wait for pll lock
+ * Assert/deassert outreset all.
+ * Take all pll's out of bypass
+ * Clear safe mode
+ * set source main and peripheral clocks
+ * Ungate clocks
+ */
+
+void FDy_cm_basic_init(void)
+{
+	unsigned long end;
+	//const struct cm_config * const cfg = &cm_default_cfg;
+
+	/* Start by being paranoid and gate all sw managed clocks */
+
+	/*
+	 * We need to disable nandclk
+	 * and then do another apb access before disabling
+	 * gatting off the rest of the periperal clocks.
+	 */
+	//writel(	~CLKMGR_PERPLLGRP_EN_NANDCLK_MASK & readl(&clock_manager_base->per_pll.en),	&clock_manager_base->per_pll.en);
+	writel(	~CLKMGR_PERPLLGRP_EN_NANDCLK_MASK & readl(CLKMGR_PERIPHPLL_EN),	CLKMGR_PERIPHPLL_EN);
+
+	/* DO NOT GATE OFF DEBUG CLOCKS & BRIDGE CLOCKS */
+	//writel(	CLKMGR_MAINPLLGRP_EN_DBGTIMERCLK_MASK |
+	//		CLKMGR_MAINPLLGRP_EN_DBGTRACECLK_MASK |
+	//		CLKMGR_MAINPLLGRP_EN_DBGCLK_MASK |
+	//		CLKMGR_MAINPLLGRP_EN_DBGATCLK_MASK |
+	//		CLKMGR_MAINPLLGRP_EN_S2FUSER0CLK_MASK |
+	//		CLKMGR_MAINPLLGRP_EN_L4MPCLK_MASK,
+	//		&clock_manager_base->main_pll.en);
+	writel(	CLKMGR_MAINPLLGRP_EN_DBGTIMERCLK_MASK |
+			CLKMGR_MAINPLLGRP_EN_DBGTRACECLK_MASK |
+			CLKMGR_MAINPLLGRP_EN_DBGCLK_MASK |
+			CLKMGR_MAINPLLGRP_EN_DBGATCLK_MASK |
+			CLKMGR_MAINPLLGRP_EN_S2FUSER0CLK_MASK |
+			CLKMGR_MAINPLLGRP_EN_L4MPCLK_MASK,
+			CLKMGR_MAINPLL_EN);
+
+
+	//writel(0, &clock_manager_base->sdr_pll.en);
+	writel(0, CLKMGR_SDRAMPLL_EN);
+
+	/* now we can gate off the rest of the peripheral clocks */
+	//writel(0, &clock_manager_base->per_pll.en);
+	writel(0, CLKMGR_PERIPHPLL_EN);
+
+	/* Put all plls in bypass */
+	FDy_cm_write_bypass(CLKMGR_BYPASS_PERPLL | CLKMGR_BYPASS_SDRPLL | CLKMGR_BYPASS_MAINPLL);
+
+	/* Put all plls VCO registers back to reset value. */
+	//writel(CLKMGR_MAINPLLGRP_VCO_RESET_VALUE & ~CLKMGR_MAINPLLGRP_VCO_REGEXTSEL_MASK, &clock_manager_base->main_pll.vco);
+	writel(CLKMGR_MAINPLLGRP_VCO_RESET_VALUE & ~CLKMGR_MAINPLLGRP_VCO_REGEXTSEL_MASK, CLKMGR_MAINPLL_VCO);
+
+	//writel(CLKMGR_PERPLLGRP_VCO_RESET_VALUE & ~CLKMGR_PERPLLGRP_VCO_REGEXTSEL_MASK, &clock_manager_base->per_pll.vco);
+	writel(CLKMGR_PERPLLGRP_VCO_RESET_VALUE & ~CLKMGR_PERPLLGRP_VCO_REGEXTSEL_MASK, CLKMGR_PERIPHPLL_VCO);
+
+	//writel(CLKMGR_SDRPLLGRP_VCO_RESET_VALUE & ~CLKMGR_SDRPLLGRP_VCO_REGEXTSEL_MASK, &clock_manager_base->sdr_pll.vco);
+	writel(CLKMGR_SDRPLLGRP_VCO_RESET_VALUE & ~CLKMGR_SDRPLLGRP_VCO_REGEXTSEL_MASK, CLKMGR_SDRAMPLL_VCO);
+
+	/*
+	 * The clocks to the flash devices and the L4_MAIN clocks can
+	 * glitch when coming out of safe mode if their source values
+	 * are different from their reset value.  So the trick it to
+	 * put them back to their reset state, and change input
+	 * after exiting safe mode but before ungating the clocks.
+	 */
+	//writel(CLKMGR_PERPLLGRP_SRC_RESET_VALUE,	    &clock_manager_base->per_pll.src);
+	//writel(CLKMGR_MAINPLLGRP_L4SRC_RESET_VALUE,	&clock_manager_base->main_pll.l4src);
+	writel(CLKMGR_PERPLLGRP_SRC_RESET_VALUE,	  	CLKMGR_PERIPHPLL_SRC);
+	writel(CLKMGR_MAINPLLGRP_L4SRC_RESET_VALUE,		CLKMGR_MAINPLL_L4SRC);
+
+
+	/* read back for the required 5 us delay. */
+	//readl(&clock_manager_base->main_pll.vco);
+	//readl(&clock_manager_base->per_pll.vco);
+	//readl(&clock_manager_base->sdr_pll.vco);
+	readl(CLKMGR_MAINPLL_VCO);
+	readl(CLKMGR_PERIPHPLL_VCO);
+	readl(CLKMGR_SDRAMPLL_VCO);
+	
+	/*
+	 * We made sure bgpwr down was assert for 5 us. Now deassert BG PWR DN
+	 * with numerator and denominator.
+	 */
+	//writel(cfg->main_vco_base, &clock_manager_base->main_pll.vco);
+	//writel(cfg->peri_vco_base, &clock_manager_base->per_pll.vco);
+	//writel(cfg->sdram_vco_base, &clock_manager_base->sdr_pll.vco);
+	writel(MAIN_VCO_BASE, 	CLKMGR_MAINPLL_VCO);
+	writel(PERI_VCO_BASE, 	CLKMGR_PERIPHPLL_VCO);
+	writel(SDR_VCO_BASE, 	CLKMGR_SDRAMPLL_VCO);
+	
+	/*
+	 * Time starts here. Must wait 7 us from
+	 * BGPWRDN_SET(0) to VCO_ENABLE_SET(1).
+	 */
+	//end = timer_get_us() + 7;
+
+	/* main mpu */
+	//writel(cfg->mpuclk, &clock_manager_base->main_pll.mpuclk);
+	writel(	(CONFIG_HPS_MAINPLLGRP_MPUCLK_CNT << CLKMGR_MAINPLLGRP_MPUCLK_CNT_OFFSET), 
+			CLKMGR_MAINPLL_MPUCLK);
+	
+	/* altera group mpuclk */
+	//writel(cfg->altera_grp_mpuclk, &clock_manager_base->altera.mpuclk);
+	writel(CONFIG_HPS_ALTERAGRP_MPUCLK, CLKMGR_ALTERA_MPUCLK);
+
+	/* main main clock */
+	//writel(cfg->mainclk, &clock_manager_base->main_pll.mainclk);
+	writel(	(CONFIG_HPS_MAINPLLGRP_MAINCLK_CNT << CLKMGR_MAINPLLGRP_MAINCLK_CNT_OFFSET), 
+			CLKMGR_MAINPLL_MAINCLK);
+
+	/* main for dbg */
+	//writel(cfg->dbgatclk, &clock_manager_base->main_pll.dbgatclk);
+	writel(	(CONFIG_HPS_MAINPLLGRP_DBGATCLK_CNT << CLKMGR_MAINPLLGRP_DBGATCLK_CNT_OFFSET), 
+			CLKMGR_MAINPLL_DBGATCLK);
+
+	/* main for cfgs2fuser0clk */
+	//writel(cfg->cfg2fuser0clk, &clock_manager_base->main_pll.cfgs2fuser0clk);
+	writel(	(CONFIG_HPS_MAINPLLGRP_CFGS2FUSER0CLK_CNT << CLKMGR_MAINPLLGRP_CFGS2FUSER0CLK_CNT_OFFSET), 
+			CLKMGR_MAINPLL_CFGS2FUSER0CLK);
+
+
+	/* Peri emac0 50 MHz default to RMII */
+	//writel(cfg->emac0clk, &clock_manager_base->per_pll.emac0clk);
+	writel(	(CONFIG_HPS_PERPLLGRP_EMAC0CLK_CNT << CLKMGR_PERPLLGRP_EMAC0CLK_CNT_OFFSET), 
+			CLKMGR_PERIPHPLL_EMAC0CLK);
+
+	/* Peri emac1 50 MHz default to RMII */
+	//writel(cfg->emac1clk, &clock_manager_base->per_pll.emac1clk);
+	writel(	(CONFIG_HPS_PERPLLGRP_EMAC1CLK_CNT << CLKMGR_PERPLLGRP_EMAC1CLK_CNT_OFFSET), 
+			CLKMGR_PERIPHPLL_EMAC1CLK);
+
+	/* Peri QSPI */
+	//writel(cfg->mainqspiclk, &clock_manager_base->main_pll.mainqspiclk);
+	writel(	(CONFIG_HPS_MAINPLLGRP_MAINQSPICLK_CNT << CLKMGR_MAINPLLGRP_MAINQSPICLK_CNT_OFFSET), 
+			CLKMGR_MAINPLL_MAINQSPICLK);
+
+	//writel(cfg->perqspiclk, &clock_manager_base->per_pll.perqspiclk);
+	writel(	(CONFIG_HPS_PERPLLGRP_PERQSPICLK_CNT <<	CLKMGR_PERPLLGRP_PERQSPICLK_CNT_OFFSET), 
+			CLKMGR_PERIPHPLL_PERQSPICLK);
+
+	/* Peri pernandsdmmcclk */
+	//writel(cfg->mainnandsdmmcclk,	&clock_manager_base->main_pll.mainnandsdmmcclk);
+	writel(	(CONFIG_HPS_MAINPLLGRP_MAINNANDSDMMCCLK_CNT << CLKMGR_PERPLLGRP_PERNANDSDMMCCLK_CNT_OFFSET),	
+			CLKMGR_MAINPLL_MAINANDSDMMCCLK);
+
+	//writel(cfg->pernandsdmmcclk,	&clock_manager_base->per_pll.pernandsdmmcclk);
+	writel(	(CONFIG_HPS_PERPLLGRP_PERNANDSDMMCCLK_CNT << CLKMGR_PERPLLGRP_PERNANDSDMMCCLK_CNT_OFFSET),	
+			CLKMGR_PERIPHPLL_PERNANDSDMMCCLK);
+
+	/* Peri perbaseclk */
+	//writel(cfg->perbaseclk, 	&clock_manager_base->per_pll.perbaseclk);
+	writel(	(CONFIG_HPS_PERPLLGRP_PERBASECLK_CNT <<	CLKMGR_PERPLLGRP_PERBASECLK_CNT_OFFSET), 	
+			CLKMGR_PERIPHPLL_PERBASECLK);
+
+	/* Peri s2fuser1clk */
+	//writel(cfg->s2fuser1clk, 	&clock_manager_base->per_pll.s2fuser1clk);
+	writel(	(CONFIG_HPS_PERPLLGRP_S2FUSER1CLK_CNT << CLKMGR_PERPLLGRP_S2FUSER1CLK_CNT_OFFSET), 	
+			CLKMGR_PERIPHPLL_S2FUSER1CLK);
+
+	/* 7 us must have elapsed before we can enable the VCO */
+	//while (timer_get_us() < end);
+	for(int i=0;i<70000;i++)
+	{
+		volatile	int	j=i*2;
+	}
+
+	/* Enable vco */
+	/* main pll vco */
+	//writel(cfg->main_vco_base | CLKMGR_MAINPLLGRP_VCO_EN,	    &clock_manager_base->main_pll.vco);
+	writel(MAIN_VCO_BASE | CLKMGR_MAINPLLGRP_VCO_EN,	      	CLKMGR_MAINPLL_VCO);
+
+	/* periferal pll */
+	//writel(cfg->peri_vco_base | CLKMGR_MAINPLLGRP_VCO_EN,	    &clock_manager_base->per_pll.vco);
+	writel(PERI_VCO_BASE | CLKMGR_MAINPLLGRP_VCO_EN,	       	CLKMGR_PERIPHPLL_VCO);
+
+	/* sdram pll vco */
+	//writel(cfg->sdram_vco_base | CLKMGR_MAINPLLGRP_VCO_EN,	&clock_manager_base->sdr_pll.vco);
+	writel(SDR_VCO_BASE | CLKMGR_MAINPLLGRP_VCO_EN,	       		CLKMGR_SDRAMPLL_VCO);
+
+
+	/* L3 MP and L3 SP */
+	//writel(cfg->maindiv, 	&clock_manager_base->main_pll.maindiv);
+	//writel(cfg->dbgdiv, 	&clock_manager_base->main_pll.dbgdiv);
+	//writel(cfg->tracediv, &clock_manager_base->main_pll.tracediv);
+	writel(		(CONFIG_HPS_MAINPLLGRP_MAINDIV_L3MPCLK << CLKMGR_MAINPLLGRP_MAINDIV_L3MPCLK_OFFSET) 
+			|	(CONFIG_HPS_MAINPLLGRP_MAINDIV_L3SPCLK << CLKMGR_MAINPLLGRP_MAINDIV_L3SPCLK_OFFSET) 
+			|	(CONFIG_HPS_MAINPLLGRP_MAINDIV_L4MPCLK << CLKMGR_MAINPLLGRP_MAINDIV_L4MPCLK_OFFSET) 
+			|	(CONFIG_HPS_MAINPLLGRP_MAINDIV_L4SPCLK << CLKMGR_MAINPLLGRP_MAINDIV_L4SPCLK_OFFSET), 	
+			CLKMGR_MAINPLL_MAINDIV);
+
+	writel(		(CONFIG_HPS_MAINPLLGRP_DBGDIV_DBGATCLK << CLKMGR_MAINPLLGRP_DBGDIV_DBGATCLK_OFFSET) 
+			|	(CONFIG_HPS_MAINPLLGRP_DBGDIV_DBGCLK <<	CLKMGR_MAINPLLGRP_DBGDIV_DBGCLK_OFFSET), 	
+			CLKMGR_MAINPLL_DBGDIV);
+
+	writel(	(CONFIG_HPS_MAINPLLGRP_TRACEDIV_TRACECLK <<	CLKMGR_MAINPLLGRP_TRACEDIV_TRACECLK_OFFSET), 	
+			CLKMGR_MAINPLL_TRACEDIV);
+
+
+	/* L4 MP, L4 SP, can0, and can1 */
+	//writel(cfg->perdiv, 	&clock_manager_base->per_pll.div);
+	//writel(cfg->gpiodiv, 	&clock_manager_base->per_pll.gpiodiv);
+	writel(	(CONFIG_HPS_PERPLLGRP_DIV_USBCLK <<	CLKMGR_PERPLLGRP_DIV_USBCLK_OFFSET) 
+			|	(CONFIG_HPS_PERPLLGRP_DIV_SPIMCLK << CLKMGR_PERPLLGRP_DIV_SPIMCLK_OFFSET) 
+			|	(CONFIG_HPS_PERPLLGRP_DIV_CAN0CLK << CLKMGR_PERPLLGRP_DIV_CAN0CLK_OFFSET) 
+			|	(CONFIG_HPS_PERPLLGRP_DIV_CAN1CLK << CLKMGR_PERPLLGRP_DIV_CAN1CLK_OFFSET), 	
+			CLKMGR_PERIPHPLL_DIV);
+
+	writel(	(CONFIG_HPS_PERPLLGRP_GPIODIV_GPIODBCLK << CLKMGR_PERPLLGRP_GPIODIV_GPIODBCLK_OFFSET), 	
+			CLKMGR_PERIPHPLL_GPIODIV);
+
+
+#define LOCKED_MASK \
+	(CLKMGR_INTER_SDRPLLLOCKED_MASK  | \
+	CLKMGR_INTER_PERPLLLOCKED_MASK  | \
+	CLKMGR_INTER_MAINPLLLOCKED_MASK)
+
+	FDy_cm_wait_for_lock(LOCKED_MASK);
+
+	/* write the sdram clock counters before toggling outreset all */
+	//writel(cfg->ddrdqsclk & CLKMGR_SDRPLLGRP_DDRDQSCLK_CNT_MASK,		&clock_manager_base->sdr_pll.ddrdqsclk);
+	writel(	(	(CONFIG_HPS_SDRPLLGRP_DDRDQSCLK_PHASE << CLKMGR_SDRPLLGRP_DDRDQSCLK_PHASE_OFFSET) 
+			|	(CONFIG_HPS_SDRPLLGRP_DDRDQSCLK_CNT << CLKMGR_SDRPLLGRP_DDRDQSCLK_CNT_OFFSET)) & CLKMGR_SDRPLLGRP_DDRDQSCLK_CNT_MASK,		
+			CLKMGR_SDRAMPLL_DDRDQSCLK);
+
+	//writel(cfg->ddr2xdqsclk & CLKMGR_SDRPLLGRP_DDR2XDQSCLK_CNT_MASK,	&clock_manager_base->sdr_pll.ddr2xdqsclk);
+	writel(	(	(CONFIG_HPS_SDRPLLGRP_DDR2XDQSCLK_PHASE << CLKMGR_SDRPLLGRP_DDR2XDQSCLK_PHASE_OFFSET) 
+			|	(CONFIG_HPS_SDRPLLGRP_DDR2XDQSCLK_CNT << CLKMGR_SDRPLLGRP_DDR2XDQSCLK_CNT_OFFSET)) & CLKMGR_SDRPLLGRP_DDR2XDQSCLK_CNT_MASK,	
+			CLKMGR_SDRAMPLL_DDR2XDQSCLK);
+
+	//writel(cfg->ddrdqclk & CLKMGR_SDRPLLGRP_DDRDQCLK_CNT_MASK,	    &clock_manager_base->sdr_pll.ddrdqclk);
+	writel(	(	(CONFIG_HPS_SDRPLLGRP_DDRDQCLK_PHASE << CLKMGR_SDRPLLGRP_DDRDQCLK_PHASE_OFFSET) 
+			|	(CONFIG_HPS_SDRPLLGRP_DDRDQCLK_CNT << CLKMGR_SDRPLLGRP_DDRDQCLK_CNT_OFFSET)) & CLKMGR_SDRPLLGRP_DDRDQCLK_CNT_MASK,	       	
+			CLKMGR_SDRAMPLL_DDRDQCLK);
+
+	//writel(cfg->s2fuser2clk & CLKMGR_SDRPLLGRP_S2FUSER2CLK_CNT_MASK,	&clock_manager_base->sdr_pll.s2fuser2clk);
+	writel(	(	(CONFIG_HPS_SDRPLLGRP_S2FUSER2CLK_PHASE << CLKMGR_SDRPLLGRP_S2FUSER2CLK_PHASE_OFFSET) 
+			|	(CONFIG_HPS_SDRPLLGRP_S2FUSER2CLK_CNT << CLKMGR_SDRPLLGRP_S2FUSER2CLK_CNT_OFFSET)) & CLKMGR_SDRPLLGRP_S2FUSER2CLK_CNT_MASK,		
+			CLKMGR_SDRAMPLL_S2FUSER2CLK);
+
+	/*
+	 * after locking, but before taking out of bypass
+	 * assert/deassert outresetall
+	 */
+	//uint32_t mainvco = readl(&clock_manager_base->main_pll.vco);
+	uint32_t mainvco = readl(CLKMGR_MAINPLL_VCO);
+
+	/* assert main outresetall */
+	//writel(mainvco | CLKMGR_MAINPLLGRP_VCO_OUTRESETALL_MASK,	       &clock_manager_base->main_pll.vco);
+	writel(mainvco | CLKMGR_MAINPLLGRP_VCO_OUTRESETALL_MASK,	       CLKMGR_MAINPLL_VCO);
+
+	//uint32_t periphvco = readl(&clock_manager_base->per_pll.vco);
+	uint32_t periphvco = readl(CLKMGR_PERIPHPLL_VCO);
+
+	/* assert pheriph outresetall */
+	//writel(periphvco | CLKMGR_PERPLLGRP_VCO_OUTRESETALL_MASK,	&clock_manager_base->per_pll.vco);
+	writel(	periphvco | CLKMGR_PERPLLGRP_VCO_OUTRESETALL_MASK,	
+			CLKMGR_PERIPHPLL_VCO);
+
+
+	/* assert sdram outresetall */
+	//writel(cfg->sdram_vco_base | CLKMGR_MAINPLLGRP_VCO_EN| CLKMGR_SDRPLLGRP_VCO_OUTRESETALL,	&clock_manager_base->sdr_pll.vco);
+	writel(	SDR_VCO_BASE | CLKMGR_MAINPLLGRP_VCO_EN| CLKMGR_SDRPLLGRP_VCO_OUTRESETALL,	
+			CLKMGR_SDRAMPLL_VCO);
+
+
+	/* deassert main outresetall */
+	//writel(mainvco & ~CLKMGR_MAINPLLGRP_VCO_OUTRESETALL_MASK,		&clock_manager_base->main_pll.vco);
+	writel(	mainvco & ~CLKMGR_MAINPLLGRP_VCO_OUTRESETALL_MASK,		
+			CLKMGR_MAINPLL_VCO);
+
+
+	/* deassert pheriph outresetall */
+	//writel(periphvco & ~CLKMGR_PERPLLGRP_VCO_OUTRESETALL_MASK,	&clock_manager_base->per_pll.vco);
+	writel(	periphvco & ~CLKMGR_PERPLLGRP_VCO_OUTRESETALL_MASK,	    
+			CLKMGR_PERIPHPLL_VCO);
+
+
+	/* deassert sdram outresetall */
+	//writel(cfg->sdram_vco_base | CLKMGR_MAINPLLGRP_VCO_EN,	    &clock_manager_base->sdr_pll.vco);
+	writel(	SDR_VCO_BASE | CLKMGR_MAINPLLGRP_VCO_EN,	      	
+			CLKMGR_SDRAMPLL_VCO);
+
+
+	/*
+	 * now that we've toggled outreset all, all the clocks
+	 * are aligned nicely; so we can change any phase.
+	 */
+	// FDy_cm_write_with_phase(cfg->ddrdqsclk,
+	// 		    (uint32_t)&clock_manager_base->sdr_pll.ddrdqsclk,
+	// 		    CLKMGR_SDRPLLGRP_DDRDQSCLK_PHASE_MASK);
+	FDy_cm_write_with_phase(	(CONFIG_HPS_SDRPLLGRP_DDRDQSCLK_PHASE << CLKMGR_SDRPLLGRP_DDRDQSCLK_PHASE_OFFSET) | (CONFIG_HPS_SDRPLLGRP_DDRDQSCLK_CNT << CLKMGR_SDRPLLGRP_DDRDQSCLK_CNT_OFFSET),
+			  				  	CLKMGR_SDRAMPLL_DDRDQSCLK,
+			    				CLKMGR_SDRPLLGRP_DDRDQSCLK_PHASE_MASK);
+
+	/* SDRAM DDR2XDQSCLK */
+	// FDy_cm_write_with_phase(cfg->ddr2xdqsclk,
+	// 		    (uint32_t)&clock_manager_base->sdr_pll.ddr2xdqsclk,
+	// 		    CLKMGR_SDRPLLGRP_DDR2XDQSCLK_PHASE_MASK);
+	FDy_cm_write_with_phase(	(CONFIG_HPS_SDRPLLGRP_DDR2XDQSCLK_PHASE << CLKMGR_SDRPLLGRP_DDR2XDQSCLK_PHASE_OFFSET) | (CONFIG_HPS_SDRPLLGRP_DDR2XDQSCLK_CNT << CLKMGR_SDRPLLGRP_DDR2XDQSCLK_CNT_OFFSET),
+			    				CLKMGR_SDRAMPLL_DDR2XDQSCLK,
+			    				CLKMGR_SDRPLLGRP_DDR2XDQSCLK_PHASE_MASK);
+
+	// FDy_cm_write_with_phase(cfg->ddrdqclk,
+	// 		    (uint32_t)&clock_manager_base->sdr_pll.ddrdqclk,
+	// 		    CLKMGR_SDRPLLGRP_DDRDQCLK_PHASE_MASK);
+	FDy_cm_write_with_phase(	(CONFIG_HPS_SDRPLLGRP_DDRDQCLK_PHASE << CLKMGR_SDRPLLGRP_DDRDQCLK_PHASE_OFFSET) | (CONFIG_HPS_SDRPLLGRP_DDRDQCLK_CNT << CLKMGR_SDRPLLGRP_DDRDQCLK_CNT_OFFSET),
+			    				CLKMGR_SDRAMPLL_DDRDQCLK,
+			    				CLKMGR_SDRPLLGRP_DDRDQCLK_PHASE_MASK);
+
+	// FDy_cm_write_with_phase(cfg->s2fuser2clk,
+	// 		    (uint32_t)&clock_manager_base->sdr_pll.s2fuser2clk,
+	// 		    CLKMGR_SDRPLLGRP_S2FUSER2CLK_PHASE_MASK);
+	FDy_cm_write_with_phase(	(CONFIG_HPS_PERPLLGRP_S2FUSER1CLK_CNT << CLKMGR_PERPLLGRP_S2FUSER1CLK_CNT_OFFSET),
+			    				CLKMGR_SDRAMPLL_S2FUSER2CLK,
+			    				CLKMGR_SDRPLLGRP_S2FUSER2CLK_PHASE_MASK);
+
+	/* Take all three PLLs out of bypass when safe mode is cleared. */
+	FDy_cm_write_bypass(0);
+
+	/* clear safe mode */
+	//FDy_cm_write_ctrl(readl(&clock_manager_base->ctrl) | CLKMGR_CTRL_SAFEMODE);
+	FDy_cm_write_ctrl(readl(CLKMGR_CTRL) | CLKMGR_CTRL_SAFEMODE);
+
+	/*
+	 * now that safe mode is clear with clocks gated
+	 * it safe to change the source mux for the flashes the the L4_MAIN
+	 */
+	//writel(cfg->persrc, &clock_manager_base->per_pll.src);
+	writel(			(CONFIG_HPS_PERPLLGRP_SRC_QSPI << CLKMGR_PERPLLGRP_SRC_QSPI_OFFSET) 
+				|	(CONFIG_HPS_PERPLLGRP_SRC_NAND << CLKMGR_PERPLLGRP_SRC_NAND_OFFSET) 
+				|	(CONFIG_HPS_PERPLLGRP_SRC_SDMMC << CLKMGR_PERPLLGRP_SRC_SDMMC_OFFSET), 
+					CLKMGR_PERIPHPLL_SRC);
+	
+	//writel(cfg->l4src, &clock_manager_base->main_pll.l4src);
+	writel(			(CONFIG_HPS_MAINPLLGRP_L4SRC_L4MP << CLKMGR_MAINPLLGRP_L4SRC_L4MP_OFFSET) 
+				|	(CONFIG_HPS_MAINPLLGRP_L4SRC_L4SP << CLKMGR_MAINPLLGRP_L4SRC_L4SP_OFFSET), 
+					CLKMGR_MAINPLL_L4SRC);
+
+
+	/* Now ungate non-hw-managed clocks */
+	//writel(~0, &clock_manager_base->main_pll.en);
+	writel(~0, CLKMGR_MAINPLL_EN);
+	
+	//writel(~0, &clock_manager_base->per_pll.en);
+	writel(~0, CLKMGR_PERIPHPLL_EN);
+
+	//writel(~0, &clock_manager_base->sdr_pll.en);
+	writel(~0, CLKMGR_SDRAMPLL_EN);
+
+
+	/* Clear the loss of lock bits (write 1 to clear) */
+	// writel(CLKMGR_INTER_SDRPLLLOST_MASK | CLKMGR_INTER_PERPLLLOST_MASK |
+	//        CLKMGR_INTER_MAINPLLLOST_MASK,
+	//        &clock_manager_base->inter);
+	writel(CLKMGR_INTER_SDRPLLLOST_MASK | CLKMGR_INTER_PERPLLLOST_MASK |
+	       CLKMGR_INTER_MAINPLLLOST_MASK,
+	       CLKMGR_INTER);
+		   
+}

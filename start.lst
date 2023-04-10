@@ -1,0 +1,98 @@
+
+start.o:     file format elf32-littlearm
+
+
+Disassembly of section .vectors:
+
+00000000 <_start>:
+   0:	eafffffe 	b	44 <reset>
+   4:	e59ff014 	ldr	pc, [pc, #20]	; 20 <_undefined_instruction>
+   8:	e59ff014 	ldr	pc, [pc, #20]	; 24 <_software_interrupt>
+   c:	e59ff014 	ldr	pc, [pc, #20]	; 28 <_prefetch_abort>
+  10:	e59ff014 	ldr	pc, [pc, #20]	; 2c <_data_abort>
+  14:	e59ff014 	ldr	pc, [pc, #20]	; 30 <_not_used>
+  18:	e59ff014 	ldr	pc, [pc, #20]	; 34 <_irq>
+  1c:	e59ff014 	ldr	pc, [pc, #20]	; 38 <_fiq>
+
+00000020 <_undefined_instruction>:
+  20:	00000040 	.word	0x00000040
+
+00000024 <_software_interrupt>:
+  24:	00000040 	.word	0x00000040
+
+00000028 <_prefetch_abort>:
+  28:	00000040 	.word	0x00000040
+
+0000002c <_data_abort>:
+  2c:	00000040 	.word	0x00000040
+
+00000030 <_not_used>:
+  30:	00000040 	.word	0x00000040
+
+00000034 <_irq>:
+  34:	00000040 	.word	0x00000040
+
+00000038 <_fiq>:
+  38:	00000040 	.word	0x00000040
+  3c:	deadbeef 	.word	0xdeadbeef
+
+00000040 <data_abort>:
+  40:	ebfffffe 	bl	40 <data_abort>
+
+00000044 <reset>:
+  44:	e10f0000 	mrs	r0, CPSR
+  48:	e200101f 	and	r1, r0, #31
+  4c:	e331001a 	teq	r1, #26
+  50:	13c0001f 	bicne	r0, r0, #31
+  54:	13800013 	orrne	r0, r0, #19
+  58:	e38000c0 	orr	r0, r0, #192	; 0xc0
+  5c:	e129f000 	msr	CPSR_fc, r0
+  60:	ee110f10 	mrc	15, 0, r0, cr1, cr0, {0}
+  64:	e3c00a02 	bic	r0, r0, #8192	; 0x2000
+  68:	ee010f10 	mcr	15, 0, r0, cr1, cr0, {0}
+  6c:	e59f008c 	ldr	r0, [pc, #140]	; 100 <_main+0x1c>
+  70:	ee0c0f10 	mcr	15, 0, r0, cr12, cr0, {0}
+  74:	ebfffffe 	bl	90 <cpu_init_cp15>
+  78:	ebfffffe 	bl	e4 <_main>
+
+0000007c <c_runtime_cpu_setup>:
+  7c:	ee070f15 	mcr	15, 0, r0, cr7, cr5, {0}
+  80:	ee070f9a 	mcr	15, 0, r0, cr7, cr10, {4}
+  84:	ee070f95 	mcr	15, 0, r0, cr7, cr5, {4}
+  88:	e12fff1e 	bx	lr
+
+0000008c <save_boot_params>:
+  8c:	eafffffe 	b	44 <reset>
+
+00000090 <cpu_init_cp15>:
+  90:	e3a00000 	mov	r0, #0
+  94:	ee080f17 	mcr	15, 0, r0, cr8, cr7, {0}
+  98:	ee070f15 	mcr	15, 0, r0, cr7, cr5, {0}
+  9c:	ee070fd5 	mcr	15, 0, r0, cr7, cr5, {6}
+  a0:	ee070f9a 	mcr	15, 0, r0, cr7, cr10, {4}
+  a4:	ee070f95 	mcr	15, 0, r0, cr7, cr5, {4}
+  a8:	ee110f10 	mrc	15, 0, r0, cr1, cr0, {0}
+  ac:	e3c00a02 	bic	r0, r0, #8192	; 0x2000
+  b0:	e3c00007 	bic	r0, r0, #7
+  b4:	e3800002 	orr	r0, r0, #2
+  b8:	e3800b02 	orr	r0, r0, #2048	; 0x800
+  bc:	e3800a01 	orr	r0, r0, #4096	; 0x1000
+  c0:	ee010f10 	mcr	15, 0, r0, cr1, cr0, {0}
+  c4:	e1a0500e 	mov	r5, lr
+  c8:	ee101f10 	mrc	15, 0, r1, cr0, cr0, {0}
+  cc:	e1a03a21 	lsr	r3, r1, #20
+  d0:	e203300f 	and	r3, r3, #15
+  d4:	e201400f 	and	r4, r1, #15
+  d8:	e1a02203 	lsl	r2, r3, #4
+  dc:	e1842002 	orr	r2, r4, r2
+  e0:	e1a0f005 	mov	pc, r5
+
+000000e4 <_main>:
+  e4:	e3e000bf 	mvn	r0, #191	; 0xbf
+  e8:	e3e000ff 	mvn	r0, #255	; 0xff
+  ec:	e3c00007 	bic	r0, r0, #7
+  f0:	e1a0d000 	mov	sp, r0
+  f4:	e1a09000 	mov	r9, r0
+  f8:	e3a00000 	mov	r0, #0
+  fc:	ebfffffe 	bl	0 <board_init_f>
+ 100:	00000000 	.word	0x00000000

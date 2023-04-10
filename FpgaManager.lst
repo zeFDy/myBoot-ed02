@@ -1,0 +1,268 @@
+
+FpgaManager.o:     file format elf32-littlearm
+
+
+Disassembly of section .text.fpgamgr_set_cd_ratio:
+
+00000000 <fpgamgr_set_cd_ratio>:
+   0:	4a03      	ldr	r2, [pc, #12]	; (10 <fpgamgr_set_cd_ratio+0x10>)
+   2:	6853      	ldr	r3, [r2, #4]
+   4:	f023 03c0 	bic.w	r3, r3, #192	; 0xc0
+   8:	ea43 1380 	orr.w	r3, r3, r0, lsl #6
+   c:	6053      	str	r3, [r2, #4]
+   e:	4770      	bx	lr
+  10:	ff706000 	.word	0xff706000
+
+Disassembly of section .text.fpgamgr_dclkcnt_set:
+
+00000000 <fpgamgr_dclkcnt_set>:
+   0:	4b0e      	ldr	r3, [pc, #56]	; (3c <fpgamgr_dclkcnt_set+0x3c>)
+   2:	68da      	ldr	r2, [r3, #12]
+   4:	f3bf 8f5f 	dmb	sy
+   8:	b11a      	cbz	r2, 12 <fpgamgr_dclkcnt_set+0x12>
+   a:	f3bf 8f5f 	dmb	sy
+   e:	2201      	movs	r2, #1
+  10:	60da      	str	r2, [r3, #12]
+  12:	f3bf 8f5f 	dmb	sy
+  16:	f04f 7280 	mov.w	r2, #16777216	; 0x1000000
+  1a:	6098      	str	r0, [r3, #8]
+  1c:	68d9      	ldr	r1, [r3, #12]
+  1e:	f3bf 8f5f 	dmb	sy
+  22:	b921      	cbnz	r1, 2e <fpgamgr_dclkcnt_set+0x2e>
+  24:	3a01      	subs	r2, #1
+  26:	d1f9      	bne.n	1c <fpgamgr_dclkcnt_set+0x1c>
+  28:	f06f 006d 	mvn.w	r0, #109	; 0x6d
+  2c:	4770      	bx	lr
+  2e:	f3bf 8f5f 	dmb	sy
+  32:	2201      	movs	r2, #1
+  34:	2000      	movs	r0, #0
+  36:	60da      	str	r2, [r3, #12]
+  38:	4770      	bx	lr
+  3a:	bf00      	nop
+  3c:	ff706000 	.word	0xff706000
+
+Disassembly of section .text.is_fpgamgr_initdone_high:
+
+00000000 <is_fpgamgr_initdone_high>:
+   0:	4b03      	ldr	r3, [pc, #12]	; (10 <is_fpgamgr_initdone_high+0x10>)
+   2:	f8d3 0850 	ldr.w	r0, [r3, #2128]	; 0x850
+   6:	f3bf 8f5f 	dmb	sy
+   a:	f000 0004 	and.w	r0, r0, #4
+   e:	4770      	bx	lr
+  10:	ff706000 	.word	0xff706000
+
+Disassembly of section .text.fpgamgr_get_mode:
+
+00000000 <fpgamgr_get_mode>:
+   0:	4b03      	ldr	r3, [pc, #12]	; (10 <fpgamgr_get_mode+0x10>)
+   2:	6818      	ldr	r0, [r3, #0]
+   4:	f3bf 8f5f 	dmb	sy
+   8:	f000 0007 	and.w	r0, r0, #7
+   c:	4770      	bx	lr
+   e:	bf00      	nop
+  10:	ff706000 	.word	0xff706000
+
+Disassembly of section .text.fpgamgr_test_fpga_ready:
+
+00000000 <fpgamgr_test_fpga_ready>:
+   0:	b508      	push	{r3, lr}
+   2:	f7ff fffe 	bl	0 <fpgamgr_test_fpga_ready>
+   6:	b908      	cbnz	r0, c <fpgamgr_test_fpga_ready+0xc>
+   8:	2000      	movs	r0, #0
+   a:	bd08      	pop	{r3, pc}
+   c:	f7ff fffe 	bl	0 <fpgamgr_test_fpga_ready>
+  10:	2800      	cmp	r0, #0
+  12:	d0f9      	beq.n	8 <fpgamgr_test_fpga_ready+0x8>
+  14:	f7ff fffe 	bl	0 <fpgamgr_test_fpga_ready>
+  18:	1f03      	subs	r3, r0, #4
+  1a:	4258      	negs	r0, r3
+  1c:	4158      	adcs	r0, r3
+  1e:	e7f4      	b.n	a <fpgamgr_test_fpga_ready+0xa>
+
+Disassembly of section .text.fpgamgr_poll_fpga_ready:
+
+00000000 <fpgamgr_poll_fpga_ready>:
+   0:	b508      	push	{r3, lr}
+   2:	f04f 7280 	mov.w	r2, #16777216	; 0x1000000
+   6:	f7ff fffe 	bl	0 <fpgamgr_poll_fpga_ready>
+   a:	b918      	cbnz	r0, 14 <fpgamgr_poll_fpga_ready+0x14>
+   c:	3a01      	subs	r2, #1
+   e:	d1fa      	bne.n	6 <fpgamgr_poll_fpga_ready+0x6>
+  10:	4610      	mov	r0, r2
+  12:	bd08      	pop	{r3, pc}
+  14:	f7ff fffe 	bl	0 <fpgamgr_poll_fpga_ready>
+  18:	2800      	cmp	r0, #0
+  1a:	d0f7      	beq.n	c <fpgamgr_poll_fpga_ready+0xc>
+  1c:	2001      	movs	r0, #1
+  1e:	e7f8      	b.n	12 <fpgamgr_poll_fpga_ready+0x12>
+
+Disassembly of section .text.socfpga_load:
+
+00000000 <socfpga_load>:
+   0:	e92d 4df0 	stmdb	sp!, {r4, r5, r6, r7, r8, sl, fp, lr}
+   4:	f010 0303 	ands.w	r3, r0, #3
+   8:	4605      	mov	r5, r0
+   a:	460c      	mov	r4, r1
+   c:	d007      	beq.n	1e <socfpga_load+0x1e>
+   e:	4876      	ldr	r0, [pc, #472]	; (1e8 <socfpga_load+0x1e8>)
+  10:	f7ff fffe 	bl	0 <FDy_puts>
+  14:	f06f 0215 	mvn.w	r2, #21
+  18:	4610      	mov	r0, r2
+  1a:	e8bd 8df0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, sl, fp, pc}
+  1e:	f3bf 8f5f 	dmb	sy
+  22:	4a72      	ldr	r2, [pc, #456]	; (1ec <socfpga_load+0x1ec>)
+  24:	6293      	str	r3, [r2, #40]	; 0x28
+  26:	f3bf 8f5f 	dmb	sy
+  2a:	f5a2 2263 	sub.w	r2, r2, #929792	; 0xe3000
+  2e:	2001      	movs	r0, #1
+  30:	f8c2 3080 	str.w	r3, [r2, #128]	; 0x80
+  34:	f7ff fffe 	bl	0 <socfpga_bridges_reset>
+  38:	f3bf 8f5f 	dmb	sy
+  3c:	4b6c      	ldr	r3, [pc, #432]	; (1f0 <socfpga_load+0x1f0>)
+  3e:	2201      	movs	r2, #1
+  40:	f8df 81b0 	ldr.w	r8, [pc, #432]	; 1f4 <socfpga_load+0x1f4>
+  44:	601a      	str	r2, [r3, #0]
+  46:	f8d8 0000 	ldr.w	r0, [r8]
+  4a:	f3bf 8f5f 	dmb	sy
+  4e:	f010 0f40 	tst.w	r0, #64	; 0x40
+  52:	f8d8 3004 	ldr.w	r3, [r8, #4]
+  56:	f3c0 00c1 	ubfx	r0, r0, #3, #2
+  5a:	d033      	beq.n	c4 <socfpga_load+0xc4>
+  5c:	f443 7300 	orr.w	r3, r3, #512	; 0x200
+  60:	f8c8 3004 	str.w	r3, [r8, #4]
+  64:	bb30      	cbnz	r0, b4 <socfpga_load+0xb4>
+  66:	2000      	movs	r0, #0
+  68:	f7ff fffe 	bl	0 <socfpga_load>
+  6c:	f8d8 3004 	ldr.w	r3, [r8, #4]
+  70:	f04f 7280 	mov.w	r2, #16777216	; 0x1000000
+  74:	f023 0302 	bic.w	r3, r3, #2
+  78:	f8c8 3004 	str.w	r3, [r8, #4]
+  7c:	f8d8 3004 	ldr.w	r3, [r8, #4]
+  80:	f043 0301 	orr.w	r3, r3, #1
+  84:	f8c8 3004 	str.w	r3, [r8, #4]
+  88:	f8d8 3004 	ldr.w	r3, [r8, #4]
+  8c:	f043 0304 	orr.w	r3, r3, #4
+  90:	f8c8 3004 	str.w	r3, [r8, #4]
+  94:	f7ff fffe 	bl	0 <socfpga_load>
+  98:	2801      	cmp	r0, #1
+  9a:	d001      	beq.n	a0 <socfpga_load+0xa0>
+  9c:	3a01      	subs	r2, #1
+  9e:	d1f9      	bne.n	94 <socfpga_load+0x94>
+  a0:	f7ff fffe 	bl	0 <socfpga_load>
+  a4:	2801      	cmp	r0, #1
+  a6:	d018      	beq.n	da <socfpga_load+0xda>
+  a8:	4853      	ldr	r0, [pc, #332]	; (1f8 <socfpga_load+0x1f8>)
+  aa:	f7ff fffe 	bl	0 <FDy_puts>
+  ae:	f04f 32ff 	mov.w	r2, #4294967295
+  b2:	e7b1      	b.n	18 <socfpga_load+0x18>
+  b4:	2801      	cmp	r0, #1
+  b6:	d101      	bne.n	bc <socfpga_load+0xbc>
+  b8:	2002      	movs	r0, #2
+  ba:	e7d5      	b.n	68 <socfpga_load+0x68>
+  bc:	2802      	cmp	r0, #2
+  be:	d1d5      	bne.n	6c <socfpga_load+0x6c>
+  c0:	2003      	movs	r0, #3
+  c2:	e7d1      	b.n	68 <socfpga_load+0x68>
+  c4:	f423 7300 	bic.w	r3, r3, #512	; 0x200
+  c8:	f8c8 3004 	str.w	r3, [r8, #4]
+  cc:	2800      	cmp	r0, #0
+  ce:	d0ca      	beq.n	66 <socfpga_load+0x66>
+  d0:	2801      	cmp	r0, #1
+  d2:	d0c9      	beq.n	68 <socfpga_load+0x68>
+  d4:	2802      	cmp	r0, #2
+  d6:	d1c9      	bne.n	6c <socfpga_load+0x6c>
+  d8:	e7ee      	b.n	b8 <socfpga_load+0xb8>
+  da:	f8d8 3004 	ldr.w	r3, [r8, #4]
+  de:	f04f 7280 	mov.w	r2, #16777216	; 0x1000000
+  e2:	f023 0304 	bic.w	r3, r3, #4
+  e6:	f8c8 3004 	str.w	r3, [r8, #4]
+  ea:	f7ff fffe 	bl	0 <socfpga_load>
+  ee:	2802      	cmp	r0, #2
+  f0:	d001      	beq.n	f6 <socfpga_load+0xf6>
+  f2:	3a01      	subs	r2, #1
+  f4:	d1f9      	bne.n	ea <socfpga_load+0xea>
+  f6:	f7ff fffe 	bl	0 <socfpga_load>
+  fa:	2802      	cmp	r0, #2
+  fc:	d005      	beq.n	10a <socfpga_load+0x10a>
+  fe:	483f      	ldr	r0, [pc, #252]	; (1fc <socfpga_load+0x1fc>)
+ 100:	f7ff fffe 	bl	0 <FDy_puts>
+ 104:	f06f 0201 	mvn.w	r2, #1
+ 108:	e786      	b.n	18 <socfpga_load+0x18>
+ 10a:	f3bf 8f5f 	dmb	sy
+ 10e:	f640 73ff 	movw	r3, #4095	; 0xfff
+ 112:	f8c8 384c 	str.w	r3, [r8, #2124]	; 0x84c
+ 116:	f004 0c1f 	and.w	ip, r4, #31
+ 11a:	f8df b0e4 	ldr.w	fp, [pc, #228]	; 200 <socfpga_load+0x200>
+ 11e:	f8d8 3004 	ldr.w	r3, [r8, #4]
+ 122:	f10c 0c03 	add.w	ip, ip, #3
+ 126:	ea4f 1a54 	mov.w	sl, r4, lsr #5
+ 12a:	46ae      	mov	lr, r5
+ 12c:	f443 7380 	orr.w	r3, r3, #256	; 0x100
+ 130:	ea4f 0c9c 	mov.w	ip, ip, lsr #2
+ 134:	f8c8 3004 	str.w	r3, [r8, #4]
+ 138:	e8be 00ff 	ldmia.w	lr!, {r0, r1, r2, r3, r4, r5, r6, r7}
+ 13c:	e8ab 00ff 	stmia.w	fp!, {r0, r1, r2, r3, r4, r5, r6, r7}
+ 140:	f1ab 0b20 	sub.w	fp, fp, #32
+ 144:	f1ba 0a01 	subs.w	sl, sl, #1
+ 148:	d1f6      	bne.n	138 <socfpga_load+0x138>
+ 14a:	f1bc 0f00 	cmp.w	ip, #0
+ 14e:	d006      	beq.n	15e <socfpga_load+0x15e>
+ 150:	f85e ab04 	ldr.w	sl, [lr], #4
+ 154:	f8cb a000 	str.w	sl, [fp]
+ 158:	f1bc 0c01 	subs.w	ip, ip, #1
+ 15c:	d1f8      	bne.n	150 <socfpga_load+0x150>
+ 15e:	bf00      	nop
+ 160:	f8d8 3850 	ldr.w	r3, [r8, #2128]	; 0x850
+ 164:	f3bf 8f5f 	dmb	sy
+ 168:	079b      	lsls	r3, r3, #30
+ 16a:	d105      	bne.n	178 <socfpga_load+0x178>
+ 16c:	4825      	ldr	r0, [pc, #148]	; (204 <socfpga_load+0x204>)
+ 16e:	f7ff fffe 	bl	0 <FDy_puts>
+ 172:	f06f 0202 	mvn.w	r2, #2
+ 176:	e74f      	b.n	18 <socfpga_load+0x18>
+ 178:	f8d8 3004 	ldr.w	r3, [r8, #4]
+ 17c:	2004      	movs	r0, #4
+ 17e:	f423 7380 	bic.w	r3, r3, #256	; 0x100
+ 182:	f8c8 3004 	str.w	r3, [r8, #4]
+ 186:	f7ff fffe 	bl	0 <socfpga_load>
+ 18a:	b970      	cbnz	r0, 1aa <socfpga_load+0x1aa>
+ 18c:	f04f 7280 	mov.w	r2, #16777216	; 0x1000000
+ 190:	f7ff fffe 	bl	0 <socfpga_load>
+ 194:	2803      	cmp	r0, #3
+ 196:	d015      	beq.n	1c4 <socfpga_load+0x1c4>
+ 198:	f7ff fffe 	bl	0 <socfpga_load>
+ 19c:	2804      	cmp	r0, #4
+ 19e:	d011      	beq.n	1c4 <socfpga_load+0x1c4>
+ 1a0:	3a01      	subs	r2, #1
+ 1a2:	d1f5      	bne.n	190 <socfpga_load+0x190>
+ 1a4:	f06f 0205 	mvn.w	r2, #5
+ 1a8:	e736      	b.n	18 <socfpga_load+0x18>
+ 1aa:	f06f 0204 	mvn.w	r2, #4
+ 1ae:	e733      	b.n	18 <socfpga_load+0x18>
+ 1b0:	f06f 0206 	mvn.w	r2, #6
+ 1b4:	e730      	b.n	18 <socfpga_load+0x18>
+ 1b6:	f8d8 3004 	ldr.w	r3, [r8, #4]
+ 1ba:	f023 0301 	bic.w	r3, r3, #1
+ 1be:	f8c8 3004 	str.w	r3, [r8, #4]
+ 1c2:	e729      	b.n	18 <socfpga_load+0x18>
+ 1c4:	f44f 40a0 	mov.w	r0, #20480	; 0x5000
+ 1c8:	f7ff fffe 	bl	0 <socfpga_load>
+ 1cc:	4602      	mov	r2, r0
+ 1ce:	2800      	cmp	r0, #0
+ 1d0:	d1ee      	bne.n	1b0 <socfpga_load+0x1b0>
+ 1d2:	f04f 7180 	mov.w	r1, #16777216	; 0x1000000
+ 1d6:	f7ff fffe 	bl	0 <socfpga_load>
+ 1da:	2804      	cmp	r0, #4
+ 1dc:	d0eb      	beq.n	1b6 <socfpga_load+0x1b6>
+ 1de:	3901      	subs	r1, #1
+ 1e0:	d1f9      	bne.n	1d6 <socfpga_load+0x1d6>
+ 1e2:	f06f 0207 	mvn.w	r2, #7
+ 1e6:	e717      	b.n	18 <socfpga_load+0x18>
+ 1e8:	00000000 	.word	0x00000000
+ 1ec:	ffd08000 	.word	0xffd08000
+ 1f0:	ff800000 	.word	0xff800000
+ 1f4:	ff706000 	.word	0xff706000
+ 1f8:	00000032 	.word	0x00000032
+ 1fc:	0000004a 	.word	0x0000004a
+ 200:	ffb90000 	.word	0xffb90000
+ 204:	00000066 	.word	0x00000066
