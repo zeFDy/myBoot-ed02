@@ -1,14 +1,17 @@
-=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2023.04.11 20:26:42 =~=~=~=~=~=~=~=~=~=~=~=
+
 
                                        \o.o/
 ---------------------------------.ooO---(_)---Ooo.----------
+
     BareMetal Boot inspired by U-BOOT
-    Custom Version by FDy - v0.0.3 (Apr 10 2023 - 22:35:18)
+    Custom Version by FDy - v0.0.3 (Apr 11 2023 - 20:44:03)
+
 --------------------------------------------Oooo.-----------
                                      .oooO  (   )
                                      (   )   ) /
                                       \ (   (_/
                                        \_)
+
 
 FPGA not ready.
 SDRAM init.
@@ -22,4 +25,5 @@ INFO: Card block size = 0x00000200
 INFO: Card size       = 0x00000003B5980000
 INFO: Reading menu.rbf
 INFO: Reading from address 0x00300000, size = 0x0024A000 bytes
-menu.rbf finished to load in 5034400 ticks -> 100 ms
+menu.rbf finished to load in 5033879 ticks -> 100 ms
+
