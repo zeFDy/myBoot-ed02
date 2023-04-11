@@ -98,4 +98,4 @@ myBoot.o:		start.o \
 				--end-group -o myBoot.o
 				$(CP) -O binary myBoot.o myBoot.bin
 				$(OD) -d myBoot.o >myBoot.lst
-  
+				./bin2img myBoot.bin myBoot.img
