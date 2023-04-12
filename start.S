@@ -100,7 +100,7 @@ _irq:					.word irq
 _fiq:					.word fiq
 
 //	.balignl 16,0xdeadbeef
-	.word 0xdeadbeef
+//	.word 0xdeadbeef
 
 
 ///*
@@ -126,6 +126,9 @@ fiq:
 1:
 	bl	1b			/* hang and never return */
 
+	.word 0xdeadbeef
+	.word 0xbaadc0de
+	.word 0xbaadcafe
 
 reset:
 //	/* Allow the board to save important registers */
